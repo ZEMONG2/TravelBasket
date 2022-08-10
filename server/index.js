@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // DB에 저장된 목록 불러오기
 app.get("/api/select", (req, res) => {
-  const sqlQuery = "SELECT * FROM test";
+  const sqlQuery = "SELECT * FROM test;";
   db.query(sqlQuery, (err, result) => {
     // 목록 조회 기능 이기 때문에 요청을 처리한후 응답을 해주어야 한다.
     // 응답은 요청의 결과를 담고있는 result를 보낸다
@@ -40,7 +40,7 @@ app.get("/api/select", (req, res) => {
 
 // app.post("/api/delete", (req, res) => {
 //   const boardNum = req.body.num;
-//   const sqlQuery = "DELETE FROM test WHERE num = ?";
+//   const sqlQuery = "DELETE FROM test WHERE num = ?;";
 //   db.query(sqlQuery, boardNum, (err, result) => {
 //     res.send("delete success!");
 //   });
@@ -55,7 +55,7 @@ app.post("/api/insert", (req, res) => {
   const id = req.body.id;
 
   // SQL문에서 변수 처리 해야할 부분은 ? 처리
-  const sqlQuery = "INSERT INTO test (title, content, id) VALUES (?,?,?)";
+  const sqlQuery = "INSERT INTO test (title, content, id) VALUES (?,?,?);";
 
   // db.query(sql문, ?를 대치할 값 (?가 많을경우 배열로), (err, result) => { });
   db.query(sqlQuery, [title, content, id], (err, result) => {
