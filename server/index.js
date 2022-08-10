@@ -14,7 +14,7 @@ const cors = require("cors");
 EX) https://domain-a.com 의 프론트엔드에서 https://domain-b.com/data.json을 요청하는 경우
 */
 
-// 디비 서버
+// 디비 서버 port번호는 default 3306
 const db = mysql.createPool({
   host: "210.114.22.116",
   user: "js_team_5",
