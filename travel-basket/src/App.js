@@ -2,20 +2,27 @@ import { useEffect, useState, useRef } from "react";
 import Axios from "node_modules/axios";
 
 function App() {
+  // input으로 Data를 입력 할 떼 상태를 저장할 부분
   const [boardData, setBoardData] = useState({
     title: "",
     content: "",
     id: "",
   });
+
   // const delRef = useRef([]);
+
+  // db에서 불러온 목록을 저장할 부분
   const [boardDataView, setBoardDataView] = useState([]);
 
+  // boardDataView의 변경이 발생할 때만 실행
   useEffect(() => {
     Axios.get("http://localhost:8000/api/select").then((res) => {
+      // 응답받은 data를 업데이트
       setBoardDataView(res.data);
     });
   }, [boardDataView]);
 
+  // db에 데이터를 추가시키는 부분
   const boardSubmit = () => {
     Axios.post("http://localhost:8000/api/insert", {
       title: boardData.title,
@@ -24,6 +31,8 @@ function App() {
     }).then(() => {
       alert("등록 완료!");
     });
+
+    // 게시글 등록 후 input value 초기화
     const nextBoardData = {
       ...boardData,
       title: "",
@@ -33,6 +42,7 @@ function App() {
     setBoardData(nextBoardData);
   };
 
+  // input 태그에 입력 할 경우 현재 입력한 input태그의 데이터를 업데이트
   const getBoardData = (e) => {
     const { name, value } = e.target;
     setBoardData({
@@ -48,6 +58,7 @@ function App() {
   //     alert("삭제 완료!");
   //   });
   // }
+
   return (
     <div>
       <h1>BOARD LIST</h1>
@@ -61,6 +72,7 @@ function App() {
             <th></th>
           </tr>
 
+          {/* select로 받아온 배열을 map으로 출력  */}
           {boardDataView.map((boardDataView) => (
             <tr key={boardDataView.num}>
               <td>{boardDataView.num}</td>
