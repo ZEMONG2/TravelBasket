@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import Axios from "axios";
+import Axios from "node_modules/axios";
 
 function App() {
   const [boardData, setBoardData] = useState({
