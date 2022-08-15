@@ -38,14 +38,6 @@ app.get("/api/select", (req, res) => {
   });
 });
 
-// app.post("/api/delete", (req, res) => {
-//   const boardNum = req.body.num;
-//   const sqlQuery = "DELETE FROM test WHERE num = ?;";
-//   db.query(sqlQuery, boardNum, (err, result) => {
-//     res.send("delete success!");
-//   });
-// });
-
 // DB에 데이터 추가하기
 app.post("/api/insert", (req, res) => {
   // post방식으로 처리 했기때문에 request의 body부분에 데이터가 들어있음

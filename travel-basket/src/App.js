@@ -1,16 +1,20 @@
-import { Route, Routes, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import Main from "./components/Main";
+import Schedule from "./components/Schedule";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Review from "./components/Review";
+import NotFound from "./components/NotFound";
 
 const App = () => {
   return (
     <Routes>
-      <Switch>
-        <Route path="/" element={< />} />
-        <Route path="/login" element={< />} />
-        <Route path="/register" element={< />} />
-        <Route path="/review" element={< />} />
-        <Route path="/schedule" element={< />} />
-        <Route path="/" element={< />} />
-      </Switch>
+      <Route path="/" element={<Main />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/review" element={<Review />} />
+      <Route path="/schedule" element={<Schedule />} />
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   );
 };
