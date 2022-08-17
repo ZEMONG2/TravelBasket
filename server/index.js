@@ -58,3 +58,14 @@ app.post("/api/insert", (req, res) => {
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`);
 });
+
+/* ------------- 여기서부터 일정 관리 관련 ------------- 220817 선우 */
+
+//일정 관리 모듈 객체를 생성
+let scheduleModule = require("./scheduleModules/scheduleModules");
+
+//일정관리 리스트 호출시 아래와 같이 처리
+//get 경로는 임의로 넣었으므로 추후 필요에 의한 수정 가능
+app.get("/schedule/list", (req, res) => {
+  scheduleModule.searchMySchedule(req, res, db);
+});
