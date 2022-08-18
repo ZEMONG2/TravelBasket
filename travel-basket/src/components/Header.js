@@ -12,6 +12,7 @@ const Header = () => {
   //   setMenu((menu) => !menu); // on,off 개념 boolean
   // };
 
+  /* 메뉴 버튼 활성화 */
   const menuRef = useRef(null);
   const menuBtnRef = useRef(null);
   const [menu, setMenu] = useState(false);
@@ -35,9 +36,34 @@ const Header = () => {
     };
   });
 
+  /* 로그인 버튼 활성화 */
+  const loginRef = useRef(null);
+  const loginBtnRef = useRef(null);
+  const [login, setLogin] = useState(false);
+  const handleToggleOption2 = () => setLogin((prev) => !prev);
+
+  const handleClickOutSide2 = (e) => {
+    console.log(loginRef.current.contains(e.target));
+    if (
+      login &&
+      !loginRef.current.contains(e.target) &&
+      !loginBtnRef.current.contains(e.target)
+    ) {
+      setLogin(false);
+    }
+  };
+
+  useEffect(() => {
+    if (login) document.addEventListener("mousedown", handleClickOutSide2);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutSide2);
+    };
+  });
+
   return (
     <div className="header">
       <div className="item">
+        {/* 메뉴 버튼*/}
         <button
           ref={menuBtnRef}
           className="Menu"
@@ -45,16 +71,21 @@ const Header = () => {
         >
           <FiMenu className="icon" />
         </button>
+        {/* 로고 */}
         <img className="logo" alt="TRAVEL BASKET" src={logo} />
-        <a href="/login">
+
+        {/* 로그인 버튼*/}
+        <button
+          ref={loginBtnRef}
+          className="Login"
+          onClick={() => handleToggleOption2()}
+        >
           <CgProfile className="icon" />
-        </a>
+        </button>
       </div>
+      {/* 메뉴 리스트 */}
       <div ref={menuRef} className="menuWrap">
         <ul className={menu ? "show-menu" : "hide-menu"}>
-          <li>
-            <a href="/basket">장바구니</a>
-          </li>
           <li>일정 만들기</li>
           <li>일정 보관함</li>
           <hr />
@@ -64,7 +95,15 @@ const Header = () => {
           <li>
             <a href="/schedule">일정 공유 게시판</a>
           </li>
-          <hr />
+        </ul>
+      </div>
+      {/* 로그인 리스트 */}
+      <div ref={loginRef} className="loginWrap">
+        <ul className={login ? "show-login" : "hide-login"}>
+          <li>
+            <a href="/basket">장바구니</a>
+          </li>
+          <br />
           <li>회원정보 수정</li>
           <li>로그아웃</li>
         </ul>
