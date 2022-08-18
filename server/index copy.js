@@ -16,10 +16,10 @@ EX) https://domain-a.com 의 프론트엔드에서 https://domain-b.com/data.jso
 
 // 디비 서버 port번호는 default 3306
 const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "123456",
-  database: "travel_test",
+  host: "210.114.22.116",
+  user: "js_team_5",
+  password: "js123456",
+  database: "js_team_5",
 });
 
 app.use(cors());
