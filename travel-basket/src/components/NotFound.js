@@ -1,7 +1,13 @@
 import React from "react";
+import "../css/NotFound.scss";
 
 const NotFound = () => {
-  return <div>페이지를 찾을 수 없습니다.</div>;
+  return (
+    <div className="notfound">
+      <p>404 Not Found</p>
+      <p>페이지를 찾을 수 없습니다.</p>
+    </div>
+  );
 };
 
 export default NotFound;
