@@ -1,78 +1,111 @@
 import "../css/schedule.css";
 import "../css/common.css";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import ScheduleList from "./ScheduleList";
 
-const Schedule = () => {
-  const pageArr = [1, 2, 3, 4]; //임시로 사용하는 페이지 배열(추후 나의 일정을 디비에서 뽑아낸 쿼리로 객체화)
-  const [isActivate, setActive] = useState([true, false, false, false]); //버튼의 active/unactive 여부를 저장하는 state
-  const movePage = (e) => {
-    const tag_id = e.target.id; //클릭한 버튼의 태그 아이디
-    const tag_class_arr = e.target.className.split(" "); //클릭한 버튼의 클래스명 배열
+//화살표를 활용한 페이지 이동때문에 global로 배치
+var page_num = 1; //현재 보고있는 페이지
+const page_size = 6; //한 페이지에 보여줄 데이터 갯수
+var page_count = 1; //최종 페이지 갯수
+var article_count = 0; //총 등록된 일정 갯수
 
-    if (tag_id === "move2left" || tag_id === "move2right") {
-      //화살표 버튼 이벤트 처리
-      console.log(e.target);
-    } else {
-      //페이지 버튼 이벤트 처리
+function Schedule() {
+  const [pageArr, setPageArr] = useState([]); //총 페이지 배열
+  const [isActivate, setActive] = useState([]); //버튼의 active/unactive 여부를 저장하는 state
+  const [scheduleList, setScheduleList] = useState({
+    //페이징 처리된 일정 리스트의 객체
+    list: [],
+  });
+  const login_id = "ksw3108"; //더미 유저 데이터, 추후 세션에서 사용자 아이디를 가져옴
+  // const login_id= window.sessionStorage.getItem("id")
+  useEffect(() => {
+    //로그인 검증 후 비로그인 상태면 메인으로 돌림. 현재 테스트환경에서 세션을 생성하지 않으므로 임의 주석처리.
+    // const login_id = window.sessionStorage.getItem("id");
+    // console.log("window.sessionStorage(login_id) =>", login_id);
+    // if (login_id === null) {
+    //   alert("로그인후 사용가능합니다!!");
+    //   navigate("/");
+    // }
+  });
 
-      const pageNo = parseInt(e.target.attributes.getNamedItem("page").value); //클릭한 버튼의 페이지 번호
+  const handlePage = (e) => {
+    //페이지 이동
 
-      //1. 클릭한 버튼 css 변경
-      let activeArr = [];
-      for (let i = 0; i < isActivate.length; i++) {
-        /*
-          기본적으로는 false를 넣되 현재 페이지 번호 - 1(배열의 인덱스는 0부터 시작하므로) 에는 true를 넣음
-        */
-        activeArr[i] = false;
-        if (i === pageNo - 1) activeArr[i] = true;
+    if (e.target.id === "move2left") {
+      //왼쪽 화살표를 눌렀을때 페이지가 1보다 크면 이동
+      if (page_num > 1) {
+        page_num -= 1;
       }
-      setActive(activeArr);
-
-      //2. 페이지 이동
+    } else if (e.target.id === "move2right") {
+      //오른쪽 화살표를 눌렀을때 페이지가 최대 페이지보다 작으면 이동
+      if (page_num < pageArr.length) {
+        page_num += 1;
+      }
+    } else {
+      //그 외에는 클릭한 페이지 컨테이너의 id(페이지 번호)를 반영
+      page_num = parseInt(e.target.id);
     }
+    //리스트를 갱신
+    getList();
   };
-  //페이지 버튼 컴포넌트
-  const PageButton = (props) => {
-    const { page, type, ...other } = props; //전달받은 프로퍼티를 변수화하여 사용(사용되지 않는 프로퍼티는 other로 처리)
 
-    return <button className={"btn" + (type === undefined ? "" : " " + type)} page={page === undefined ? "" : page} {...other} />;
-  };
+  async function getList() {
+    //일정 가져오기, 일정 페이징
+    await axios
+      .post("http://localhost:8000/schedule/count", {
+        id: login_id,
+      })
+      .then((res) => {
+        const { data } = res;
+
+        article_count = data[0].COUNT;
+        page_count = Math.ceil(article_count / page_size);
+        var page_activate = [];
+        var page_li = [];
+        //여기까지 수업시간에 진행한 페이징과 동일
+        for (let i = 1; i <= page_count; i++) {
+          page_li.push(i); //총 페이지 리스트 배열에 페이지 번호 삽입
+          if (i === page_num) {
+            //현재 페이지 번호 컨테이너에 색상 입히는 작업
+            //page_activate[i] 가 true이면 className에 'activate' 를 추가하여 해당 태그에 추가 css 부여
+            page_activate.push(true);
+          } else page_activate.push(false);
+        }
+        setActive(page_activate);
+        setPageArr(page_li);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+
+    //페이징 처리한 일정 데이터를 추출. 이하는 역시 수업때 진행한 내용과 동일.
+    await axios
+      .post("http://localhost:8000/schedule/list", {
+        page_num: page_num,
+        page_size: page_size,
+        article_count: article_count,
+        id: login_id,
+      })
+      .then((res) => {
+        const { data } = res;
+        setScheduleList({ list: data });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }
+
   return (
     <div className="bodywrap">
       <div className="scheduleTitle"> 내 일정 보관함</div>
       <div className="updownSpace" />
-      <div className="scheduleWrap">
-        <div className="mySchedule no1">
-          <div className="img">
-            <a href="#!">
-              <img className="" src="#" alt="" />
-            </a>
-          </div>
-          <div className="scheduleDate">
-            <a href="#!">
-              <p className="scheduleLabel">2022.08.13 ~ 2022.08.16</p>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div className="updownSpace" />
-      <div className="scheduleListWrap">
-        <PageButton type="mover" id="move2left" onClick={movePage}>
-          &lt;
-        </PageButton>
-        {/* 페이지 버튼의 동적 구현 */}
-        {pageArr.map((page, idx) => (
-          <PageButton type={isActivate[idx] === true ? "activate" : ""} page={page} key={idx} onClick={movePage}>
-            {page}
-          </PageButton>
-        ))}
-        <PageButton type="mover" id="move2right" onClick={movePage}>
-          &gt;
-        </PageButton>
-      </div>
+      <ScheduleList handlePage={handlePage} isActivate={isActivate} setActive={setActive} pageArr={pageArr} handlelist={getList} scheduleList={scheduleList} />
     </div>
   );
-};
+  //return;
+}
 
 export default Schedule;

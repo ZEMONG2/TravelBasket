@@ -66,6 +66,16 @@ let scheduleModule = require("./scheduleModules/scheduleModules");
 
 //일정관리 리스트 호출시 아래와 같이 처리
 //get 경로는 임의로 넣었으므로 추후 필요에 의한 수정 가능
-app.get("/schedule/list", (req, res) => {
+
+//일정 리스트 추출
+app.post("/schedule/list", (req, res) => {
   scheduleModule.searchMySchedule(req, res, db);
+});
+//일정 리스트 페이징
+app.post("/schedule/count", (req, res) => {
+  scheduleModule.countMySchedule(req, res, db);
+});
+//섬네일 경로 호출/응답
+app.get("/thumbnail/:filename", (req, res) => {
+  scheduleModule.sendThumbnail(req, res);
 });

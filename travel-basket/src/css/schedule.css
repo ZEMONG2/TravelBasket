@@ -22,6 +22,8 @@ main{
 .mySchedule{
     width:150px;
     height:230px;
+    float: left;
+    margin: 0 20px 20px 20px;
 }
 .scheduleLabel{
     font-size: 13px;
@@ -43,6 +45,12 @@ img{
     text-align: center;
     height:29.2px;
     line-height: 29.2px;
+}
+
+.scheduleWrap{
+    margin:0 auto;
+    width:570px;
+    height:500px;
 }
 
 /* 페이징 버튼 */
