@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import "../css/Header.scss";
 import logo from "../img/logo.png";
+import logo_v from "../img/logo_v.png";
 
 const Header = () => {
   // const [menu, setMenu] = useState(false);
@@ -13,6 +14,11 @@ const Header = () => {
   // };
 
   /* 메뉴 버튼 활성화 */
+  // // 메뉴리스트는 menu가 true 일 때 보이게됨
+  // // 초기값은 false이며, 클릭시 true
+  // // useEffect : 마우스 클릭시 handleClickOutSide 함수 실행
+  // // mousedown : 마우스 버튼이 클릭되기 시작할 때
+
   const menuRef = useRef(null);
   const menuBtnRef = useRef(null);
   const [menu, setMenu] = useState(false);
@@ -106,6 +112,7 @@ const Header = () => {
           <br />
           <li>회원정보 수정</li>
           <li>로그아웃</li>
+          <img className="logo_v" alt="TRAVEL BASKET" src={logo_v} />
         </ul>
       </div>
     </div>
@@ -114,6 +121,8 @@ const Header = () => {
 
 export default Header;
 
+/* [토글메뉴 구현] */
 // https://devilfront.tistory.com/83
-//https://velog.io/@bisari31/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EC%99%B8%EB%B6%80-%EC%98%81%EC%97%AD-%ED%81%B4%EB%A6%AD%EC%8B%9C-%EB%8B%AB%EA%B8%B0
-//https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
+/* [외부 클릭시 메뉴버튼 비활성화] */
+// https://velog.io/@bisari31/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EC%99%B8%EB%B6%80-%EC%98%81%EC%97%AD-%ED%81%B4%EB%A6%AD%EC%8B%9C-%EB%8B%AB%EA%B8%B0
+// https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
