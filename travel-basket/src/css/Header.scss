@@ -41,11 +41,12 @@
   padding: 0;
   padding-left: 20px;
   padding-top: 10px;
-  width: 150px;
+  box-sizing: border-box;
+  width: 170px;
   height: 100vh;
   position: absolute;
   left: 0px;
-  transition: 0.1s;
+  transition: 0s;
   visibility:visible;
   }
 
@@ -57,7 +58,7 @@
   height: 100vh;
   position: absolute;
   // left: -200%;
-  transition: 0.02s;
+  transition: 0s;
   visibility: hidden;
   }
 
@@ -66,11 +67,12 @@
   padding: 0;
   padding-right: 20px;
   padding-top: 10px;
-  width: 150px;
+  box-sizing: border-box;
+  width: 170px;
   height: 100vh;
   position: absolute;
   right: 0px;
-  transition: 0.1s;
+  transition: 0s;
   visibility:visible;
   }
 
@@ -80,16 +82,17 @@
   padding-right: 20px;
   width: 0px;
   height: 100vh;
-  position: absolute;
+  // position: absolute;
   // left: -200%;
-  transition: 0.02s;
+  right:0px;
+  transition: 0s;
   visibility: hidden;
   }
   
 
 ul {
   list-style: none;
-  background-color: white;
+  background-color: ghostwhite;
 }
 
 .menuWrap > ul > li {
@@ -102,15 +105,19 @@ ul {
   width: 130px;
 }
 
+.logo_v {
+  width: 100px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding-right: 20px;
+}
+
+// .loginWrap{position: relative;}
+
 .loginWrap > ul > li {
   width: 150px;
   line-height: 200%;
-  text-align: right;
-}
-
-.loginWrap > ul > hr {
-  margin: 10px 0 10px 0;
-  width: 130px;
   text-align: right;
 }
 

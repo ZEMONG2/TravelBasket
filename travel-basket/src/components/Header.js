@@ -17,6 +17,8 @@ const Header = () => {
   // // 메뉴리스트는 menu가 true 일 때 보이게됨
   // // 초기값은 false이며, 클릭시 true
   // // useEffect : 마우스 클릭시 handleClickOutSide 함수 실행
+  // // addEventListener : 지정한 유형의 이벤트를 대상이 수신할 때마다 호출할 함수 설정
+  // // removeEventListener : 이벤트 대상에 등록된 수신기 제거
   // // mousedown : 마우스 버튼이 클릭되기 시작할 때
 
   const menuRef = useRef(null);

@@ -18,19 +18,18 @@ const App = () => {
         <source src={background} type="video/mp4"></source>
       </video>
       <div className="App">
+        <Header />
         <Routes>
-          <Route element={<Header />}>
-            <Route path="/" element={<Main />} />
-            <Route path="/login" element={<Login />} />
-            {/* 회원가입 */}
-            <Route path="/register" element={<Register />} />
-            {/* 후기 게시판 */}
-            <Route path="/review" element={<Review />} />
-            {/* 일정 공유 게시판 */}
-            <Route path="/schedule" element={<Schedule />} />
-            {/* 장바구니 */}
-            <Route path="/basket" element={<Basket />} />
-          </Route>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          {/* 회원가입 */}
+          <Route path="/register" element={<Register />} />
+          {/* 후기 게시판 */}
+          <Route path="/review" element={<Review />} />
+          {/* 일정 공유 게시판 */}
+          <Route path="/schedule" element={<Schedule />} />
+          {/* 장바구니 */}
+          <Route path="/basket" element={<Basket />} />
           {/* 404 */}
           <Route path="/*" element={<NotFound />} />
           {/* 로딩 */}
