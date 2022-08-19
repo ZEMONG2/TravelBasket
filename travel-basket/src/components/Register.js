@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import "../css/Register.scss";
 
 const Register = () => {
   // 아이디 패스워드 닉네임 인풋태그 Ref
@@ -76,9 +77,10 @@ const Register = () => {
 
   return (
     <div>
-      <p></p>
+      <h1>회원가입</h1>
       <form>
         <input
+          className="id"
           type="email"
           name="id"
           size="20"
@@ -88,6 +90,7 @@ const Register = () => {
         />
         <br />
         <input
+          className="pw"
           type="password"
           name="pw"
           size="20"
@@ -97,6 +100,7 @@ const Register = () => {
         />
         <br />
         <input
+          className="pwck"
           type="password"
           name="pwCk"
           size="20"
@@ -106,22 +110,51 @@ const Register = () => {
         />
         <br />
         <input
+          className="pw"
           type="text"
-          name="pw"
+          name="nick"
           size="20"
           defaultValue=""
           ref={nickRef}
           placeholder="닉네임을 입력하세요"
         />
         <br />
-        <input type="button" value="회원가입" onClick={handleRegister} />
+        <input
+          className="sign_up"
+          type="button"
+          value="회원가입"
+          onClick={handleRegister}
+        />
         <br />
-        <p>--또는--</p>
+        <p>───────── 또는 ─────────</p>
         <div className="sns-register-btn">
-          <input type="button" value="KAKAO 계정으로 회원가입" onClick="" />
-          <input type="button" value="NAVER 계정으로 회원가입" onClick="" />
-          <input type="button" value="FACEBOOK 계정으로 회원가입" onClick="" />
-          <input type="button" value="GOOGLE 계정으로 회원가입" onClick="" />
+          <input
+            className="kakao"
+            type="button"
+            value="KAKAO 계정으로 회원가입"
+            onClick=""
+          />
+          <br />
+          <input
+            className="naver"
+            type="button"
+            value="NAVER 계정으로 회원가입"
+            onClick=""
+          />
+          <br />
+          <input
+            className="facebook"
+            type="button"
+            value="FACEBOOK 계정으로 회원가입"
+            onClick=""
+          />
+          <br />
+          <input
+            className="google"
+            type="button"
+            value="GOOGLE 계정으로 회원가입"
+            onClick=""
+          />
         </div>
       </form>
     </div>

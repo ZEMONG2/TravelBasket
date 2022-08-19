@@ -3,6 +3,8 @@ import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { REST_API_KEY } from "../auth/AuthKakao";
 import { REDIRECT_URI } from "../auth/AuthKakao";
+import "../css/Login.scss";
+
 const Login = () => {
   // 아이디 패스워드 인풋태그 Ref
   const idRef = useRef();
@@ -73,9 +75,10 @@ const Login = () => {
 
   return (
     <div>
-      <p></p>
+      <h1>로그인</h1>
       <form>
         <input
+          className="id"
           type="email"
           name="id"
           size="20"
@@ -85,6 +88,7 @@ const Login = () => {
         />
         <br />
         <input
+          className="pw"
           type="password"
           name="pw"
           size="20"
@@ -93,21 +97,52 @@ const Login = () => {
           placeholder="패스워드를 입력하세요"
         />
         <br />
-        <input type="button" value="로그인" onClick={handleLogin} />
-        <br />
-        <p>--또는--</p>
+        <input
+          className="login"
+          type="button"
+          value="로그인"
+          onClick={handleLogin}
+        />
+
+        <p>───────── 또는 ─────────</p>
+
         <div className="sns-login-btn">
           <input
+            className="kakao"
             type="button"
             value="KAKAO 계정으로 로그인"
             onClick={handelKakaoLogin}
           />
-          <input type="button" value="NAVER 계정으로 로그인" onClick="" />
-          <input type="button" value="FACEBOOK 계정으로 로그인" onClick="" />
-          <input type="button" value="GOOGLE 계정으로 로그인" onClick="" />
+          <br />
+          <input
+            className="naver"
+            type="button"
+            value="NAVER 계정으로 로그인"
+            onClick=""
+          />
+          <br />
+
+          <input
+            className="facebook"
+            type="button"
+            value="FACEBOOK 계정으로 로그인"
+            onClick=""
+          />
+          <br />
+
+          <input
+            className="google"
+            type="button"
+            value="GOOGLE 계정으로 로그인"
+            onClick=""
+          />
         </div>
-        <a href="/forgot">비밀번호 찾기</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-        <a href="/register">회원가입</a>
+        <br />
+        <p>
+          <a href="/forgot">비밀번호 찾기</a>
+          &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+          <a href="/register">회원가입 </a>
+        </p>
       </form>
     </div>
   );

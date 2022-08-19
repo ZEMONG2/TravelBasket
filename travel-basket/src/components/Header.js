@@ -3,8 +3,8 @@ import { CgProfile } from "react-icons/cg";
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import "../css/Header.scss";
-import logo from "../img/logo.png";
-import logo_v from "../img/logo_v.png";
+import logo from "../img/NEXTRAVEL.png";
+import logo_v from "../img/NEXTRAVEL_v.png";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -89,8 +89,9 @@ const Header = () => {
           <FiMenu className="icon" />
         </button>
         {/* 로고 */}
-        <img className="logo" alt="TRAVEL BASKET" src={logo} />
-
+        <a href="/">
+          <img className="logo" alt="TRAVEL BASKET" src={logo} />
+        </a>
         {/* 로그인 버튼*/}
         <button
           ref={loginBtnRef}
@@ -117,11 +118,13 @@ const Header = () => {
           <li>
             <a href="/schedule">일정 공유 게시판</a>
           </li>
+          <img className="logo_v" alt="TRAVEL BASKET" src={logo_v} />
         </ul>
       </div>
       {/* 로그인 리스트 */}
       <div ref={loginRef} className="loginWrap">
         <ul className={login ? "show-login" : "hide-login"}>
+          {/* 로그인시 닉네임 */}
           <li>{window.sessionStorage.getItem("USER_NICK")}</li>
           <li>
             <a href="/basket">장바구니</a>
@@ -129,7 +132,6 @@ const Header = () => {
           <br />
           <li>회원정보 수정</li>
           <li onClick={logout}>로그아웃</li>
-          <img className="logo_v" alt="TRAVEL BASKET" src={logo_v} />
         </ul>
       </div>
     </div>
