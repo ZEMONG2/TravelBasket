@@ -1,6 +1,6 @@
-import { REST_API_KEY } from "../auth/AuthKakao";
-import { REDIRECT_URI } from "../auth/AuthKakao";
-import { CLIENT_SECRET } from "../auth/AuthKakao";
+import { KAKAO_REST_API_KEY } from "../auth/Auth";
+import { KAKAO_REDIRECT_URI } from "../auth/Auth";
+import { KAKAO_CLIENT_SECRET } from "../auth/Auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 const KakaoLogin = () => {
@@ -22,10 +22,10 @@ const KakaoLogin = () => {
   // 함께 담아가야할 정보
   // 주의사항 : 키값은 카카오 API에 있는 그래도 작성하여야 한다.
   const config = {
-    client_id: REST_API_KEY,
-    client_secret: CLIENT_SECRET,
+    client_id: KAKAO_REST_API_KEY,
+    client_secret: KAKAO_CLIENT_SECRET,
     grant_type: "authorization_code",
-    redirect_uri: REDIRECT_URI,
+    redirect_uri: KAKAO_REDIRECT_URI,
     code: code,
   };
   // URLSearchParams 매서드는 객체에 있는 문자열을 URL처럼 뭉쳐주지만 오브젝트로 반환 되기때문에 toString으로 문자열로 바꿔준다

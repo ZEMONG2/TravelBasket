@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { REST_API_KEY } from "../auth/AuthKakao";
-import { REDIRECT_URI } from "../auth/AuthKakao";
+import { KAKAO_REST_API_KEY } from "../auth/Auth";
+import { KAKAO_REDIRECT_URI } from "../auth/Auth";
 import "../css/Login.scss";
 
 const Login = () => {
@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   // 카카오 로그인 요청 URL
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 
   // 카카오 로그인 버튼 클릭시 페이지 이동
   const handelKakaoLogin = () => {

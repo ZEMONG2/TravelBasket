@@ -13,6 +13,7 @@ import Loading from "./components/Loading";
 import KakaoLogin from "./components/KakaoLogin";
 import Forgot from "./components/Forgot";
 import Nick from "./components/Nick";
+import NaverLogin from "./components/NaverLogin";
 
 const App = () => {
   return (
@@ -38,7 +39,9 @@ const App = () => {
           {/* 로딩 */}
           <Route path="/loading" element={<Loading />} />
           {/* 카카오로그인 */}
-          <Route path="/kakao/finish" element={<KakaoLogin />} />
+          <Route path="/kakao/callback" element={<KakaoLogin />} />
+          {/* 네이버로그인 */}
+          <Route path="/naver/callback" element={<NaverLogin />} />
           {/* 비밀번호 찾기 */}
           <Route path="/forgot" element={<Forgot />} />
           {/* 카카오 닉네임설정 */}
