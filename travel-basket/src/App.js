@@ -10,6 +10,9 @@ import NotFound from "./components/NotFound";
 import "./css/App.scss";
 import background from "../src/img/summer.mp4";
 import Loading from "./components/Loading";
+import KakaoLogin from "./components/KakaoLogin";
+import Forgot from "./components/Forgot";
+import Nick from "./components/Nick";
 
 const App = () => {
   return (
@@ -34,6 +37,12 @@ const App = () => {
           <Route path="/*" element={<NotFound />} />
           {/* 로딩 */}
           <Route path="/loading" element={<Loading />} />
+          {/* 카카오로그인 */}
+          <Route path="/kakao/finish" element={<KakaoLogin />} />
+          {/* 비밀번호 찾기 */}
+          <Route path="/forgot" element={<Forgot />} />
+          {/* 카카오 닉네임설정 */}
+          <Route path="/nick/:id" element={<Nick />} />
         </Routes>
       </div>
 

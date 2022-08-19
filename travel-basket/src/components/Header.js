@@ -5,6 +5,7 @@ import React from "react";
 import "../css/Header.scss";
 import logo from "../img/logo.png";
 import logo_v from "../img/logo_v.png";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
   // const [menu, setMenu] = useState(false);
@@ -20,6 +21,15 @@ const Header = () => {
   // // addEventListener : 지정한 유형의 이벤트를 대상이 수신할 때마다 호출할 함수 설정
   // // removeEventListener : 이벤트 대상에 등록된 수신기 제거
   // // mousedown : 마우스 버튼이 클릭되기 시작할 때
+  const navigate = useNavigate();
+  const location = useLocation();
+  // 로그아웃시 세션 초기화
+  const logout = () => {
+    window.sessionStorage.clear();
+    console.log("세션초기화");
+
+    setLogin((prev) => !prev);
+  };
 
   const menuRef = useRef(null);
   const menuBtnRef = useRef(null);
@@ -43,7 +53,6 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutSide);
     };
   });
-
   /* 로그인 버튼 활성화 */
   const loginRef = useRef(null);
   const loginBtnRef = useRef(null);
@@ -86,7 +95,12 @@ const Header = () => {
         <button
           ref={loginBtnRef}
           className="Login"
-          onClick={() => handleToggleOption2()}
+          onClick={() => {
+            console.log(window.sessionStorage.length);
+            window.sessionStorage.length === 0
+              ? navigate("/login")
+              : handleToggleOption2();
+          }}
         >
           <CgProfile className="icon" />
         </button>
@@ -108,12 +122,13 @@ const Header = () => {
       {/* 로그인 리스트 */}
       <div ref={loginRef} className="loginWrap">
         <ul className={login ? "show-login" : "hide-login"}>
+          <li>{window.sessionStorage.getItem("USER_NICK")}</li>
           <li>
             <a href="/basket">장바구니</a>
           </li>
           <br />
           <li>회원정보 수정</li>
-          <li>로그아웃</li>
+          <li onClick={logout}>로그아웃</li>
           <img className="logo_v" alt="TRAVEL BASKET" src={logo_v} />
         </ul>
       </div>
