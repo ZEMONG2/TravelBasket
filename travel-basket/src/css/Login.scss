@@ -3,6 +3,10 @@
   padding : 1.5%;
   width : 300px;
   border: solid 1px lightgray;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
   // border: none;
   // border-radius: 2px 2px;
   // box-shadow: 2px 2px 2px 1px lightgrey;
@@ -13,6 +17,10 @@
   padding : 1.5%;
   width : 300px;
   border: solid 1px lightgray;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
   // border: none;
   // border-radius: 2px 2px;
   // box-shadow: 2px 2px 2px 1px lightgrey;
@@ -26,6 +34,10 @@
   border-radius: 2px 2px;
   background-color:gray;
   color : white;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
 }
 
 .kakao {
@@ -36,6 +48,10 @@
   border-radius: 2px 2px;
   background-color:#FDCD00;
   color : white;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
 }
 
 .naver {
@@ -46,6 +62,10 @@
   border-radius: 2px 2px;
   background-color:#04CF5C;
   color : white;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
 }
 
 .facebook {
@@ -56,6 +76,10 @@
   border-radius: 2px 2px;
   background-color:#1877F2;
   color : white;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
 }
 
 .google {
@@ -66,10 +90,6 @@
   border-radius: 2px 2px;
   background-color:whitesmoke;
   color : black;
-}
-
-
-input {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
