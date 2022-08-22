@@ -2,9 +2,11 @@
   left : 50%;
   transform:translateX(-50%);
   background-color: white;
-  height: 108vh;
+  // height: 108vh;
+  min-height: 100%;
   position: absolute;
   width : 768px;
+  overflow: hidden;
 }
 
 .video-wrap{

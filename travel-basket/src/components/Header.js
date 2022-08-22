@@ -1,7 +1,7 @@
 import { FiMenu, FiMeh, FiSmile } from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
 import React from "react";
-import "../css/Header.scss";
+import "../css/main_css/Header.scss";
 import logo from "../img/NEXTRAVEL_b.png";
 import logo_v from "../img/NEXTRAVEL_v.png";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -113,7 +113,6 @@ const Header = () => {
       <div ref={menuRef} className="menuWrap">
         <ul className={menu ? "show-menu" : "hide-menu"}>
           <li>일정 만들기</li>
-
           <hr />
           <li>
             <a href="/review">후기 게시판</a>
@@ -138,7 +137,9 @@ const Header = () => {
           </li>
           <hr />
           <li>회원정보 수정</li>
-          <li onClick={logout}>로그아웃</li>
+          <li className="Logout" onClick={logout}>
+            로그아웃
+          </li>
         </ul>
       </div>
     </div>

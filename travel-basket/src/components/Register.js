@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "../css/Register.scss";
+import "../css/main_css/Register.scss";
 
 const Register = () => {
   // 아이디 패스워드 닉네임 인풋태그 Ref

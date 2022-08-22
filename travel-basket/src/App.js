@@ -5,7 +5,10 @@ import Main from "./components/Main";
 import Schedule from "./components/Schedule";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Review from "./components/Review";
+import ReviewList from "./components/board/ReviewList";
+import ReviewModify from "./components/board/ReviewModify";
+import ReviewView from "./components/board/ReviewView";
+import ReviewWrite from "./components/board/ReviewWrite";
 import NotFound from "./components/NotFound";
 import "./css/App.scss";
 import background from "../src/img/summer.mp4";
@@ -13,7 +16,6 @@ import Loading from "./components/Loading";
 import KakaoLogin from "./components/KakaoLogin";
 import Forgot from "./components/Forgot";
 import Nick from "./components/Nick";
-import NaverLogin from "./components/NaverLogin";
 
 const App = () => {
   return (
@@ -29,7 +31,10 @@ const App = () => {
           {/* 회원가입 */}
           <Route path="/register" element={<Register />} />
           {/* 후기 게시판 */}
-          <Route path="/review" element={<Review />} />
+          <Route path="/review" element={<ReviewList />} />
+          <Route path="/review/modify/:idx" element={<ReviewModify />} />
+          <Route path="/review/view/:idx" element={<ReviewView />} />
+          <Route path="/review/write" element={<ReviewWrite />} />
           {/* 일정 공유 게시판 */}
           <Route path="/schedule" element={<Schedule />} />
           {/* 장바구니 */}
@@ -39,9 +44,7 @@ const App = () => {
           {/* 로딩 */}
           <Route path="/loading" element={<Loading />} />
           {/* 카카오로그인 */}
-          <Route path="/kakao/callback" element={<KakaoLogin />} />
-          {/* 네이버로그인 */}
-          <Route path="/naver/callback" element={<NaverLogin />} />
+          <Route path="/kakao/finish" element={<KakaoLogin />} />
           {/* 비밀번호 찾기 */}
           <Route path="/forgot" element={<Forgot />} />
           {/* 카카오 닉네임설정 */}
