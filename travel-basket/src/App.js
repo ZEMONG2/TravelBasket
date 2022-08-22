@@ -44,7 +44,7 @@ const App = () => {
           {/* 로딩 */}
           <Route path="/loading" element={<Loading />} />
           {/* 카카오로그인 */}
-          <Route path="/kakao/finish" element={<KakaoLogin />} />
+          <Route path="/kakao/callback" element={<KakaoLogin />} />
           {/* 비밀번호 찾기 */}
           <Route path="/forgot" element={<Forgot />} />
           {/* 카카오 닉네임설정 */}

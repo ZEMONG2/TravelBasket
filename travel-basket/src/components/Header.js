@@ -16,6 +16,7 @@ const Header = () => {
     console.log("세션초기화");
 
     setLogin((prev) => !prev);
+    navigate("/");
   };
 
   /* 메뉴 버튼 활성화 

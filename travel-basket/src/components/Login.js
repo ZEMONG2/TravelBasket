@@ -21,6 +21,13 @@ const Login = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
 
+  // 로컬 로그인 엔터키 입력시 자동 로그인 버튼 클릭
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   // 로그인 버튼 클릭시 실행 함수
   const handleLogin = () => {
     // 아이디 입력 확인
@@ -94,6 +101,7 @@ const Login = () => {
           size="20"
           defaultValue=""
           ref={pwRef}
+          onKeyPress={onKeyPress}
           placeholder="패스워드를 입력하세요"
         />
         <br />
