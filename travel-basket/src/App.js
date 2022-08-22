@@ -16,7 +16,10 @@ import Forgot from './components/Forgot';
 import Nick from './components/Nick';
 import NaverLogin from './components/NaverLogin';
 
+//20220822 선우 병합
 import PlanMaker from './components/Plan/PlanMaker';
+//20220822 선우 - 네이버 검색엔진 테스트용
+import NaverSearchEngine from './components/Plan/NaverSearchEngine';
 
 const App = () => {
   return (
@@ -51,6 +54,8 @@ const App = () => {
           <Route path="/nick/:id" element={<Nick />} />
           {/* 일정 만들기 페이지 */}
           <Route path="/makeplan" element={<PlanMaker />} />
+          {/* 네이버 지역 검색엔진 테스트 */}
+          <Route path="/naverengine" element={<NaverSearchEngine />} />
         </Routes>
       </div>
 

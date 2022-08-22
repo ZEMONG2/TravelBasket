@@ -9,6 +9,8 @@ import PlanMap from './PlanMap'; //지도 컨테이너
 import AddPlan from './AddPlan';
 import './plan.css';
 
+import NaverPlanMap from './NaverPlanMap';
+
 /*
   남은 작업: 1.데이터 업로드, 2.지도, 3.지역 검색해서 날짜별 여행지에 저장
   기억해야하는 특이사항 :
@@ -195,7 +197,26 @@ const PlanMaker = () => {
     searchRef.current.className = newSearchClassname; //클래스명을 재설정
     selectedDays = daycnt; //현재 검색하기 위해 선택된 일자는 selectedDays
   };
-  const savePlace = (data) => {};
+  const savePlace = (daynostr, idx, data) => {
+    //일차별 계획 저장
+    //daynostr : n일차(문자열), idx: n일차의 n-1, data : dayList.plan
+    var nowlist = dayList[idx].plan.push(data);
+    //현재 n일차의 저장된 리스트를 새로운 배열로 재생성해서 푸시 한 후에 그대로 반영
+    setDayList(
+      dayList.map((val) =>
+        val.day === daynostr ? { ...val, plan: nowlist } : val,
+      ),
+    );
+    console.log(nowlist);
+  };
+  const deletePlace = (idx) => {
+    //n일차의 n번째 저장 정보를 제거
+    //n일차의 몇번째 인덱스인지만 받아오면 됨
+    var nowlist = dayList[idx].plan;
+    const newDayList = dayList.filter((val, idx) => val.plan[idx] !== nowlist);
+    console.log(newDayList);
+    setDayList(newDayList);
+  };
   return (
     <div className="planerWrap">
       <div className="searchWrap " ref={searchRef}>
@@ -317,7 +338,8 @@ const PlanMaker = () => {
         </table>
         <div className="updownSpace"></div>
         <div className="map center_con">
-          <PlanMap></PlanMap>
+          {/* <PlanMap></PlanMap> */}
+          <NaverPlanMap></NaverPlanMap>
         </div>
 
         <div className="updownSpace"></div>

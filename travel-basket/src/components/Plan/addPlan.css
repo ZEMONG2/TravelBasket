@@ -8,7 +8,7 @@
     top:50%;
     left:0%;
     background: rgb(250, 250, 250);
-    z-index: 99;
+    z-index: 200;
     visibility: hidden; 
     opacity: 0;
     transition: all 0.25s ease-in-out;
@@ -36,10 +36,13 @@
     float:left;
 }
 .searchedItemTextWrap{
-    width:430px;
+    width:300px;
     float:left;
     height:100px;
     margin-left:20px;
+}
+.searchedItemTextWrap p{
+    text-align:left;
 }
 .searchLabel{
     width:364px;

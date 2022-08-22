@@ -253,3 +253,9 @@ app.post("/schedule/count", (req, res) => {
 app.get("/thumbnail/:filename", (req, res) => {
   scheduleModule.sendThumbnail(req, res);
 });
+
+/* ------------- 네이버 검색 api ------------- 220822 선우 */
+let naverapi = require("./naverapi/NaverApiModule");
+app.get("/searchbynaver/:keyword", (req, res) => {
+  naverapi.searchData(req, res);
+});
