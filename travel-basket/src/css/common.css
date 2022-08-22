@@ -20,7 +20,19 @@ section{height:auto;}
     display: block;
     clear:both;
 }
+/* 위아래 공백 */
 .updownSpace{
     width:100%;
     height:30px;
+}
+
+/* 페이지별 타이틀 랩 */
+.pageTitle{
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+.container_center{
+    margin:0 auto;
+    width:80%;
 }

@@ -1,5 +1,5 @@
-import "../css/schedule.css";
-import "../css/common.css";
+import "../../css/schedule.css";
+import "../../css/common.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -100,7 +100,7 @@ function Schedule() {
 
   return (
     <div className="bodywrap">
-      <div className="scheduleTitle"> 내 일정 보관함</div>
+      <div className="pageTitle"> 내 일정 보관함</div>
       <div className="updownSpace" />
       <ScheduleList handlePage={handlePage} isActivate={isActivate} setActive={setActive} pageArr={pageArr} handlelist={getList} scheduleList={scheduleList} />
     </div>

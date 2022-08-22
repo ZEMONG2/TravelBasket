@@ -1,23 +1,18 @@
-html, body, main {
+/* html, body, main { */
     /* 높이를 스크롤 없이 꽉 채우기  */
-	height : 100vh;
+	/* height : 100vh;
     width:100%;
-}
-main{
+} */
+/* main{
     /* 위치고정을 시키고 hidden으로 스크롤 처리  */
-	position : fixed;
+	 /*position : fixed;
 	overflow : hidden;
-}
+} */
 .bodywrap {
     width:80%;
     margin: 0 auto;
 }
-/* 일정보관함 타이틀 랩 */
-.scheduleTitle{
-    font-size: 25px;
-    font-weight: bold;
-    text-align: center;
-}
+
 /* 일정 리스트 아이템 랩 */
 .mySchedule{
     width:150px;
@@ -48,8 +43,6 @@ img{
 }
 
 .scheduleWrap{
-    margin:0 auto;
-    width:570px;
     height:500px;
 }
 

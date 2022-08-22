@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import Main from "./components/Main";
-import Schedule from "./components/Schedule";
+import Schedule from "./components/Schedule/Schedule";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Review from "./components/Review";
 import NotFound from "./components/NotFound";
 import Header from "./components/Header";
+import PlanMaker from "./components/Plan/PlanMaker";
 const App = () => {
   return (
     <div>
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/review" element={<Review />} />
         <Route path="/schedule" element={<Schedule />} />
+        <Route path="/makeplan" element={<PlanMaker />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>

@@ -1,10 +1,6 @@
 var fs = require("fs");
 let scheduleModules = {};
 
-scheduleModules.test = function () {
-  return "test!!";
-};
-
 //특정 회원의 일정 페이징 처리된 리스트를 추출
 scheduleModules.searchMySchedule = function (req, res, db) {
   var page_num = parseInt(req.body.page_num);
@@ -18,7 +14,6 @@ scheduleModules.searchMySchedule = function (req, res, db) {
                     WHERE B.USER_ID = '${id}'
                     ORDER BY A.SCHEDULE_IDX DESC LIMIT ?,?;`;
 
-  console.log(sqlQuery, start_limit, page_size);
   db.query(sqlQuery, [start_limit, page_size], (err, result) => {
     // for (let i = 0; i < result.length; i++) {
     //   console.log("------------------");
@@ -72,7 +67,7 @@ scheduleModules.countMySchedule = function (req, res, db) {
                         INNER JOIN TB_USER AS B
                         ON A.USER_IDX = B.USER_IDX
                     WHERE B.USER_ID = '${id}';`;
-  console.log(sqlQuery);
+
   //넘겨받은 db 객체 프로퍼티로 작업 수행
   db.query(sqlQuery, (err, result) => {
     console.log("res => ", result);
