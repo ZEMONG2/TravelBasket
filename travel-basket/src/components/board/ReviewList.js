@@ -5,15 +5,16 @@ import ReviewArticle from "./ReviewArticle";
 import "../../css/board_css/ReviewList.scss";
 
 const ReviewList = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const USER_ID = window.sessionStorage.getItem("USER_ID");
-    console.log("window.sessionStorage(USER_ID) =>", USER_ID);
-    if (USER_ID === null) {
-      alert("로그인후 사용가능합니다!!");
-      navigate("/");
-    }
-  });
+  // 세션값 있는 경우만 이동가능
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   const USER_ID = window.sessionStorage.getItem("USER_ID");
+  //   console.log("window.sessionStorage(USER_ID) =>", USER_ID);
+  //   if (USER_ID === null) {
+  //     alert("로그인후 사용가능합니다!!");
+  //     navigate("/");
+  //   }
+  // });
   const [reviewlist, setReviewlist] = useState({
     reviewList: [],
   });

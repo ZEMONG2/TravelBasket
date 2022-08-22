@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import "../css/main_css/Schedule.scss";
 
 const Schedule = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const USER_ID = window.sessionStorage.getItem("USER_ID");
-    console.log("window.sessionStorage(USER_ID) =>", USER_ID);
-    if (USER_ID === null) {
-      alert("로그인후 사용가능합니다!!");
-      navigate("/");
-    }
-  });
+  // 세션값 있는 경우만 이동가능
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   const USER_ID = window.sessionStorage.getItem("USER_ID");
+  //   console.log("window.sessionStorage(USER_ID) =>", USER_ID);
+  //   if (USER_ID === null) {
+  //     alert("로그인후 사용가능합니다!!");
+  //     navigate("/");
+  //   }
+  // });
   return (
     <div className="as">
       <h1>일정 공유 게시판</h1>

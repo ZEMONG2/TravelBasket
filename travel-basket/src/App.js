@@ -16,6 +16,7 @@ import Loading from "./components/Loading";
 import KakaoLogin from "./components/KakaoLogin";
 import Forgot from "./components/Forgot";
 import Nick from "./components/Nick";
+import ModifyInfo from "./components/ModifyInfo";
 
 const App = () => {
   return (
@@ -39,6 +40,8 @@ const App = () => {
           <Route path="/schedule" element={<Schedule />} />
           {/* 장바구니 */}
           <Route path="/basket" element={<Basket />} />
+          {/* 회원정보 수정 */}
+          <Route path="/modify" element={<ModifyInfo />} />
           {/* 404 */}
           <Route path="/*" element={<NotFound />} />
           {/* 로딩 */}

@@ -19,6 +19,12 @@ const Header = () => {
     navigate("/");
   };
 
+  // 회원정보 이동
+  const modifyInfo = () => {
+    handleToggleOption2();
+    navigate("/modify");
+  };
+
   /* 메뉴 버튼 활성화 
     -  메뉴리스트는 menu가 true 일 때 보이게됨
     -  초기값은 false이며, 클릭시 true
@@ -81,7 +87,12 @@ const Header = () => {
         <button
           ref={menuBtnRef}
           className="Menu"
-          onClick={() => handleToggleOption()}
+          onClick={() =>
+            // 메뉴버튼 로그인시 이용가능
+            window.sessionStorage.length === 0
+              ? alert("로그인후 이용해주세요")
+              : handleToggleOption()
+          }
         >
           <FiMenu className="icon" />
         </button>
@@ -137,7 +148,7 @@ const Header = () => {
             <li>좋아요 보관함</li>
           </li>
           <hr />
-          <li>회원정보 수정</li>
+          <li onClick={modifyInfo}>회원정보 수정</li>
           <li className="Logout" onClick={logout}>
             로그아웃
           </li>

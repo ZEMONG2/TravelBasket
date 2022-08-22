@@ -34,8 +34,6 @@ let corsOptions = {
 app.use(cors(corsOptions));
 
 // 디비 서버 port번호는 default 3306
-
-// 디비 서버 port번호는 default 3306
 const db = mysql.createPool({
   host: "210.114.22.116",
   user: "js_team_5",
@@ -109,6 +107,15 @@ app.post("/nickCheck", (req, res) => {
   });
 });
 
+app.post("/idCheck", (req, res) => {
+  console.log("idCheck =>", req.body.nick);
+  var id = req.body.id;
+  const sqlQuery = "SELECT COUNT(*) AS CNT FROM TB_USER WHERE USER_ID=?;";
+  db.query(sqlQuery, id, (err, result) => {
+    res.send(result);
+  });
+});
+
 app.post("/nickSend", (req, res) => {
   console.log("nickSend =>", req.body);
   var nick = req.body.nick;
@@ -122,6 +129,21 @@ app.post("/nickSend", (req, res) => {
     db.query(sqlQuery2, [email, path], (err, result) => {
       res.send(result);
     });
+  });
+});
+app.post("/modifyInfo", (req, res) => {
+  console.log("modifyInfo =>", req.body);
+
+  var id = req.body.id;
+  var pw = req.body.pw;
+  var nick = req.body.nick;
+  console.log("id =>", id);
+  console.log("pw =>", pw);
+  console.log("nick =>", nick);
+
+  const sqlQuery = "UPDATE TB_USER SET USER_NICK=?, USER_PW=? WHERE USER_ID=?;";
+  db.query(sqlQuery, [nick, pw, id], (err, result) => {
+    res.send("회원정보수정성공");
   });
 });
 

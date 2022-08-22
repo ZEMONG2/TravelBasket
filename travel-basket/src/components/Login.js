@@ -63,6 +63,7 @@ const Login = () => {
           window.sessionStorage.setItem("USER_ID", res.data[0].USER_ID);
           window.sessionStorage.setItem("USER_NICK", res.data[0].USER_NICK);
           window.sessionStorage.setItem("USER_IDX", res.data[0].USER_IDX);
+          window.sessionStorage.setItem("JOIN_PATH", res.data[0].JOIN_PATH);
 
           // 세션에 값 저장후 메인페이지로 이동
           navigate("/");
@@ -126,7 +127,6 @@ const Login = () => {
             className="naver"
             type="button"
             value="NAVER 계정으로 로그인"
-            onClick=""
           />
           <br />
 
@@ -134,7 +134,6 @@ const Login = () => {
             className="facebook"
             type="button"
             value="FACEBOOK 계정으로 로그인"
-            onClick=""
           />
           <br />
 
@@ -142,7 +141,6 @@ const Login = () => {
             className="google"
             type="button"
             value="GOOGLE 계정으로 로그인"
-            onClick=""
           />
         </div>
         <br />
