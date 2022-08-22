@@ -6,7 +6,14 @@ import "../../css/board_css/ReviewList.scss";
 
 const ReviewList = () => {
   const navigate = useNavigate();
-
+  useEffect(() => {
+    const USER_ID = window.sessionStorage.getItem("USER_ID");
+    console.log("window.sessionStorage(USER_ID) =>", USER_ID);
+    if (USER_ID === null) {
+      alert("로그인후 사용가능합니다!!");
+      navigate("/");
+    }
+  });
   const [reviewlist, setReviewlist] = useState({
     reviewList: [],
   });
