@@ -43,7 +43,8 @@ img{
 }
 
 .scheduleWrap{
-    height:500px;
+    width:570px;
+    margin:0 auto;
 }
 
 /* 페이징 버튼 */

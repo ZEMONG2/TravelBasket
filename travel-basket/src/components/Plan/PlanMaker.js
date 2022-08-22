@@ -7,7 +7,7 @@ import TypeContainer from './TypeContainer'; //여행타입 / 이동 수단 컨�
 import PlanContainer from './PlanContainer'; //일차별 여행 계획 저장 컨테이너
 import PlanMap from './PlanMap'; //지도 컨테이너
 import AddPlan from './AddPlan';
-import '../../css/plan.css';
+import './plan.css';
 
 /*
   남은 작업: 1.데이터 업로드, 2.지도, 3.지역 검색해서 날짜별 여행지에 저장
@@ -197,7 +197,7 @@ const PlanMaker = () => {
   };
   const savePlace = (data) => {};
   return (
-    <div className="planerWrap container_center">
+    <div className="planerWrap">
       <div className="searchWrap " ref={searchRef}>
         <AddPlan
           selectedDays={selectedDays}

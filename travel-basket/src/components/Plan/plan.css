@@ -2,7 +2,13 @@
     width:70%;
     margin: 0 auto;
 }
-
+/* .App{
+    overflow: auto;
+} */
+.plannerWrap{
+    width: 80%;
+    margin:0 auto;
+}
 tr{
     height:40px;
 }

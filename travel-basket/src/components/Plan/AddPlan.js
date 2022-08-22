@@ -1,5 +1,5 @@
 import SearchedItem from './SearchedItem';
-import '../../css/addPlan.css';
+import './addPlan.css';
 const AddPlan = ({ selectedDays, closeSerchPopup, savePlace }) => {
   const testarr = [1, 2, 3, 4, 5, 6];
   const closePopup = () => {

@@ -21,14 +21,6 @@ const app = express(); //서버생성
 // 기본 PORT번호는 8000으로 PORT를 따로 선언할 경우 선언한 PORT번호로 사용
 const PORT = process.env.port || 8000; //포트설정
 
-// 디비 서버 port번호는 default 3306
-// const db = mysql.createPool({
-//   host: "localhost",
-//   user: "root",
-//   password: "123456",
-//   database: "travel_test",
-// });
-
 app.use(express.json());
 
 // true 일경우 따로 설치가 필요한 npm qs (querystring) 라이브러리를 사용. false 일경우 node.js에 기본적으로 내장되어있는 qs 라이브러리를 사용하겠다는 의미
@@ -44,12 +36,18 @@ app.use(cors(corsOptions));
 // 디비 서버 port번호는 default 3306
 
 // 디비 서버 port번호는 default 3306
+// const db = mysql.createPool({
+//   host: "210.114.22.116",
+//   user: "js_team_5",
+//   password: "tb123456",
+//   database: "js_team_5",
+//   // charset: "utf8mb4",
+// });
 const db = mysql.createPool({
-  host: "210.114.22.116",
-  user: "js_team_5",
-  password: "tb123456",
-  database: "js_team_5",
-  // charset: "utf8mb4",
+  host: "localhost",
+  user: "root",
+  password: "123456",
+  database: "travel_test",
 });
 
 // DB에 저장된 아이디 패스워드와 비교하여 일치하는지 판단

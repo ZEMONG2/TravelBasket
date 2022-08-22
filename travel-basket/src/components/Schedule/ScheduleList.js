@@ -1,6 +1,13 @@
-import { useEffect } from "react";
-import ScheduleArticle from "./ScheduleArticle";
-const ScheduleList = ({ handlePage, isActivate, setActive, pageArr, handlelist, scheduleList }) => {
+import { useEffect } from 'react';
+import ScheduleArticle from './ScheduleArticle';
+const ScheduleList = ({
+  handlePage,
+  isActivate,
+  setActive,
+  pageArr,
+  handlelist,
+  scheduleList,
+}) => {
   /*
         handlePage : 페이지 핸들링 함수
         isActivate, setActive : 페이지 이동 버튼의 css활성화/비활성화에 사용되는 state
@@ -17,12 +24,12 @@ const ScheduleList = ({ handlePage, isActivate, setActive, pageArr, handlelist, 
   const movePage = (e) => {
     const tag_id = e.target.id; //클릭한 버튼의 태그 아이디
 
-    if (tag_id === "move2left" || tag_id === "move2right") {
+    if (tag_id === 'move2left' || tag_id === 'move2right') {
       //화살표 버튼 이벤트 처리
       handlePage(e);
     } else {
       //페이지 버튼 이벤트 처리
-      const pageNo = parseInt(e.target.attributes.getNamedItem("page").value); //클릭한 버튼의 페이지 번호
+      const pageNo = parseInt(e.target.attributes.getNamedItem('page').value); //클릭한 버튼의 페이지 번호
 
       //1. 클릭한 버튼 css 변경
       let activeArr = [];
@@ -42,12 +49,18 @@ const ScheduleList = ({ handlePage, isActivate, setActive, pageArr, handlelist, 
   //페이지 버튼 컴포넌트
   const PageButton = (props) => {
     const { page, type, ...other } = props; //전달받은 프로퍼티를 변수화하여 사용(사용되지 않는 프로퍼티는 other로 처리)
-    return <button className={"btn" + (type === undefined ? "" : " " + type)} page={page === undefined ? "" : page} {...other} />;
+    return (
+      <button
+        className={'btn' + (type === undefined ? '' : ' ' + type)}
+        page={page === undefined ? '' : page}
+        {...other}
+      />
+    );
   };
 
   return (
     <>
-      <div className="scheduleWrap container_center">
+      <div className="scheduleWrap">
         {/* 일정 리스트의 동적 구현 */}
         {scheduleList.list.map((schedule, idx) => (
           <ScheduleArticle key={idx} idx={idx} data={schedule} />
@@ -61,7 +74,13 @@ const ScheduleList = ({ handlePage, isActivate, setActive, pageArr, handlelist, 
         </PageButton>
         {/* 페이지 버튼의 동적 구현 */}
         {pageArr.map((page, idx) => (
-          <PageButton type={isActivate[idx] === true ? "activate" : ""} page={page} key={idx} id={idx + 1} onClick={movePage}>
+          <PageButton
+            type={isActivate[idx] === true ? 'activate' : ''}
+            page={page}
+            key={idx}
+            id={idx + 1}
+            onClick={movePage}
+          >
             {page}
           </PageButton>
         ))}

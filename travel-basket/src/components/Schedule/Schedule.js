@@ -1,10 +1,10 @@
-import "../../css/schedule.css";
-import "../../css/common.css";
-import React from "react";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import ScheduleList from "./ScheduleList";
+import './schedule.css';
+import '../../css/common.css';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import ScheduleList from './ScheduleList';
 
 //화살표를 활용한 페이지 이동때문에 global로 배치
 var page_num = 1; //현재 보고있는 페이지
@@ -19,7 +19,7 @@ function Schedule() {
     //페이징 처리된 일정 리스트의 객체
     list: [],
   });
-  const login_id = "ksw3108"; //더미 유저 데이터, 추후 세션에서 사용자 아이디를 가져옴
+  const login_id = 'ksw3108'; //더미 유저 데이터, 추후 세션에서 사용자 아이디를 가져옴
   // const login_id= window.sessionStorage.getItem("id")
   useEffect(() => {
     //로그인 검증 후 비로그인 상태면 메인으로 돌림. 현재 테스트환경에서 세션을 생성하지 않으므로 임의 주석처리.
@@ -34,12 +34,12 @@ function Schedule() {
   const handlePage = (e) => {
     //페이지 이동
 
-    if (e.target.id === "move2left") {
+    if (e.target.id === 'move2left') {
       //왼쪽 화살표를 눌렀을때 페이지가 1보다 크면 이동
       if (page_num > 1) {
         page_num -= 1;
       }
-    } else if (e.target.id === "move2right") {
+    } else if (e.target.id === 'move2right') {
       //오른쪽 화살표를 눌렀을때 페이지가 최대 페이지보다 작으면 이동
       if (page_num < pageArr.length) {
         page_num += 1;
@@ -55,7 +55,7 @@ function Schedule() {
   async function getList() {
     //일정 가져오기, 일정 페이징
     await axios
-      .post("http://localhost:8000/schedule/count", {
+      .post('http://localhost:8000/schedule/count', {
         id: login_id,
       })
       .then((res) => {
@@ -83,7 +83,7 @@ function Schedule() {
 
     //페이징 처리한 일정 데이터를 추출. 이하는 역시 수업때 진행한 내용과 동일.
     await axios
-      .post("http://localhost:8000/schedule/list", {
+      .post('http://localhost:8000/schedule/list', {
         page_num: page_num,
         page_size: page_size,
         article_count: article_count,
@@ -100,9 +100,17 @@ function Schedule() {
 
   return (
     <div className="bodywrap">
+      <div className="updownSpace" />
       <div className="pageTitle"> 내 일정 보관함</div>
       <div className="updownSpace" />
-      <ScheduleList handlePage={handlePage} isActivate={isActivate} setActive={setActive} pageArr={pageArr} handlelist={getList} scheduleList={scheduleList} />
+      <ScheduleList
+        handlePage={handlePage}
+        isActivate={isActivate}
+        setActive={setActive}
+        pageArr={pageArr}
+        handlelist={getList}
+        scheduleList={scheduleList}
+      />
     </div>
   );
   //return;
