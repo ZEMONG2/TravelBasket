@@ -1,0 +1,38 @@
+/*css 초기화*/
+* { margin: 0; padding: 0; }
+li{ list-style: none; }
+a { text-decoration: none; color:black; }
+img { border: 0; }
+ul{ padding-left: 0px; }    
+section{height:auto;}
+
+/* 
+    clear
+    float:left 등의 속성을 붙인 태그 아래 컨테이너들의 배치를
+    자연스럽게 하도록 해줌
+    ex)
+    <div style="width:20px; float:left"></div>
+    <div style="width:20px; float:left"></div>
+    <div style="clear:both;></div>
+    <div></div>
+*/
+.clear{
+    display: block;
+    clear:both;
+}
+/* 위아래 공백 */
+.updownSpace{
+    width:100%;
+    height:30px;
+}
+
+/* 페이지별 타이틀 랩 */
+.pageTitle{
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+.container_center{
+    margin:0 auto;
+    width:80%;
+}

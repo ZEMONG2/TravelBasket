@@ -1,19 +1,22 @@
-import { Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
-import Basket from "./components/Basket";
-import Main from "./components/Main";
-import Schedule from "./components/Schedule";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Review from "./components/Review";
-import NotFound from "./components/NotFound";
-import "./css/App.scss";
-import background from "../src/img/summer.mp4";
-import Loading from "./components/Loading";
-import KakaoLogin from "./components/KakaoLogin";
-import Forgot from "./components/Forgot";
-import Nick from "./components/Nick";
-import NaverLogin from "./components/NaverLogin";
+import { Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Basket from './components/Basket';
+import Main from './components/Main';
+import Schedule from './components/Schedule/Schedule';
+import Login from './components/Login';
+import Register from './components/Register';
+import Review from './components/Review';
+import NotFound from './components/NotFound';
+
+import './css/App.scss';
+import background from '../src/img/summer.mp4';
+import Loading from './components/Loading';
+import KakaoLogin from './components/KakaoLogin';
+import Forgot from './components/Forgot';
+import Nick from './components/Nick';
+import NaverLogin from './components/NaverLogin';
+
+import PlanMaker from './components/Plan/PlanMaker';
 
 const App = () => {
   return (
@@ -46,6 +49,8 @@ const App = () => {
           <Route path="/forgot" element={<Forgot />} />
           {/* 카카오 닉네임설정 */}
           <Route path="/nick/:id" element={<Nick />} />
+          {/* 일정 만들기 페이지 */}
+          <Route path="/makeplan" element={<PlanMaker />} />
         </Routes>
       </div>
 
