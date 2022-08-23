@@ -15,8 +15,8 @@ const AddPlan = ({ selectedDays, closeSerchPopup, savePlace }) => {
   const closePopup = () => {
     closeSerchPopup(0);
   };
-  const saveData = () => {
-    savePlace([]);
+  const saveItem = (idx) => {
+    savePlace(searchedData[idx]);
   };
   const getCart = () => {
     const login_id = 'ksw3108'; //추후 세션 체크해서 아이디 가져오기
@@ -39,9 +39,13 @@ const AddPlan = ({ selectedDays, closeSerchPopup, savePlace }) => {
   };
   const searchArea = (e) => {
     var search = keyword.current.value;
-
+    if (search === '') {
+      alert('검색어를 입력해주세요!!');
+      return;
+    }
     axios
-      .post(`http://localhost:8000/searchbynaver`, {
+      //.post(`http://localhost:8000/searchbynaver`, {
+      .post(`http://localhost:8000/searchbykakao`, {
         keyword: search,
         page: searchPage,
       })
@@ -51,11 +55,13 @@ const AddPlan = ({ selectedDays, closeSerchPopup, savePlace }) => {
         console.log(data);
         //새로운 검색어를 입력하면 검색 결과를 초기화
         if (beforeKeyword !== search) {
-          setData(data.items);
+          // setData(data.items);//이건 네이버 검색일경우
+          setData(data.documents);
           beforeKeyword = search;
           searchPage = 1;
         } else {
-          setData([...searchedData, ...data.items]);
+          //setData([...searchedData, ...data.items]);//이거도 네이버 검색일경우
+          setData([...searchedData, ...data.documents]);
         }
         /*
         data[//네이버 지역 검색으로 가져온 상호 객체리스트
@@ -90,6 +96,7 @@ const AddPlan = ({ selectedDays, closeSerchPopup, savePlace }) => {
     searchPage += 1;
     searchArea(e);
   };
+
   return (
     <div className="container_center">
       <div className="updownSpace"></div>
@@ -133,6 +140,8 @@ const AddPlan = ({ selectedDays, closeSerchPopup, savePlace }) => {
                 cartData={''}
                 searchedData={val}
                 key={idx}
+                idx={idx}
+                saveItem={saveItem}
               />
             ))}
         {searchLabel !== '나의 장바구니' ? (

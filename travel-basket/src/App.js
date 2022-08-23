@@ -22,6 +22,7 @@ import ModifyInfo from './components/ModifyInfo';
 //20220822 선우 병합
 import PlanMaker from './components/Plan/PlanMaker';
 import Schedule from './components/Schedule/Schedule';
+import PlanMap from './components/Plan/PlanMap';
 //import Schedule from './components/Schedule';
 // =======
 // import { Route, Routes } from "react-router-dom";

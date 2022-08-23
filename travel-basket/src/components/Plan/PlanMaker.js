@@ -197,17 +197,18 @@ const PlanMaker = () => {
     searchRef.current.className = newSearchClassname; //클래스명을 재설정
     selectedDays = daycnt; //현재 검색하기 위해 선택된 일자는 selectedDays
   };
-  const savePlace = (daynostr, idx, data) => {
+  const savePlace = (data) => {
     //일차별 계획 저장
+    console.log('selectedDays, data : ', selectedDays, data);
     //daynostr : n일차(문자열), idx: n일차의 n-1, data : dayList.plan
-    var nowlist = dayList[idx].plan.push(data);
+    //var nowlist = dayList[idx].plan.push(data);
     //현재 n일차의 저장된 리스트를 새로운 배열로 재생성해서 푸시 한 후에 그대로 반영
-    setDayList(
-      dayList.map((val) =>
-        val.day === daynostr ? { ...val, plan: nowlist } : val,
-      ),
-    );
-    console.log(nowlist);
+    // setDayList(
+    //   dayList.map((val) =>
+    //     val.day === daynostr ? { ...val, plan: nowlist } : val,
+    //   ),
+    // );
+    // console.log(nowlist);
   };
   const deletePlace = (idx) => {
     //n일차의 n번째 저장 정보를 제거
@@ -338,8 +339,8 @@ const PlanMaker = () => {
         </table>
         <div className="updownSpace"></div>
         <div className="map center_con">
-          {/* <PlanMap></PlanMap> */}
-          <NaverPlanMap></NaverPlanMap>
+          <PlanMap></PlanMap>
+          {/* <NaverPlanMap></NaverPlanMap> */}
         </div>
 
         <div className="updownSpace"></div>

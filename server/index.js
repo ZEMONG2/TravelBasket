@@ -278,8 +278,13 @@ app.post("/getcart", (req, res) => {
   plan.getCartList(req, res, db);
 });
 
-/* ------------- 네이버 검색 api ------------- 220822 선우 */
-let naverapi = require("./naverapi/NaverApiModule");
+/* ------------- 네이버 지역 검색 api ------------- 220822 선우 */
+let naverapi = require("./webApi/NaverApiModule");
 app.post("/searchbynaver", (req, res) => {
   naverapi.searchData(req, res);
+});
+/* ------------- 카카오 지역 검색 api ------------- 220823 선우 */
+let kakaoapi = require("./webApi/KaKaoApiModule");
+app.post("/searchbykakao", (req, res) => {
+  kakaoapi.searchData(req, res);
 });

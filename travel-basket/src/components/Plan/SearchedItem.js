@@ -1,35 +1,54 @@
-const SearchedItem = ({ isSearched, cartData, searchedData }) => {
-  const setMarker = () => {
-    console.log('tetette');
-  }; //여기서 마커 세팅
-  const saveThisPlan = () => {}; //여기서 데이터를 디비에 저장할 객체에 담는다.
+const SearchedItem = ({
+  isSearched,
+  cartData,
+  searchedData,
+  idx,
+  saveItem,
+}) => {
+  const saveThisPlan = (e) => {
+    saveItem(idx);
+    e.preventDefault();
+  }; //여기서 데이터를 디비에 저장할 객체에 담는다.
 
   return (
     <>
       <div className="searchListItem">
         <div className="searchedItemInfo">
           <a
-            href={isSearched === true ? searchedData.link : cartData.CART_LINK}
+            //href={isSearched === true ? searchedData.link : cartData.CART_LINK}
+            href={
+              isSearched === true ? searchedData.place_url : cartData.CART_LINK
+            }
           >
             <span className="itemTitle">
-              {isSearched === true ? searchedData.title : cartData.CART_NAME}
+              {/* {isSearched === true ? searchedData.title : cartData.CART_NAME} */}
+              {isSearched === true
+                ? searchedData.place_name
+                : cartData.CART_NAME}
             </span>
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
           </a>
           <span className="itemCategory">
-            {isSearched === true ? searchedData.category : ''}
+            {/* {isSearched === true ? searchedData.category : ''} */}
+            {isSearched === true ? searchedData.category_name : ''}
           </span>
           <br />
           <br />
           <span className="itemRoadAddr">
-            {isSearched === true
+            {/* {isSearched === true
               ? searchedData.roadAddress
+              : cartData.CART_ADDR_ROAD} */}
+            {isSearched === true
+              ? searchedData.road_address_name
               : cartData.CART_ADDR_ROAD}
           </span>
           <br />
           <span className="itemAddr">
             (지번)
-            {isSearched === true ? searchedData.address : cartData.CART_ADDR}
+            {/* {isSearched === true ? searchedData.address : cartData.CART_ADDR} */}
+            {isSearched === true
+              ? searchedData.address_name
+              : cartData.CART_ADDR}
           </span>
           <br />
         </div>
