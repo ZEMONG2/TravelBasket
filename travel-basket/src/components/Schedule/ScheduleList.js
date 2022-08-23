@@ -62,10 +62,11 @@ const ScheduleList = ({
     <>
       <div className="scheduleWrap">
         {/* 일정 리스트의 동적 구현 */}
-        {scheduleList &&
-          scheduleList.list.map((schedule, idx) => (
-            <ScheduleArticle key={idx} idx={idx} data={schedule} />
-          ))}
+        {scheduleList.list.length > 0
+          ? scheduleList.list.map((schedule, idx) => (
+              <ScheduleArticle key={idx} idx={idx} data={schedule} />
+            ))
+          : '등록된 일정이 없습니다.'}
       </div>
 
       <div className="updownSpace clear" />
@@ -74,18 +75,19 @@ const ScheduleList = ({
           &lt;
         </PageButton>
         {/* 페이지 버튼의 동적 구현 */}
-        {pageArr &&
-          pageArr.map((page, idx) => (
-            <PageButton
-              type={isActivate[idx] === true ? 'activate' : ''}
-              page={page}
-              key={idx}
-              id={idx + 1}
-              onClick={movePage}
-            >
-              {page}
-            </PageButton>
-          ))}
+        {pageArr.length > 0
+          ? pageArr.map((page, idx) => (
+              <PageButton
+                type={isActivate[idx] === true ? 'activate' : ''}
+                page={page}
+                key={idx}
+                id={idx + 1}
+                onClick={movePage}
+              >
+                {page}
+              </PageButton>
+            ))
+          : ''}
         <PageButton type="mover" id="move2right" onClick={movePage}>
           &gt;
         </PageButton>
