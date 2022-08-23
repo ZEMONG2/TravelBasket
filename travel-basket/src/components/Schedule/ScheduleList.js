@@ -62,11 +62,13 @@ const ScheduleList = ({
     <>
       <div className="scheduleWrap">
         {/* 일정 리스트의 동적 구현 */}
-        {scheduleList.list.length > 0
-          ? scheduleList.list.map((schedule, idx) => (
-              <ScheduleArticle key={idx} idx={idx} data={schedule} />
-            ))
-          : '등록된 일정이 없습니다.'}
+        {scheduleList.list.length > 0 ? (
+          scheduleList.list.map((schedule, idx) => (
+            <ScheduleArticle key={idx} idx={idx} data={schedule} />
+          ))
+        ) : (
+          <div className="noListHere">등록된 일정이 없습니다</div>
+        )}
       </div>
 
       <div className="updownSpace clear" />

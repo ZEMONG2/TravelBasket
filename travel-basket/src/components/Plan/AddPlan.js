@@ -146,27 +146,32 @@ const AddPlan = ({
       </div>
       <div className="updownSpace"></div>
       <div className="searchList " ref={itemList}>
-        {searchLabel === '나의 장바구니'
-          ? getCart() > 0
-            ? testarr.map((val, idx) => (
-                <SearchedItem
-                  isSearched={false}
-                  cartData={val}
-                  searchedData={''}
-                  key={idx}
-                />
-              ))
-            : '장바구니에 저장된 장소가 없어요!'
-          : searchedData.map((val, idx) => (
+        {searchLabel === '나의 장바구니' ? (
+          getCart() > 0 ? (
+            testarr.map((val, idx) => (
               <SearchedItem
-                isSearched={true}
-                cartData={''}
-                searchedData={val}
+                isSearched={false}
+                cartData={val}
+                searchedData={''}
                 key={idx}
-                idx={idx}
-                saveItem={saveItem}
               />
-            ))}
+            ))
+          ) : (
+            <p>장바구니에 저장된 장소가 없어요!</p>
+          )
+        ) : (
+          searchedData.map((val, idx) => (
+            <SearchedItem
+              isSearched={true}
+              cartData={''}
+              searchedData={val}
+              key={idx}
+              idx={idx}
+              saveItem={saveItem}
+            />
+          ))
+        )}
+        <div className="updownSpace"></div>
         {searchLabel !== '나의 장바구니' ? (
           <div>
             <div className="showMeMore">

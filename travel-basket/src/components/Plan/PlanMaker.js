@@ -201,7 +201,8 @@ const PlanMaker = () => {
     //   newSearchClassname += 'open';
     // }
     // searchRef.current.className = newSearchClassname; //클래스명을 재설정
-    alert(handleType);
+
+    //alert(handleType);
     switch (handleType) {
       case handlePopupType[0]:
         break;
