@@ -1,5 +1,7 @@
 const SearchedItem = ({ isSearched, cartData, searchedData }) => {
-  const setMarker = () => {}; //여기서 마커 세팅
+  const setMarker = () => {
+    console.log('tetette');
+  }; //여기서 마커 세팅
   const saveThisPlan = () => {}; //여기서 데이터를 디비에 저장할 객체에 담는다.
 
   return (
