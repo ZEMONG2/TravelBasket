@@ -47,3 +47,25 @@ button {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* 마진리셋, 패딩 리셋, 박스영역은 테두리까지 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* 텍스트 링크 밑줄 없애기 */
+a {
+  text-decoration: none;
+  color: black;
+}
+/*  */
+ul {
+  list-style: none;
+}
+
+/* 화면 중앙에 배치, 너비 */
+/* .container {
+  margin:0 auto;
+  width:1200px;
+} */

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../css/main_css/ModifyInfo.scss";
 
 const ModifyInfo = () => {
   const idRef = useRef();
@@ -105,8 +106,9 @@ const ModifyInfo = () => {
 
   return (
     <div>
-      <h1>회원정보수정</h1>
+      <h1>회원정보 수정</h1>
       <form>
+        <p>아이디</p>
         <input
           className="id"
           type="email"
@@ -118,6 +120,7 @@ const ModifyInfo = () => {
         />
         {join_path === "LOCAL" ? (
           <div>
+            <p>비밀번호</p>
             <input
               className="pw"
               type="password"
@@ -128,6 +131,7 @@ const ModifyInfo = () => {
               placeholder="패스워드를 입력하세요"
             />
             <br />
+            <p>비밀번호 확인</p>
             <input
               className="pwck"
               type="password"
@@ -135,12 +139,13 @@ const ModifyInfo = () => {
               size="20"
               defaultValue=""
               ref={pwCkRef}
-              placeholder="패스워드를 한번더 입력하세요"
+              placeholder="패스워드를 한번 더 입력하세요"
             />
           </div>
         ) : (
           <div></div>
         )}
+        <p>닉네임</p>
         <p>{nickComment}</p>
         <input
           className="nick"
@@ -159,6 +164,7 @@ const ModifyInfo = () => {
           value="회원정보수정"
           onClick={handleModify}
         />
+        <br />
       </form>
     </div>
   );

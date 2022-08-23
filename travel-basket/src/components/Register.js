@@ -144,7 +144,7 @@ const Register = () => {
           size="20"
           defaultValue=""
           ref={pwCkRef}
-          placeholder="패스워드를 한번더 입력하세요"
+          placeholder="패스워드를 한번 더 입력하세요"
         />
         <br />
         <p>{nickComment}</p>

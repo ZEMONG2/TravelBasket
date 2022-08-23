@@ -35,11 +35,15 @@
     padding: 1%;
     margin: 1%;
     width: 70px;
-    left: 42%;
-    position: relative;
+    // left: 40%;
+    // position: relative;
     cursor: pointer;
 }
 
 .btn-wrap {
-    height: 100px;
+    display: flex;
+    justify-content: center;
+    // position: relative;
+    // left : 50%;
+    // transform: translateX(-50%);
 }

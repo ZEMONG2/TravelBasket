@@ -19,6 +19,23 @@ const Header = () => {
     navigate("/");
   };
 
+  // 메인 이동
+  const main = () => {
+    navigate("/");
+  };
+
+  // 후기 게시판 이동
+  const board = () => {
+    handleToggleOption();
+    navigate("/review");
+  };
+
+  // 장바구니 이동
+  const basket = () => {
+    handleToggleOption2();
+    navigate("/basket");
+  };
+
   // 회원정보 이동
   const modifyInfo = () => {
     handleToggleOption2();
@@ -97,9 +114,7 @@ const Header = () => {
           <FiMenu className="icon" />
         </button>
         {/* 로고 */}
-        <a href="/">
-          <img className="logo" alt="NEXT TRAVEL" src={logo} />
-        </a>
+        <img className="logo" alt="NEXT TRAVEL" src={logo} onClick={main} />
         {/* 로그인 버튼*/}
         <button
           ref={loginBtnRef}
@@ -126,9 +141,7 @@ const Header = () => {
         <ul className={menu ? "show-menu" : "hide-menu"}>
           <li>일정 만들기</li>
           <hr />
-          <li>
-            <a href="/review">후기 게시판</a>
-          </li>
+          <li onClick={board}>후기 게시판</li>
           <li>
             <a href="/schedule">일정 공유 게시판</a>
           </li>
@@ -141,12 +154,10 @@ const Header = () => {
           {/* 로그인시 닉네임 */}
           <li>{window.sessionStorage.getItem("USER_NICK")}</li>
           <br />
-          <li>
-            <a href="/basket">장바구니</a>
-            <li>일정 보관함</li>
-            <li>후기 보관함</li>
-            <li>좋아요 보관함</li>
-          </li>
+          <li onClick={basket}>장바구니</li>
+          <li>일정 보관함</li>
+          <li>후기 보관함</li>
+          <li>좋아요 보관함</li>
           <hr />
           <li onClick={modifyInfo}>회원정보 수정</li>
           <li className="Logout" onClick={logout}>

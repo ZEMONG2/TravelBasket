@@ -105,6 +105,7 @@ ul.show-menu, ul.hide-menu, ul.show-login, ul.hide-login {
 .menuWrap > ul > li {
   width: 150px;
   line-height: 200%;
+  cursor: pointer;
 }
 
 .menuWrap > ul > hr {
@@ -120,12 +121,11 @@ ul.show-menu, ul.hide-menu, ul.show-login, ul.hide-login {
   opacity: 0.5;
 }
 
-// .loginWrap{position: relative;}
-
 .loginWrap > ul > li {
   width: 150px;
   line-height: 200%;
   text-align: right;
+  cursor: pointer;
 }
 
 .loginWrap > ul > hr {

@@ -56,6 +56,7 @@ const App = () => {
       </div>
 
       <footer className="footer">&copy; TRAVEL BASKET</footer>
+      {/* 회사소개 | 개인정보처리방침 | 여행약관 | 사이트맵 */}
     </>
   );
 };
