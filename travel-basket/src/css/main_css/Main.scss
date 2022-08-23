@@ -1,0 +1,411 @@
+// 전체설정
+* {
+  margin: 0 auto;
+  padding: 0 ;
+}
+
+//본문 전체 기본 설정
+body {
+  margin: 0 auto;
+  display: block;
+  width: 768px;
+  height: 1024px;
+  float:center;
+  font-family: "Raleway", sans-serif;
+  position: relative;
+}
+
+// 본문 센터 영역
+.main{
+  background-color: aqua;
+}
+
+//제목
+.slider_title {
+  font-size: 2.1vw;
+  color: #337ab7;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 2vw;
+}
+
+// 슬라이더 css 세팅
+.sliders {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100px;
+  padding: 30px;
+  padding-bottom: 30px;
+  overflow: hidden;
+}
+
+
+.card-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 0 10px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.card-wrapper:active,
+.card-wrapper:hover,
+.card-wrapper:focus {
+  outline: none;
+  border: none;
+}
+
+.card {
+  width: 100%;
+  height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.card .card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background-color: skyblue;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.card .card-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.card:hover img {
+  opacity: 0.4;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.card:hover .card-image {
+  -webkit-transform: translateY(-100px);
+  transform: translateY(-100px);
+  -webkit-transition: all 0.9s;
+  transition: all 0.9s;
+}
+
+// 슬라이드 안 링크 아이콘 CSS 입히는기능 안쓸꺼같아서 본문은 제거했지만 css는 혹시몰라서 (주석처리함)
+
+// .social-icons {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   -webkit-transform: translate(-50%, -50%);
+//   transform: translate(-50%, -50%);
+//   z-index: 3;
+//   display: -webkit-box;
+//   display: -ms-flexbox;
+//   display: flex;
+// }
+
+// .social-icons li {
+//   list-style: none;
+// }
+
+// .social-icons li a {
+//   position: relative;
+//   display: block;
+//   width: 50px;
+//   height: 50px;
+//   line-height: 50px;
+//   text-align: center;
+//   background: #fff;
+//   font-size: 23px;
+//   color: #333;
+//   font-weight: bold;
+//   margin: 0 6px;
+//   -webkit-transition: 0.4s;
+//   transition: 0.4s;
+//   -webkit-transform: translateY(200px);
+//   transform: translateY(200px);
+//   opacity: 0;
+// }
+
+.card:hover .social-icons li a {
+  -webkit-transform: translateY(0px);
+  transform: translateY(0px);
+  opacity: 1;
+}
+
+// .social-icons li a:hover {
+//   background: #000;
+//   -webkit-transition: 0.2s;
+//   transition: 0.2s;
+// }
+
+// .social-icons li a:hover .fa {
+//   color: #fff;
+// }
+
+// .social-icons li a .fa {
+//   -webkit-transition: 0.8s;
+//   transition: 0.8s;
+// }
+
+// .social-icons li a .fa:hover {
+//   -webkit-transform: rotateY(360deg);
+//   transform: rotateY(360deg);
+//   color: #fff;
+// }
+
+.card:hover li:nth-child(1) a {
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+}
+
+.card:hover li:nth-child(2) a {
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+}
+
+.card:hover li:nth-child(3) a {
+  -webkit-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+}
+
+.card:hover li:nth-child(4) a {
+  -webkit-transition-delay: 0.4s;
+  transition-delay: 0.4s;
+}
+
+.details {
+  position: absolute;
+  bottom: 400px;
+  left: 0;
+  background: plum;
+  width: 100%;
+  height: 120px;
+  z-index: 1;
+  padding: 10px;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+}
+
+.details h2 {
+  margin: 30px 0;
+  padding: 0;
+  text-align: center;
+}
+
+.details h2 .job-title {
+  font-size: 16px;
+  line-height: 2;
+  color: #333;
+  font-weight: 300;
+  display: block;
+}
+
+.card:hover .details {
+  bottom: 0;
+}
+
+.carousel .slick-dots {
+  bottom: -2.5vw;
+}
+
+.carousel .slick-dots li button {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #fff;
+  border-radius: 20px;
+}
+
+.carousel .slick-dots li button:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  content: "";
+  text-align: center;
+  opacity: 0.5;
+  color: #000;
+  background-color: #fff;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.carousel .slick-dots li.slick-active button,
+.carousel .slick-dots li:hover button {
+  border-color: tomato;
+}
+
+.carousel .slick-dots li.slick-active button:before,
+.carousel .slick-dots li:hover button:before {
+  background-color: tomato;
+  opacity: 1;
+}
+
+.carousel .slick-prev,
+.carousel .slick-next {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+}
+
+.carousel .slick-prev:hover,
+.carousel .slick-prev:focus,
+.carousel .slick-next:hover,
+.carousel .slick-next:focus {
+  color: #fff;
+  outline: none;
+  background: #fff;
+}
+
+.carousel .slick-prev:before,
+.carousel .slick-next:before {
+  color: #000;
+  font-family: "Raleway", sans-serif;
+}
+
+.carousel .slick-next {
+  right: -55px;
+}
+
+.carousel .slick-prev {
+  left: -55px;
+}
+
+//검색결과 상단 페이지글 css
+
+.pagecount {
+  font-size: 0.8vw;
+  color: blue;
+  text-align: center;
+  margin-top:1vw;
+  margin-bottom: 2vw;
+}
+
+//하단 페이지네이션 번호 설정
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 45px;
+  width:42%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul.pagination li {
+  display: inline-block;
+  width: 40px;
+  height: 30px;
+  border: 1px solid #e2e2e2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+ul.pagination li:first-child {
+  border-radius: 5px 0 0 5px;
+}
+
+ul.pagination li:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
+ul.pagination li a {
+  text-decoration: none;
+  color: #337ab7;
+  font-size: 1rem;
+}
+
+ul.pagination li.active a {
+  color: white;
+}
+
+ul.pagination li.active {
+  background-color: #337ab7;
+}
+
+ul.pagination li a:hover,
+ul.pagination li a.active {
+  color: blue;
+}
+
+.page-selection {
+  width: 48px;
+  height: 30px;
+  color: #337ab7;
+}
+
+/* .radios {
+  padding-left: 200px;
+  padding-top: 100px;
+}
+
+.radios {
+  overflow: hidden;
+  float: center;
+  margin: 40px;
+}
+.radios > label {
+  display: block;
+  float: left;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  line-height: 50px;
+  text-align: center;
+  box-sizing: border-box;
+  border: 1px solid green;
+  background: rgb(255, 255, 255);
+  color: rgb(0, 42, 255);
+}
+.radios > label:hover {
+  background: rgb(0, 251, 255);
+  color: purple;
+}
+
+input:nth-of-type(1):checked ~ .radios > label:nth-of-type(1) {
+  background: blue;
+  color: black;
+  font-weight: bold;
+}
+input:nth-of-type(2):checked ~ .radios > label:nth-of-type(2) {
+  background: blue;
+  color: black;
+  font-weight: bold;
+}
+
+input:nth-of-type(1) {
+  display: none;
+}
+input:nth-of-type(1) ~ div:nth-of-type(1) {
+  display: none;
+}
+input:nth-of-type(1):checked ~ div:nth-of-type(1) {
+  display: block;
+}
+
+input:nth-of-type(2) {
+  display: none;
+}
+input:nth-of-type(2) ~ div:nth-of-type(2) {
+  display: none;
+}
+input:nth-of-type(2):checked ~ div:nth-of-type(2) {
+  display: block;
+} */
