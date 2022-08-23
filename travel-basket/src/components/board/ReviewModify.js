@@ -107,7 +107,9 @@ const ReviewModify = () => {
           <h2>후기 게시판 수정</h2>
         </div>
         <div className="WTitle">
+          <p className="RW_title">제목</p>
           <input
+            className="title_input"
             type="text"
             name="review_title"
             defaultValue={modify.review_title}

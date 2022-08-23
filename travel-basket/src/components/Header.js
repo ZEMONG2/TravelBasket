@@ -1,4 +1,3 @@
-//<<<<<<< HEAD
 import { FiMenu, FiMeh, FiSmile } from 'react-icons/fi';
 import { useState, useEffect, useRef } from 'react';
 import React from 'react';
@@ -6,15 +5,6 @@ import '../css/main_css/Header.scss';
 import logo from '../img/NEXTRAVEL_b.png';
 import logo_v from '../img/NEXTRAVEL_v.png';
 import { useLocation, useNavigate } from 'react-router-dom';
-//======= 220823 선우 병합( 다른부분을 못찾겠어서 주석처리 후 유지)
-// import { FiMenu, FiMeh, FiSmile } from 'react-icons/fi';
-// import { useState, useEffect, useRef } from 'react';
-// import React from 'react';
-// import '../css/Header.scss';
-// import logo from '../img/NEXTRAVEL_b.png';
-// import logo_v from '../img/NEXTRAVEL_v.png';
-// import { useLocation, useNavigate } from 'react-router-dom';
-//>>>>>>> 220822_선우_branch
 
 const Header = () => {
   const navigate = useNavigate();

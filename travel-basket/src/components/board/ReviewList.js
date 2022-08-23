@@ -15,6 +15,7 @@ const ReviewList = () => {
   //     navigate("/");
   //   }
   // });
+
   const [reviewlist, setReviewlist] = useState({
     reviewList: [],
   });
@@ -22,6 +23,13 @@ const ReviewList = () => {
   useEffect(() => {
     getList();
   }, []);
+
+  const navigate = useNavigate();
+
+  // 글쓰기 이동
+  const write = () => {
+    navigate("/review/write");
+  };
 
   const getList = () => {
     axios
@@ -46,9 +54,9 @@ const ReviewList = () => {
     return (
       <div className="ReviewList">
         <h1>후기 게시판</h1>
-        <a href="/review/write" className="btn-go">
+        <button className="btn-write" onClick={write}>
           글쓰기
-        </a>
+        </button>
         <div className="NoList">
           <p>등록된 게시물이 없습니다.</p>
         </div>
@@ -59,9 +67,9 @@ const ReviewList = () => {
     return (
       <div className="ReviewList">
         <h1>후기 게시판</h1>
-        <a href="/review/write" className="btn-write">
+        <button className="btn-write" onClick={write}>
           글쓰기
-        </a>
+        </button>
         <div>
           {reviewlist.reviewList.map((article) => {
             return <ReviewArticle article={article} />;

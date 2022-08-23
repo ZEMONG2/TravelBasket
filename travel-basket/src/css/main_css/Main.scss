@@ -1,33 +1,27 @@
-// 전체설정
-* {
-  margin: 0 auto;
-  padding: 0 ;
-}
-
-//본문 전체 기본 설정
-body {
-  margin: 0 auto;
-  display: block;
-  width: 768px;
-  height: 1024px;
-  float:center;
-  font-family: "Raleway", sans-serif;
-  position: relative;
-}
-
-// 본문 센터 영역
-.main{
-  background-color: aqua;
-}
-
-//제목
-.slider_title {
-  font-size: 2.1vw;
-  color: #337ab7;
-  text-transform: uppercase;
+.search_btn {
   text-align: center;
-  margin-bottom: 2vw;
+  border: none;
+  border-radius: 2px 2px;
+  background-color: lightgray;
+  padding: 1%;
+  margin: 1%;
+  // width: 70px;
+  // left: 80%;
+  position: relative;
+  cursor: pointer;
 }
+
+.input_search {
+  margin: 1% 0;
+  padding: 1.5%;
+  width: 300px;
+  border: solid 1px lightgray;
+  position: relative;
+  cursor: pointer;
+}
+
+
+
 
 // 슬라이더 css 세팅
 .sliders {
@@ -35,16 +29,14 @@ body {
   position: relative;
   width: 100%;
   height: 100px;
-  padding: 30px;
-  padding-bottom: 30px;
+  // padding: 30px;
+  // padding-bottom: 30px;
   overflow: hidden;
 }
-
 
 .card-wrapper {
   position: relative;
   width: 100%;
-  padding: 0 10px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -59,7 +51,6 @@ body {
 .card {
   width: 100%;
   height: 300px;
-  border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
   position: relative;
@@ -72,7 +63,7 @@ body {
   width: 100%;
   height: 100%;
   z-index: 2;
-  background-color: skyblue;
+  // background-color: skyblue;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -90,76 +81,11 @@ body {
   transition: 0.5s;
 }
 
-.card:hover .card-image {
-  -webkit-transform: translateY(-100px);
-  transform: translateY(-100px);
-  -webkit-transition: all 0.9s;
-  transition: all 0.9s;
-}
-
-// 슬라이드 안 링크 아이콘 CSS 입히는기능 안쓸꺼같아서 본문은 제거했지만 css는 혹시몰라서 (주석처리함)
-
-// .social-icons {
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   -webkit-transform: translate(-50%, -50%);
-//   transform: translate(-50%, -50%);
-//   z-index: 3;
-//   display: -webkit-box;
-//   display: -ms-flexbox;
-//   display: flex;
-// }
-
-// .social-icons li {
-//   list-style: none;
-// }
-
-// .social-icons li a {
-//   position: relative;
-//   display: block;
-//   width: 50px;
-//   height: 50px;
-//   line-height: 50px;
-//   text-align: center;
-//   background: #fff;
-//   font-size: 23px;
-//   color: #333;
-//   font-weight: bold;
-//   margin: 0 6px;
-//   -webkit-transition: 0.4s;
-//   transition: 0.4s;
-//   -webkit-transform: translateY(200px);
-//   transform: translateY(200px);
-//   opacity: 0;
-// }
-
 .card:hover .social-icons li a {
   -webkit-transform: translateY(0px);
   transform: translateY(0px);
   opacity: 1;
 }
-
-// .social-icons li a:hover {
-//   background: #000;
-//   -webkit-transition: 0.2s;
-//   transition: 0.2s;
-// }
-
-// .social-icons li a:hover .fa {
-//   color: #fff;
-// }
-
-// .social-icons li a .fa {
-//   -webkit-transition: 0.8s;
-//   transition: 0.8s;
-// }
-
-// .social-icons li a .fa:hover {
-//   -webkit-transform: rotateY(360deg);
-//   transform: rotateY(360deg);
-//   color: #fff;
-// }
 
 .card:hover li:nth-child(1) a {
   -webkit-transition-delay: 0.1s;
@@ -185,13 +111,13 @@ body {
   position: absolute;
   bottom: 400px;
   left: 0;
-  background: plum;
+  // background: plum;
   width: 100%;
   height: 120px;
   z-index: 1;
   padding: 10px;
-  -webkit-transition: 0.6s;
-  transition: 0.6s;
+  // -webkit-transition: 0.6s;
+  // transition: 0.6s;
 }
 
 .details h2 {
@@ -283,27 +209,20 @@ body {
 }
 
 //검색결과 상단 페이지글 css
-
 .pagecount {
   font-size: 0.8vw;
-  color: blue;
+  // color: blue;
   text-align: center;
   margin-top:1vw;
   margin-bottom: 2vw;
 }
 
 //하단 페이지네이션 번호 설정
-
 .pagination {
   display: flex;
   justify-content: center;
   margin-top: 45px;
   width:42%;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
 }
 
 ul.pagination li {
@@ -350,62 +269,3 @@ ul.pagination li a.active {
   height: 30px;
   color: #337ab7;
 }
-
-/* .radios {
-  padding-left: 200px;
-  padding-top: 100px;
-}
-
-.radios {
-  overflow: hidden;
-  float: center;
-  margin: 40px;
-}
-.radios > label {
-  display: block;
-  float: left;
-  width: 150px;
-  height: 50px;
-  cursor: pointer;
-  line-height: 50px;
-  text-align: center;
-  box-sizing: border-box;
-  border: 1px solid green;
-  background: rgb(255, 255, 255);
-  color: rgb(0, 42, 255);
-}
-.radios > label:hover {
-  background: rgb(0, 251, 255);
-  color: purple;
-}
-
-input:nth-of-type(1):checked ~ .radios > label:nth-of-type(1) {
-  background: blue;
-  color: black;
-  font-weight: bold;
-}
-input:nth-of-type(2):checked ~ .radios > label:nth-of-type(2) {
-  background: blue;
-  color: black;
-  font-weight: bold;
-}
-
-input:nth-of-type(1) {
-  display: none;
-}
-input:nth-of-type(1) ~ div:nth-of-type(1) {
-  display: none;
-}
-input:nth-of-type(1):checked ~ div:nth-of-type(1) {
-  display: block;
-}
-
-input:nth-of-type(2) {
-  display: none;
-}
-input:nth-of-type(2) ~ div:nth-of-type(2) {
-  display: none;
-}
-input:nth-of-type(2):checked ~ div:nth-of-type(2) {
-  display: block;
-} */
