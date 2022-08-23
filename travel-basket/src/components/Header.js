@@ -138,8 +138,14 @@ const Header = () => {
       </div>
       {/* 메뉴 리스트 */}
       <div ref={menuRef} className="menuWrap">
+<<<<<<< HEAD
         <ul className={menu ? "show-menu" : "hide-menu"}>
           <li>일정 만들기</li>
+=======
+        <ul className={menu ? 'show-menu' : 'hide-menu'}>
+          <li>일정 만들기</li>
+
+>>>>>>> parent of 0ca367e3 (220823 업데이트)
           <hr />
           <li onClick={board}>후기 게시판</li>
           <li>

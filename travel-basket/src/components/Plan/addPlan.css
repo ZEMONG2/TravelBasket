@@ -1,0 +1,88 @@
+.searchedImg{
+    width:100px;
+    height:100px;
+}
+.searchWrap{
+    width:100%;
+    position:absolute;
+    top:50%;
+    left:0%;
+    background: rgb(250, 250, 250);
+    z-index: 200;
+    visibility: hidden; 
+    opacity: 0;
+    transition: all 0.25s ease-in-out;
+}
+.searchWrap.open{
+    opacity: 1;
+    visibility: visible;
+}
+.searchHeader{
+    width:100%;
+}
+#searchInput{
+    width:360px;
+    height:40px;
+}
+#searchbtn{
+    width:40px;
+    height:40px;
+}
+.searchedItemWrap{
+    width:100%;
+    height:100px;
+}
+.searchedItemImageWrap{
+    float:left;
+}
+.searchedItemTextWrap{
+    width:300px;
+    float:left;
+    height:100px;
+    margin-left:20px;
+}
+.searchedItemTextWrap p{
+    text-align:left;
+}
+.searchLabel{
+    width:364px;
+    height:25px;
+    margin:0 auto;
+}
+#searchlabeldiv{
+    background: #00994c;
+    color:white;
+    border-radius: 10px;
+    width:100px;
+    height:25px;
+    line-height: 25px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+#goback{
+    margin-left:20px;
+    margin-right:20px;
+    width:40px;
+    height:40px;
+    font-weight: bold;
+    border:0.5px solid black;
+}
+.blur-it{/* 팝업창 뜨면 백그라운드 블러처리 */
+    filter:blur(4px);
+}
+#searchbtn{
+    margin-left: 5px;
+    width:40px;
+    height:40px;
+    border:0.5px solid black;
+}
+.searchList{
+    width:70%;
+    margin:0 auto;
+}
+.searcherWrap{
+    width:490px;
+    height:40px;
+    margin:0 auto;
+}
