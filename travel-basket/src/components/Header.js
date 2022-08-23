@@ -1,3 +1,4 @@
+
 import { FiMenu, FiMeh, FiSmile } from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
 import React from "react";
@@ -5,6 +6,15 @@ import "../css/main_css/Header.scss";
 import logo from "../img/NEXTRAVEL_b.png";
 import logo_v from "../img/NEXTRAVEL_v.png";
 import { useLocation, useNavigate } from "react-router-dom";
+// ======= 220823 선우 병합
+// import { FiMenu, FiMeh, FiSmile } from 'react-icons/fi';
+// import { useState, useEffect, useRef } from 'react';
+// import React from 'react';
+// import '../css/Header.scss';
+// import logo from '../img/NEXTRAVEL_b.png';
+// import logo_v from '../img/NEXTRAVEL_v.png';
+// import { useLocation, useNavigate } from 'react-router-dom';
+// >>>>>>> 220822_선우_branch
 
 const Header = () => {
   const navigate = useNavigate();
@@ -13,7 +23,7 @@ const Header = () => {
   // 로그아웃시 세션 초기화
   const logout = () => {
     window.sessionStorage.clear();
-    console.log("세션초기화");
+    console.log('세션초기화');
 
     setLogin((prev) => !prev);
     navigate("/");
@@ -67,9 +77,9 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (menu) document.addEventListener("mousedown", handleClickOutSide);
+    if (menu) document.addEventListener('mousedown', handleClickOutSide);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutSide);
+      document.removeEventListener('mousedown', handleClickOutSide);
     };
   });
 
@@ -91,9 +101,9 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (login) document.addEventListener("mousedown", handleClickOutSide2);
+    if (login) document.addEventListener('mousedown', handleClickOutSide2);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutSide2);
+      document.removeEventListener('mousedown', handleClickOutSide2);
     };
   });
 
@@ -122,13 +132,13 @@ const Header = () => {
           onClick={() => {
             console.log(window.sessionStorage.length);
             window.sessionStorage.length === 0
-              ? navigate("/login")
+              ? navigate('/login')
               : handleToggleOption2();
           }}
         >
           {/* 로그인 여부에 따른 이모티콘 변경 */}
           <div>
-            {window.sessionStorage.getItem("USER_NICK") ? (
+            {window.sessionStorage.getItem('USER_NICK') ? (
               <FiSmile className="icon" />
             ) : (
               <FiMeh className="icon" />
@@ -138,8 +148,21 @@ const Header = () => {
       </div>
       {/* 메뉴 리스트 */}
       <div ref={menuRef} className="menuWrap">
-        <ul className={menu ? "show-menu" : "hide-menu"}>
-          <li>일정 만들기</li>
+
+        {/* <ul className={menu ? "show-menu" : "hide-menu"}>
+          <li>일정 만들기</li> */}
+
+        <ul className={menu ? 'show-menu' : 'hide-menu'}>
+          {/* 220823 선우 병합( 일정 만들기/ 일정 보관함 링크 추가 )*/}
+          {/* --------------------------------------------- */}
+          <li>
+            <a href="/makeplan">일정 만들기</a>
+          </li>
+          <li>
+            <a href="/schedule">내 일정 보관함</a>
+          </li>
+          {/* --------------------------------------------- */}
+
           <hr />
           <li onClick={board}>후기 게시판</li>
           <li>
@@ -150,9 +173,9 @@ const Header = () => {
       </div>
       {/* 로그인 리스트 */}
       <div ref={loginRef} className="loginWrap">
-        <ul className={login ? "show-login" : "hide-login"}>
+        <ul className={login ? 'show-login' : 'hide-login'}>
           {/* 로그인시 닉네임 */}
-          <li>{window.sessionStorage.getItem("USER_NICK")}</li>
+          <li>{window.sessionStorage.getItem('USER_NICK')}</li>
           <br />
           <li onClick={basket}>장바구니</li>
           <li>일정 보관함</li>

@@ -2,8 +2,13 @@
   left : 50%;
   transform:translateX(-50%);
   background-color: white;
-  // height: 108vh;
-  min-height: 100%;
+// <<<<<<< HEAD -- 220823 선우 병합
+//   // height: 108vh;
+//   min-height: 100%;
+// =======
+  //220823 선우 - 100%보다 약간 더 길게 설정해서 맨 아래 여백 추가
+  min-height: 108vh;
+
   position: absolute;
   width : 768px;
   overflow: hidden;

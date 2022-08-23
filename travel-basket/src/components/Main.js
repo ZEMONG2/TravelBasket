@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import styled, { css } from "styled-components";
 import Slider from "react-slick";
@@ -143,6 +144,9 @@ const OPTION = {
 };
 const WORD_TYPING_SPEED = 400;
 const msgArr = ["TravelBasket★"]; // 객체 하나씩 추가하면 한줄씩 내려감
+// ======= 220823 선우 병합
+// import React from 'react';
+// >>>>>>> 220822_선우_branch
 
 const Main = () => {
   const [isOpen, setMenu] = useState(false); // 메뉴 초기값 false
