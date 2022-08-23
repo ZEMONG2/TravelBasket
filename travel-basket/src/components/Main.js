@@ -1,14 +1,14 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
-import styled, { css } from "styled-components";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { blogSearch } from "./api";
-import Item from "./MainItem";
-import Pagination from "react-js-pagination";
-import "../css/main_css/Main.scss";
-import MainuseInterval from "./MainuseInterval";
-import { useDispatch } from "react-redux";
+import React, { useState, useCallback, useRef, useEffect } from 'react';
+import styled, { css } from 'styled-components';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { blogSearch } from './api';
+import Item from './MainItem';
+import Pagination from 'react-js-pagination';
+import '../css/main_css/Main.scss';
+import MainuseInterval from './MainuseInterval';
+import { useDispatch } from 'react-redux';
 // import { useDispatch } from "react-redux";
 
 // 토글 메뉴 CSS / 코드가 긴것들은 SCSS 참고
@@ -142,7 +142,7 @@ const OPTION = {
   index: 0,
 };
 const WORD_TYPING_SPEED = 400;
-const msgArr = ["TravelBasket★"]; // 객체 하나씩 추가하면 한줄씩 내려감
+const msgArr = ['TravelBasket★']; // 객체 하나씩 추가하면 한줄씩 내려감
 
 const Main = () => {
   const [isOpen, setMenu] = useState(false); // 메뉴 초기값 false
@@ -173,7 +173,7 @@ const Main = () => {
     autoplay: true, // 자동 재생
     autoplaySpeed: 5000, // 자동 재생 속도
     centerMode: true,
-    centerPadding: "0px", // 0px = 슬라이드 끝쪽 이미지 안잘림
+    centerPadding: '0px', // 0px = 슬라이드 끝쪽 이미지 안잘림
     // cssEase: "linear",
   };
 
@@ -182,8 +182,8 @@ const Main = () => {
 
   // 검색기능
   const [blogs, setBlogs] = useState([]); // 보여줄 포스트
-  const [text, setText] = useState("");
-  const [query, setQuery] = useState("");
+  const [text, setText] = useState('');
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     if (query.length > 0) {
@@ -213,7 +213,7 @@ const Main = () => {
     // paramter 설정
     const params = {
       query: query,
-      sort: "accuracy", // accuracy | recency (정확도 or 최신)
+      sort: 'accuracy', // accuracy | recency (정확도 or 최신)
       page: 1, // 페이지번호
       size: 50, // 검색 할 문서 갯수
     };
@@ -299,7 +299,7 @@ const Main = () => {
         >
           <p className="menu-btnffont">Menu</p>
         </button>
-        <ul className={isOpen ? "show-menu" : "hide-menu"}>
+        <ul className={isOpen ? 'show-menu' : 'hide-menu'}>
           <li>여행지 찾기</li>
           <li>후기 게시판</li>
           <li>일정 공유 게시판</li>
@@ -315,7 +315,7 @@ const Main = () => {
         >
           <p className="user-btnffont">User</p>
         </button>
-        <ul className={userOpen ? "show-user" : "hide-user"}>
+        <ul className={userOpen ? 'show-user' : 'hide-user'}>
           <li>회원정보 수정</li>
           <li>로그아웃</li>
         </ul>
@@ -396,7 +396,7 @@ const Main = () => {
                 <div key={i}>{m}</div>
               ) : (
                 <div key={i}>{m}</div>
-              )
+              ),
             )}
           </h2>
         </div>
@@ -430,7 +430,7 @@ const Main = () => {
 
         <div>
           {query.length === 0 &&
-            "검색어 길이값이 0일때만 나타나는 초기 화면 (구분을 위한 임시문구) "}
+            '검색어 길이값이 0일때만 나타나는 초기 화면 (구분을 위한 임시문구) '}
         </div>
 
         <ul className="Blog">
@@ -455,10 +455,10 @@ const Main = () => {
               itemsCountPerPage={list}
               totalItemsCount={blogs.length - 1}
               pageRangeDisplayed={5}
-              prevPageText={"<-"}
-              nextPageText={"->"}
-              firstPageText={"Frist"}
-              lastPageText={"Last"}
+              prevPageText={'<-'}
+              nextPageText={'->'}
+              firstPageText={'Frist'}
+              lastPageText={'Last'}
               onChange={handlePageChange}
             />
           )}
