@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Basket from './components/Basket';
 import Main from './components/Main';
-import Schedule from './components/Schedule';
+
 import Login from './components/Login';
 import Register from './components/Register';
 import ReviewList from './components/board/ReviewList';
@@ -17,10 +17,12 @@ import KakaoLogin from './components/KakaoLogin';
 import Forgot from './components/Forgot';
 import Nick from './components/Nick';
 import ModifyInfo from './components/ModifyInfo';
-import NaverLogin from './components/NaverLogin';
+//import NaverLogin from './components/NaverLogin';
 
 //20220822 선우 병합
 import PlanMaker from './components/Plan/PlanMaker';
+import Schedule from './components/Schedule/Schedule';
+//import Schedule from './components/Schedule';
 
 const App = () => {
   return (
