@@ -63,8 +63,7 @@ const App = () => {
           <Route path="/review/modify/:idx" element={<ReviewModify />} />
           <Route path="/review/view/:idx" element={<ReviewView />} />
           <Route path="/review/write" element={<ReviewWrite />} />
-          {/* 일정 공유 게시판 */}
-          <Route path="/schedule" element={<Schedule />} />
+
           {/* 장바구니 */}
           <Route path="/basket" element={<Basket />} />
           {/* 회원정보 수정 */}
@@ -79,6 +78,11 @@ const App = () => {
           <Route path="/forgot" element={<Forgot />} />
           {/* 카카오 닉네임설정 */}
           <Route path="/nick/:id" element={<Nick />} />
+
+          {/* 일정 만들기 */}
+          <Route path="/makeplan" element={<PlanMaker />} />
+          {/* 일정 공유 게시판 */}
+          <Route path="/schedule" element={<Schedule />} />
         </Routes>
       </div>
 
