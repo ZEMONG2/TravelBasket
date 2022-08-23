@@ -2,13 +2,16 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import SearchedItem from './SearchedItem';
 import './addPlan.css';
+
+var cartCnt = 0;
+var searchPage = 1;
+var beforeKeyword = '';
 const AddPlan = ({ selectedDays, closeSerchPopup, savePlace }) => {
   const testarr = [1, 2, 3, 4, 5, 6];
   const [cartArr, setCart] = useState([]);
-  const [searchedData, setData] = useState([{}]);
+  const [searchedData, setData] = useState([]);
   const [searchLabel, setLabel] = useState('나의 장바구니');
   const keyword = useRef();
-  var cartCnt = 0;
   const closePopup = () => {
     closeSerchPopup(0);
   };
@@ -36,12 +39,24 @@ const AddPlan = ({ selectedDays, closeSerchPopup, savePlace }) => {
   };
   const searchArea = (e) => {
     var search = keyword.current.value;
+
     axios
-      .get(`http://localhost:8000/searchbynaver/${search}`)
+      .post(`http://localhost:8000/searchbynaver`, {
+        keyword: search,
+        page: searchPage,
+      })
       .then((res) => {
         const { data } = res;
-        console.log('client : ', data.items);
-        setData(data.items);
+        //const newArr = [...searchedData, ...data.items];
+        console.log(data);
+        //새로운 검색어를 입력하면 검색 결과를 초기화
+        if (beforeKeyword !== search) {
+          setData(data.items);
+          beforeKeyword = search;
+          searchPage = 1;
+        } else {
+          setData([...searchedData, ...data.items]);
+        }
         /*
         data[//네이버 지역 검색으로 가져온 상호 객체리스트
           {
@@ -70,6 +85,10 @@ const AddPlan = ({ selectedDays, closeSerchPopup, savePlace }) => {
     if (e.key === 'Enter') {
       searchArea(e);
     }
+  };
+  const showMorePage = (e) => {
+    searchPage += 1;
+    searchArea(e);
   };
   return (
     <div className="container_center">
@@ -116,6 +135,18 @@ const AddPlan = ({ selectedDays, closeSerchPopup, savePlace }) => {
                 key={idx}
               />
             ))}
+        {searchLabel !== '나의 장바구니' ? (
+          <div>
+            <div className="showMeMore">
+              <button className="searchMore" onClick={showMorePage}>
+                더보기
+              </button>
+            </div>
+            <div className="updownSpace"></div>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );

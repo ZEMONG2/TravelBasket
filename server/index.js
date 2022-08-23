@@ -70,8 +70,7 @@ app.post("/register", (req, res) => {
   db.query(sqlQuery1, id, (err, result) => {
     if (result[0].CNT === 0) {
       // 회원가입 요청
-      const sqlQuery2 =
-        "INSERT INTO TB_USER(USER_ID, USER_PW, USER_NICK) VALUES (?,?,?);";
+      const sqlQuery2 = "INSERT INTO TB_USER(USER_ID, USER_PW, USER_NICK) VALUES (?,?,?);";
       db.query(sqlQuery2, [id, pw, nick], (err, result) => {
         res.send("회원가입성공");
       });
@@ -122,8 +121,7 @@ app.post("/nickSend", (req, res) => {
   var email = req.body.email;
   var path = "KAKAO";
   var pw = "kakao";
-  const sqlQuery1 =
-    "INSERT INTO TB_USER(USER_ID, USER_PW, USER_NICK,JOIN_PATH) VALUES (?,?,?,?);";
+  const sqlQuery1 = "INSERT INTO TB_USER(USER_ID, USER_PW, USER_NICK,JOIN_PATH) VALUES (?,?,?,?);";
   db.query(sqlQuery1, [email, pw, nick, path], (err, result) => {
     const sqlQuery2 = "SELECT * FROM TB_USER WHERE USER_ID=? AND JOIN_PATH=?;";
     db.query(sqlQuery2, [email, path], (err, result) => {
@@ -152,8 +150,7 @@ app.post("/modifyInfo", (req, res) => {
 // REVIEW LIST
 //===========================
 app.get("/review", (req, res) => {
-  const sqlQuery =
-    "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX ORDER BY REVIEW_IDX DESC;";
+  const sqlQuery = "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX ORDER BY REVIEW_IDX DESC;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
@@ -167,8 +164,7 @@ app.post("/review/view", (req, res) => {
 
   var idx = req.body.params.idx;
 
-  const sqlQuery =
-    "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX && REVIEW_IDX=?;";
+  const sqlQuery = "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX && REVIEW_IDX=?;";
   db.query(sqlQuery, [idx], (err, result) => {
     res.send(result);
   });
@@ -185,8 +181,7 @@ app.post("/review/write", (req, res) => {
   var content = req.body.content;
   var user_idx = req.body.user;
 
-  const sqlQuery =
-    "INSERT INTO TB_REVIEW (REVIEW_TITLE, REVIEW_TXT, USER_IDX) values (?,?,?);";
+  const sqlQuery = "INSERT INTO TB_REVIEW (REVIEW_TITLE, REVIEW_TXT, USER_IDX) values (?,?,?);";
   db.query(sqlQuery, [title, content, user_idx], (err, result) => {
     res.send(result);
   });
@@ -205,8 +200,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   fileFilter: (req, file, cb) => {
-    if (["image/jpeg", "image/jpg", "image/png"].includes(file.mimetype))
-      cb(null, true);
+    if (["image/jpeg", "image/jpg", "image/png"].includes(file.mimetype)) cb(null, true);
     else cb(new Error("해당 파일 형식을 지원하지 않습니다."), false);
   },
   limits: {
@@ -232,8 +226,7 @@ app.post("/review/modify", (req, res) => {
   var title = req.body.modify.review_title;
   var content = req.body.content;
 
-  const sqlQuery =
-    "UPDATE TB_REVIEW SET REVIEW_TITLE=?, REVIEW_TXT=? WHERE REVIEW_IDX=?;";
+  const sqlQuery = "UPDATE TB_REVIEW SET REVIEW_TITLE=?, REVIEW_TXT=? WHERE REVIEW_IDX=?;";
   db.query(sqlQuery, [title, content, idx], (err, result) => {
     res.send("업데이트성공");
   });
@@ -254,4 +247,39 @@ app.post("/delete", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`);
+});
+
+/* ------------- 여기서부터 일정 관리 관련 ------------- 220817 선우 */
+
+//일정 관리 모듈 객체를 생성
+let scheduleModule = require("./planModules/scheduleModules");
+
+//일정관리 리스트 호출시 아래와 같이 처리
+//get 경로는 임의로 넣었으므로 추후 필요에 의한 수정 가능
+
+//일정 리스트 추출
+app.post("/schedule/list", (req, res) => {
+  scheduleModule.searchMySchedule(req, res, db);
+});
+//일정 리스트 페이징
+app.post("/schedule/count", (req, res) => {
+  scheduleModule.countMySchedule(req, res, db);
+});
+//섬네일 경로 호출/응답 => 220823 선우 이제 안씀
+// app.get("/thumbnail/:filename", (req, res) => {
+//   scheduleModule.sendThumbnail(req, res);
+// });
+//220823 선우 - 클라이언트에 썸네일 접근 허가 => 이방식이 더 좋음
+app.use("/thumbnail", express.static("thumbnail"));
+
+//220823 선우 - 회원별 장바구니 추출
+let plan = require("./planModules/planModule");
+app.post("/getcart", (req, res) => {
+  plan.getCartList(req, res, db);
+});
+
+/* ------------- 네이버 검색 api ------------- 220822 선우 */
+let naverapi = require("./naverapi/NaverApiModule");
+app.post("/searchbynaver", (req, res) => {
+  naverapi.searchData(req, res);
 });

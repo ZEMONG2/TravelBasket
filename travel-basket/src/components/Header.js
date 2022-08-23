@@ -148,9 +148,7 @@ const Header = () => {
           <li>
             <a href="/makeplan">일정 만들기</a>
           </li>
-          <li>
-            <a href="/schedule/">내 일정 보관함</a>
-          </li>
+
           {/* --------------------------------------------- */}
           {/* >>>>>>> 220822_선우_branch */}
           <hr />
@@ -168,7 +166,11 @@ const Header = () => {
           <li>{window.sessionStorage.getItem('USER_NICK')}</li>
           <br />
           <li onClick={basket}>장바구니</li>
-          <li>일정 보관함</li>
+          {/* 220823 선우 내일정보관함 링크 추가 */}
+          <li>
+            <a href="/schedule/">내 일정 보관함</a>
+          </li>
+          {/* -------------------------------- */}
           <li>후기 보관함</li>
           <li>좋아요 보관함</li>
           <hr />
