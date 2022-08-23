@@ -89,10 +89,6 @@ const KakaoLogin = () => {
                   res.data[0].USER_NICK
                 );
                 window.sessionStorage.setItem("USER_IDX", res.data[0].USER_IDX);
-                window.sessionStorage.setItem(
-                  "JOIN_PATH",
-                  res.data[0].JOIN_PATH
-                );
 
                 // 세션생성후 메인페이지로
                 navigate("/");

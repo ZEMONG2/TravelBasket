@@ -41,7 +41,6 @@ const Nick = () => {
           window.sessionStorage.setItem("USER_ID", res.data[0].USER_ID);
           window.sessionStorage.setItem("USER_NICK", res.data[0].USER_NICK);
           window.sessionStorage.setItem("USER_IDX", res.data[0].USER_IDX);
-          window.sessionStorage.setItem("JOIN_PATH", res.data[0].JOIN_PATH);
           console.log("세션 값 있는지 확인 : ", window.sessionStorage);
           console.log(
             "세션 아이디 있는지 확인 : ",

@@ -1,0 +1,132 @@
+.logo{
+  height: 30px;
+  padding: 10px;
+}
+
+.header {
+  width : 100%;
+  height: 57.2px;
+  background-color:lightsteelblue;
+
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon {
+  height: 30px;
+  width: 30px;
+  padding: 10px;
+  color: white;
+}
+
+.Menu {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.Login {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.show-menu{
+  margin : 0;
+  padding: 0;
+  padding-left: 20px;
+  padding-top: 10px;
+  box-sizing: border-box;
+  width: 170px;
+  height: 100vh;
+  position: absolute;
+  left: 0px;
+  transition: 0s;
+  visibility:visible;
+  }
+
+.hide-menu{
+  margin : 0;
+  padding: 0;
+  padding-left: 20px;
+  width: 0px;
+  height: 100vh;
+  position: absolute;
+  // left: -200%;
+  transition: 0s;
+  visibility: hidden;
+  }
+
+.show-login{
+  margin : 0;
+  padding: 0;
+  padding-right: 20px;
+  padding-top: 10px;
+  box-sizing: border-box;
+  width: 170px;
+  height: 100vh;
+  position: absolute;
+  right: 0px;
+  transition: 0s;
+  visibility:visible;
+  }
+
+.hide-login{
+  margin : 0;
+  padding: 0;
+  padding-right: 20px;
+  width: 0px;
+  height: 100vh;
+  // position: absolute;
+  // left: -200%;
+  right:0px;
+  transition: 0s;
+  visibility: hidden;
+  }
+  
+
+ul {
+  list-style: none;
+  background-color: ghostwhite;
+}
+
+.menuWrap > ul > li {
+  width: 150px;
+  line-height: 200%;
+}
+
+.menuWrap > ul > hr {
+  margin: 10px 0 10px 0;
+  width: 130px;
+}
+
+.logo_v {
+  width: 100px;
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  opacity: 0.5;
+}
+
+// .loginWrap{position: relative;}
+
+.loginWrap > ul > li {
+  width: 150px;
+  line-height: 200%;
+  text-align: right;
+}
+
+.loginWrap > ul > hr {
+  margin: 10px 0px 10px 20px;
+  width: 130px;
+}
+
+a {
+  text-decoration: none;
+  color:black;
+}

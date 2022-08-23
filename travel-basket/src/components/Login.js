@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { KAKAO_REST_API_KEY } from "../auth/Auth";
 import { KAKAO_REDIRECT_URI } from "../auth/Auth";
-import "../css/main_css/Login.scss";
+import "../css/Login.scss";
 
 const Login = () => {
   // 아이디 패스워드 인풋태그 Ref
@@ -19,13 +19,6 @@ const Login = () => {
   // 카카오 로그인 버튼 클릭시 페이지 이동
   const handelKakaoLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
-  };
-
-  // 로컬 로그인 엔터키 입력시 자동 로그인 버튼 클릭
-  const onKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleLogin();
-    }
   };
 
   // 로그인 버튼 클릭시 실행 함수
@@ -63,7 +56,6 @@ const Login = () => {
           window.sessionStorage.setItem("USER_ID", res.data[0].USER_ID);
           window.sessionStorage.setItem("USER_NICK", res.data[0].USER_NICK);
           window.sessionStorage.setItem("USER_IDX", res.data[0].USER_IDX);
-          window.sessionStorage.setItem("JOIN_PATH", res.data[0].JOIN_PATH);
 
           // 세션에 값 저장후 메인페이지로 이동
           navigate("/");
@@ -102,7 +94,6 @@ const Login = () => {
           size="20"
           defaultValue=""
           ref={pwRef}
-          onKeyPress={onKeyPress}
           placeholder="패스워드를 입력하세요"
         />
         <br />
@@ -127,6 +118,7 @@ const Login = () => {
             className="naver"
             type="button"
             value="NAVER 계정으로 로그인"
+            onClick=""
           />
           <br />
 
@@ -134,6 +126,7 @@ const Login = () => {
             className="facebook"
             type="button"
             value="FACEBOOK 계정으로 로그인"
+            onClick=""
           />
           <br />
 
@@ -141,6 +134,7 @@ const Login = () => {
             className="google"
             type="button"
             value="GOOGLE 계정으로 로그인"
+            onClick=""
           />
         </div>
         <br />
