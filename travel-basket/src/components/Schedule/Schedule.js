@@ -19,6 +19,7 @@ function Schedule() {
     //페이징 처리된 일정 리스트의 객체
     list: [],
   });
+  //const login_id = 'ksw3108'; //더미 유저 데이터, 추후 세션에서 사용자 아이디를 가져옴
   const login_id = 'ksw3108'; //더미 유저 데이터, 추후 세션에서 사용자 아이디를 가져옴
   // const login_id= window.sessionStorage.getItem("id")
   useEffect(() => {
@@ -60,7 +61,7 @@ function Schedule() {
       })
       .then((res) => {
         const { data } = res;
-
+        console.log(data);
         article_count = data[0].COUNT;
         page_count = Math.ceil(article_count / page_size);
         var page_activate = [];

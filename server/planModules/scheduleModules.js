@@ -65,7 +65,7 @@ scheduleModules.countMySchedule = function (req, res, db) {
                         INNER JOIN TB_USER AS B
                         ON A.USER_IDX = B.USER_IDX
                     WHERE B.USER_ID = '${id}';`;
-
+  console.log(sqlQuery);
   //넘겨받은 db 객체 프로퍼티로 작업 수행
   db.query(sqlQuery, (err, result) => {
     res.send(result);
