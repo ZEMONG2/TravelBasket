@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Basket from "./components/Basket";
@@ -18,30 +17,6 @@ import KakaoLogin from "./components/KakaoLogin";
 import Forgot from "./components/Forgot";
 import Nick from "./components/Nick";
 import ModifyInfo from "./components/ModifyInfo";
-=======
-import { Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
-import Basket from './components/Basket';
-import Main from './components/Main';
-import Schedule from './components/Schedule/Schedule';
-import Login from './components/Login';
-import Register from './components/Register';
-import Review from './components/Review';
-import NotFound from './components/NotFound';
-
-import './css/App.scss';
-import background from '../src/img/summer.mp4';
-import Loading from './components/Loading';
-import KakaoLogin from './components/KakaoLogin';
-import Forgot from './components/Forgot';
-import Nick from './components/Nick';
-import NaverLogin from './components/NaverLogin';
-
-//20220822 선우 병합
-import PlanMaker from './components/Plan/PlanMaker';
-//20220822 선우 - 네이버 검색엔진 테스트용
-import NaverSearchEngine from './components/Plan/NaverSearchEngine';
->>>>>>> parent of 0ca367e3 (220823 업데이트)
 
 const App = () => {
   return (
@@ -77,13 +52,6 @@ const App = () => {
           <Route path="/forgot" element={<Forgot />} />
           {/* 카카오 닉네임설정 */}
           <Route path="/nick/:id" element={<Nick />} />
-<<<<<<< HEAD
-=======
-          {/* 일정 만들기 페이지 */}
-          <Route path="/makeplan" element={<PlanMaker />} />
-          {/* 네이버 지역 검색엔진 테스트 */}
-          <Route path="/naverengine" element={<NaverSearchEngine />} />
->>>>>>> parent of 0ca367e3 (220823 업데이트)
         </Routes>
       </div>
 

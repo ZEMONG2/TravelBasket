@@ -255,33 +255,3 @@ app.post("/delete", (req, res) => {
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`);
 });
-<<<<<<< HEAD
-=======
-
-/* ------------- 여기서부터 일정 관리 관련 ------------- 220817 선우 */
-
-//일정 관리 모듈 객체를 생성
-let scheduleModule = require("./scheduleModules/scheduleModules");
-
-//일정관리 리스트 호출시 아래와 같이 처리
-//get 경로는 임의로 넣었으므로 추후 필요에 의한 수정 가능
-
-//일정 리스트 추출
-app.post("/schedule/list", (req, res) => {
-  scheduleModule.searchMySchedule(req, res, db);
-});
-//일정 리스트 페이징
-app.post("/schedule/count", (req, res) => {
-  scheduleModule.countMySchedule(req, res, db);
-});
-//섬네일 경로 호출/응답
-app.get("/thumbnail/:filename", (req, res) => {
-  scheduleModule.sendThumbnail(req, res);
-});
-
-/* ------------- 네이버 검색 api ------------- 220822 선우 */
-let naverapi = require("./naverapi/NaverApiModule");
-app.get("/searchbynaver/:keyword", (req, res) => {
-  naverapi.searchData(req, res);
-});
->>>>>>> parent of 0ca367e3 (220823 업데이트)
