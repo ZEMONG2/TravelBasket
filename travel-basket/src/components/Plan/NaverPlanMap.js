@@ -29,7 +29,7 @@ const NaverPlanMap = () => {
           }}
         />{' '}
         <Marker
-          key={1}
+          key={2}
           position={{ lat: 37.5591786, lng: 126.9776692 }}
           animation={2}
           onClick={() => {
@@ -37,7 +37,7 @@ const NaverPlanMap = () => {
           }}
         />{' '}
         <Marker
-          key={1}
+          key={3}
           position={{ lat: 37.5616685, lng: 126.9858438 }}
           animation={2}
           onClick={() => {

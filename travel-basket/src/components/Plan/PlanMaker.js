@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css'; //캘린더 라이브러리
 import TypeContainer from './TypeContainer'; //여행타입 / 이동 수단 컨테이너
 import PlanContainer from './PlanContainer'; //일차별 여행 계획 저장 컨테이너
 import PlanMap from './PlanMap'; //지도 컨테이너
-import AddPlan from './AddPlan';
+import AddPlan from './AddPlan'; //일정 추가 컨테이너
 import './plan.css';
 
 import NaverPlanMap from './NaverPlanMap';

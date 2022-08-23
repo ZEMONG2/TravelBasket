@@ -12,7 +12,7 @@ const ScheduleArticle = ({ data, idx }) => {
           {/* 추후 페이지 이동 경로 추가 */}
           <a href="#!">
             {/* 서버에 섬네일 경로를 요청해서 받아옴 */}
-            <img src={"http://localhost:8000" + data.THUMBNAIL} alt="" />
+            <img src={'http://localhost:8000' + data.THUMBNAIL} alt="" />
           </a>
         </div>
         <div className="scheduleDate">

@@ -236,7 +236,7 @@ app.listen(PORT, () => {
 /* ------------- 여기서부터 일정 관리 관련 ------------- 220817 선우 */
 
 //일정 관리 모듈 객체를 생성
-let scheduleModule = require("./scheduleModules/scheduleModules");
+let scheduleModule = require("./planModules/scheduleModules");
 
 //일정관리 리스트 호출시 아래와 같이 처리
 //get 경로는 임의로 넣었으므로 추후 필요에 의한 수정 가능
@@ -249,9 +249,17 @@ app.post("/schedule/list", (req, res) => {
 app.post("/schedule/count", (req, res) => {
   scheduleModule.countMySchedule(req, res, db);
 });
-//섬네일 경로 호출/응답
-app.get("/thumbnail/:filename", (req, res) => {
-  scheduleModule.sendThumbnail(req, res);
+//섬네일 경로 호출/응답 => 220823 선우 이제 안씀
+// app.get("/thumbnail/:filename", (req, res) => {
+//   scheduleModule.sendThumbnail(req, res);
+// });
+//220823 선우 - 클라이언트에 썸네일 접근 허가 => 이방식이 더 좋음
+app.use("/thumbnail", express.static("thumbnail"));
+
+//220823 선우 - 회원별 장바구니 추출
+let plan = require("./planModules/planModule");
+app.post("/getcart", (req, res) => {
+  plan.getCartList(req, res, db);
 });
 
 /* ------------- 네이버 검색 api ------------- 220822 선우 */

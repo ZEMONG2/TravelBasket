@@ -112,8 +112,15 @@ const Header = () => {
       {/* 메뉴 리스트 */}
       <div ref={menuRef} className="menuWrap">
         <ul className={menu ? 'show-menu' : 'hide-menu'}>
-          <li>일정 만들기</li>
-
+          {/* 220823 선우 일정 만들기/ 일정 보관함 링크 추가 */}
+          {/* --------------------------------------------- */}
+          <li>
+            <a href="/makeplan">일정 만들기</a>
+          </li>
+          <li>
+            <a href="/schedule">내 일정 보관함</a>
+          </li>
+          {/* --------------------------------------------- */}
           <hr />
           <li>
             <a href="/review">후기 게시판</a>
