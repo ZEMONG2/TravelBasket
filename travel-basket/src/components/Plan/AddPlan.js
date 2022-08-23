@@ -6,16 +6,36 @@ import './addPlan.css';
 var cartCnt = 0;
 var searchPage = 1;
 var beforeKeyword = '';
-const AddPlan = ({ selectedDays, closeSerchPopup, savePlace }) => {
+const itemListClassName = 'searchList';
+const AddPlan = ({
+  selectedDays,
+  closeSerchPopup,
+  savePlace,
+  controllClassName,
+  handlePopupType,
+}) => {
   const testarr = [1, 2, 3, 4, 5, 6];
   const [cartArr, setCart] = useState([]);
   const [searchedData, setData] = useState([]);
   const [searchLabel, setLabel] = useState('나의 장바구니');
   const keyword = useRef();
+  const itemList = useRef();
   const closePopup = () => {
-    closeSerchPopup(0);
+    closeSerchPopup(0, handlePopupType[2]);
+  };
+  const handleMemoPopup = () => {
+    //메모 창 띄우고 없애기
+    // var itemClassArr = itemList.current.className.split(' '); //캘린더 컨테이너의 클래스명 배열
+    // var newItemClass = itemListClassName + ' '; //캘린더가 숨겨져있다면 그대로 이 텍스트가 클래스명이 됨.
+    // if (itemClassArr[1] !== 'displayNone') {
+    //   //클래스명에 hidden이 포함되어있는지 아닌지 체크해서 추가
+    //   newItemClass += 'displayNone';
+    // }
+    // itemList.current.className = newItemClass; //클래스명을 재설정
+    controllClassName(itemList, 'searchList', 'displayNone');
   };
   const saveItem = (idx) => {
+    handleMemoPopup();
     savePlace(searchedData[idx]);
   };
   const getCart = () => {
@@ -42,6 +62,9 @@ const AddPlan = ({ selectedDays, closeSerchPopup, savePlace }) => {
     if (search === '') {
       alert('검색어를 입력해주세요!!');
       return;
+    }
+    if (itemList.current.className.split(' ')[1] === 'displayNone') {
+      controllClassName(itemList, 'searchList', 'displayNone');
     }
     axios
       //.post(`http://localhost:8000/searchbynaver`, {
@@ -122,7 +145,7 @@ const AddPlan = ({ selectedDays, closeSerchPopup, savePlace }) => {
         <div id="searchlabeldiv">{searchLabel}</div>
       </div>
       <div className="updownSpace"></div>
-      <div className="searchList">
+      <div className="searchList " ref={itemList}>
         {searchLabel === '나의 장바구니'
           ? getCart() > 0
             ? testarr.map((val, idx) => (

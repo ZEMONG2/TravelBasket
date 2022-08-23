@@ -1,6 +1,6 @@
-const PlanContainer = ({ daycnt, openSearchPopup, data }) => {
+const PlanContainer = ({ daycnt, openSearchPopup, data, handlePopupType }) => {
   const openPopup = () => {
-    openSearchPopup(daycnt);
+    openSearchPopup(daycnt, handlePopupType[0]);
   };
   return (
     <>

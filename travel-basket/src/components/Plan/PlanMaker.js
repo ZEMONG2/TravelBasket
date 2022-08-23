@@ -9,7 +9,8 @@ import PlanMap from './PlanMap'; //지도 컨테이너
 import AddPlan from './AddPlan'; //일정 추가 컨테이너
 import './plan.css';
 
-import NaverPlanMap from './NaverPlanMap';
+//import NaverPlanMap from './NaverPlanMap';
+import AddMemo from './AddMemo';
 
 /*
   남은 작업: 1.데이터 업로드, 2.지도, 3.지역 검색해서 날짜별 여행지에 저장
@@ -45,8 +46,12 @@ const PlanMaker = () => {
   const trip_type = ['나혼자', '친구', '연인', '가족', '반려동물']; //여행타입
   const is_share = false; //공개 여부
   const plan_or_trans = ['타입', '교통'];
+
+  const handlePopupType = ['검색', '메모', '지우기'];
+
   const calRef = useRef();
   const searchRef = useRef();
+  const memoPopupRef = useRef();
 
   const [dayList, setDayList] = useState([
     {
@@ -173,34 +178,64 @@ const PlanMaker = () => {
 
   const handleCalendar = (e) => {
     //캘린더 visibility on/off
-    var calArr = calRef.current.className.split(' '); //캘린더 컨테이너의 클래스명 배열
-    var newCalClassname = 'calWraper '; //캘린더가 숨겨져있다면 그대로 이 텍스트가 클래스명이 됨.
-    if (calArr[1] !== 'hidden') {
-      //클래스명에 hidden이 포함되어있는지 아닌지 체크해서 추가
-      newCalClassname += 'hidden';
-    }
-    calRef.current.className = newCalClassname; //클래스명을 재설정
+    // var calArr = calRef.current.className.split(' '); //캘린더 컨테이너의 클래스명 배열
+    // var newCalClassname = 'calWraper '; //캘린더가 숨겨져있다면 그대로 이 텍스트가 클래스명이 됨.
+    // if (calArr[1] !== 'hidden') {
+    //   //클래스명에 hidden이 포함되어있는지 아닌지 체크해서 추가
+    //   newCalClassname += 'hidden';
+    // }
+    // calRef.current.className = newCalClassname; //클래스명을 재설정
+    controllClassName(calRef, 'calWraper', 'hidden');
     e.preventDefault();
   };
   const handleMonthChange = (date) => {
     //현재 몇월인지를 세팅(캘린더에서 이번달 이외의 날짜 글씨색 처리를 하기 위함)
     setMonth(date.getMonth());
   };
-  const handleSearchPopup = (daycnt) => {
+  const handleSearchPopup = (daycnt, handleType) => {
     //data:일차별 일정, daycnt:n일차의 n
-    var searchClassArr = searchRef.current.className.split(' '); // 컨테이너의 클래스명 배열
-    var newSearchClassname = 'searchWrap '; //숨겨져있다면 그대로 이 텍스트가 클래스명이 됨.
-    if (searchClassArr[1] !== 'open') {
-      //클래스명에 open이 포함되어있는지 아닌지 체크해서 추가
-      newSearchClassname += 'open';
+    // var searchClassArr = searchRef.current.className.split(' '); // 컨테이너의 클래스명 배열
+    // var newSearchClassname = 'searchWrap '; //숨겨져있다면 그대로 이 텍스트가 클래스명이 됨.
+    // if (searchClassArr[1] !== 'open') {
+    //   //클래스명에 open이 포함되어있는지 아닌지 체크해서 추가
+    //   newSearchClassname += 'open';
+    // }
+    // searchRef.current.className = newSearchClassname; //클래스명을 재설정
+    alert(handleType);
+    switch (handleType) {
+      case handlePopupType[0]:
+        break;
+      case handlePopupType[1]:
+        break;
+      case handlePopupType[2]:
+        break;
+      default:
+        break;
     }
-    searchRef.current.className = newSearchClassname; //클래스명을 재설정
+    controllClassName(searchRef, 'searchWrap', 'open'); //검색창 열고 닫기
+
+    if (memoPopupRef.current.className.split(' ')[1] !== 'displayNone') {
+      //메모장을 킨 상태에서 뒤로가기 버튼을 누르고 다시 검색창을 열면 메모장을 닫기
+      controllClassName(memoPopupRef, 'addMemoWrap', 'displayNone');
+    }
     selectedDays = daycnt; //현재 검색하기 위해 선택된 일자는 selectedDays
+  };
+  const controllClassName = (ref, baseClassText, addClassName) => {
+    var baseClassArr = ref.current.className.split(' '); // 컨테이너의 클래스명 배열
+    var newClassname = baseClassText + ' '; //숨겨져있다면 그대로 이 텍스트가 클래스명이 됨.
+    if (baseClassArr[1] !== addClassName) {
+      //클래스명에 open이 포함되어있는지 아닌지 체크해서 추가
+      newClassname += addClassName;
+    }
+    ref.current.className = newClassname; //클래스명을 재설정
   };
   const savePlace = (data) => {
     //일차별 계획 저장
     console.log('selectedDays, data : ', selectedDays, data);
     //daynostr : n일차(문자열), idx: n일차의 n-1, data : dayList.plan
+
+    //1. css (숨겨놨던 메모 팝업을 띄운다)
+    controllClassName(memoPopupRef, 'addMemoWrap', 'displayNone');
     //var nowlist = dayList[idx].plan.push(data);
     //현재 n일차의 저장된 리스트를 새로운 배열로 재생성해서 푸시 한 후에 그대로 반영
     // setDayList(
@@ -225,8 +260,14 @@ const PlanMaker = () => {
           selectedDays={selectedDays}
           closeSerchPopup={handleSearchPopup}
           savePlace={savePlace}
+          controllClassName={controllClassName}
+          handlePopupType={handlePopupType}
         />
       </div>
+      <div ref={memoPopupRef} className="addMemoWrap displayNone">
+        <AddMemo handlePopupType={handlePopupType} />
+      </div>
+
       <div className="calWraper hidden" ref={calRef}>
         {/* 캘린더 컨테이너 */}
         <DatePicker
@@ -351,6 +392,7 @@ const PlanMaker = () => {
               daycnt={idx + 1}
               data={val}
               openSearchPopup={handleSearchPopup}
+              handlePopupType={handlePopupType}
             />
           ))}
         </div>
