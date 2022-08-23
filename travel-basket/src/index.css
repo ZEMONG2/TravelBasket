@@ -6,6 +6,14 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "GmarketSansLight";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   font-family: "GmarketSansMedium", -apple-system, BlinkMacSystemFont,
@@ -23,3 +31,45 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+input {
+  font-family: "GmarketSansMedium", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  font-family: "GmarketSansMedium", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 마진리셋, 패딩 리셋, 박스영역은 테두리까지 */
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+/* 텍스트 링크 밑줄 없애기 */
+a {
+  text-decoration: none;
+  color: black;
+}
+/*  */
+ul {
+  list-style: none;
+}
+
+h1 {
+  margin: 3% 0;
+}
+
+/* 화면 중앙에 배치, 너비 */
+/* .container {
+  margin:0 auto;
+  width:1200px;
+} */

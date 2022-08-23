@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../css/Register.scss";
+import "../css/main_css/Register.scss";
 
 const Register = () => {
   // 아이디 패스워드 닉네임 인풋태그 Ref
@@ -9,11 +9,47 @@ const Register = () => {
   const pwRef = useRef();
   const pwCkRef = useRef();
   const nickRef = useRef();
-
+  // 닉네임 중복확인
+  const [nickComment, setNickComment] = useState("");
+  const [idComment, setIdComment] = useState("");
   // 페이지 이동 navigate
   const navigate = useNavigate();
 
-  // 로그인 버튼 클릭시 실행 함수
+  // 로컬 회원가입 엔터키 입력시 자동 로그인 버튼 클릭
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleRegister();
+    }
+  };
+
+  // 닉네임 중복 체크
+  var nick = "";
+  const nickChange = (e) => {
+    nick = nickRef.current.value;
+    axios.post("http://localhost:8000/nickCheck", { nick }).then((res) => {
+      setNickComment("");
+      if (res.data[0].CNT !== 0) {
+        setNickComment("중복된 닉네임이 있습니다.");
+      } else {
+        setNickComment("");
+      }
+    });
+  };
+
+  // 아이디 중복 체크
+  var id = "";
+  const idChange = (e) => {
+    id = idRef.current.value;
+    axios.post("http://localhost:8000/idCheck", { id }).then((res) => {
+      setIdComment("");
+      if (res.data[0].CNT !== 0) {
+        setIdComment("중복된 아이디가 있습니다.");
+      } else {
+        setIdComment("");
+      }
+    });
+  };
+  //  버튼 클릭시 실행 함수
   const handleRegister = () => {
     // 아이디 입력 확인
     if (idRef.current.value === "" || idRef.current.value === undefined) {
@@ -79,6 +115,7 @@ const Register = () => {
     <div>
       <h1>회원가입</h1>
       <form>
+        <p>{idComment}</p>
         <input
           className="id"
           type="email"
@@ -86,6 +123,7 @@ const Register = () => {
           size="20"
           defaultValue=""
           ref={idRef}
+          onChange={idChange}
           placeholder="아이디를 입력하세요"
         />
         <br />
@@ -106,16 +144,19 @@ const Register = () => {
           size="20"
           defaultValue=""
           ref={pwCkRef}
-          placeholder="패스워드를 한번더 입력하세요"
+          placeholder="패스워드를 한번 더 입력하세요"
         />
         <br />
+        <p>{nickComment}</p>
         <input
-          className="pw"
+          className="nick"
           type="text"
           name="nick"
           size="20"
           defaultValue=""
           ref={nickRef}
+          onChange={nickChange}
+          onKeyPress={onKeyPress}
           placeholder="닉네임을 입력하세요"
         />
         <br />
@@ -125,38 +166,34 @@ const Register = () => {
           value="회원가입"
           onClick={handleRegister}
         />
-        <br />
-        <p>───────── 또는 ─────────</p>
-        <div className="sns-register-btn">
-          <input
-            className="kakao"
-            type="button"
-            value="KAKAO 계정으로 회원가입"
-            onClick=""
-          />
-          <br />
-          <input
-            className="naver"
-            type="button"
-            value="NAVER 계정으로 회원가입"
-            onClick=""
-          />
-          <br />
-          <input
-            className="facebook"
-            type="button"
-            value="FACEBOOK 계정으로 회원가입"
-            onClick=""
-          />
-          <br />
-          <input
-            className="google"
-            type="button"
-            value="GOOGLE 계정으로 회원가입"
-            onClick=""
-          />
-        </div>
       </form>
+      <br />
+      <p>───────── 또는 ─────────</p>
+      <div className="sns-register-btn">
+        <input
+          className="kakao"
+          type="button"
+          value="KAKAO 계정으로 회원가입"
+        />
+        <br />
+        <input
+          className="naver"
+          type="button"
+          value="NAVER 계정으로 회원가입"
+        />
+        <br />
+        <input
+          className="facebook"
+          type="button"
+          value="FACEBOOK 계정으로 회원가입"
+        />
+        <br />
+        <input
+          className="google"
+          type="button"
+          value="GOOGLE 계정으로 회원가입"
+        />
+      </div>
     </div>
   );
 };

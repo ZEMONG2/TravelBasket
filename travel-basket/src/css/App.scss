@@ -2,11 +2,11 @@
   left : 50%;
   transform:translateX(-50%);
   background-color: white;
-  //220822 선우 - 일정 만들기 페이지가 유동적으로 길어지기 때문에 임시로 주석처리
-  //height: 108vh;
-  min-height: 108vh;//220823 선우 - 이렇게하면 아마 될..듯? 최소 높이 잡아주고 그거보다 길어지면 추가 처리라
+  // height: 108vh;
+  min-height: 100%;
   position: absolute;
   width : 768px;
+  overflow: hidden;
 }
 
 .video-wrap{

@@ -5,7 +5,7 @@ import {
   MdLocalDining,
   MdLocalActivity,
 } from "react-icons/md";
-import "../css/Basket.scss";
+import "../css/main_css/Basket.scss";
 
 const Basket = () => {
   return (
@@ -13,7 +13,7 @@ const Basket = () => {
       <div>
         <h1>나의 장바구니</h1>
         <MdLocalGroceryStore className="basket" />
-        <h3>장바구니에 담긴 장소가 없습니다.</h3>
+        <h3 className="bin_basket">장바구니에 담긴 장소가 없습니다.</h3>
       </div>
       <button>
         <MdLocalHotel />

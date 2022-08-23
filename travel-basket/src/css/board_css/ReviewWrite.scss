@@ -1,0 +1,65 @@
+h2 {
+  text-align: center;
+}
+
+.WTitle {
+  display: flex;
+  justify-content: center;
+}
+
+
+.title_input {
+  padding: 5px ;
+  margin: 1%;
+  width: 400px;
+  height: 20px;
+  border: solid 1px lightgray;
+}
+
+.Wysiwyg {
+  width: 70%;
+  margin: auto;
+}
+
+/* CKeditor 글쓰기 창 높이 설정 */
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable,
+.ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+  min-height: 300px;
+}
+
+.submit {
+  background-color: lightgrey;
+  text-align: center;
+  border: none;
+  border-radius: 2px 2px;
+  background-color: lightgray;
+  padding: 1%;
+  margin: 1%;
+  width: 70px;
+  // left: 40%;
+  // position: relative;
+  cursor: pointer;
+}
+
+.cancel {
+  background-color: lightgrey;
+  text-align: center;
+  border: none;
+  border-radius: 2px 2px;
+  background-color: lightgray;
+  padding: 1%;
+  margin: 1%;
+  width: 70px;
+  // left: 40%;
+  // position: relative;
+  cursor: pointer;
+}
+
+.btnWrap {
+  display: flex;
+  justify-content: center;
+  // position: relative;
+  // left : 50%;
+  // transform: translateX(-50%);
+}
+
