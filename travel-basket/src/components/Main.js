@@ -9,59 +9,12 @@ import Pagination from "react-js-pagination";
 import "../css/main_css/Main.scss";
 import MainuseInterval from "./MainuseInterval";
 import { useDispatch } from "react-redux";
-// import { useDispatch } from "react-redux";
-
-// 토글 메뉴 CSS / 코드가 긴것들은 SCSS 참고
-const MenuIcon = styled.div`
-  .menu-btnf {
-    font-size: 15px;
-    font-weight: bold;
-    float: center;
-    padding: 10px;
-    border-radius: 1px;
-  }
-  .show-menu {
-    width: 300px;
-    height: 500px;
-    position: absolute;
-    left: 0px;
-    transition: 1s;
-  }
-
-  .hide-menu {
-    width: 300px;
-    height: 500px;
-    position: absolute;
-    left: -150px;
-    transition: 1s;
-  }
-  .user-btnf {
-    font-size: 15px;
-    font-weight: bold;
-    float: right;
-    padding: 10px;
-    border-radius: 1px;
-  }
-
-  .show-user {
-    width: 200px;
-    height: 500px;
-    position: absolute;
-    right: -90px;
-    transition: 1s;
-  }
-
-  .hide-user {
-    width: 200px;
-    height: 500px;
-    position: absolute;
-    right: -240px;
-    transition: 1s;
-  }
-`;
+import test from "../img/test.jpg";
+import test1 from "../img/test1.jpg";
+import test2 from "../img/test2.jpg";
+import test3 from "../img/test3.jpg";
 
 // 슬라이드 및 슬라이드 넘기기 좌우버튼 css
-
 const defaultButtonStyle = css`
   position: absolute;
   top: calc(47% - 85px);
@@ -87,18 +40,7 @@ const NextButton = styled.button`
   right: 260PX;
 `;
 
-const defaultIconStyle = css`
-  font-size: 22px;
-  color: #dedede;
-
-  &:focus,
-  &:hover {
-    color: purple;
-  }
-`;
-
 // 검색창 CSS
-
 const CssSearch = styled.div`
   .input_search {
     display: flex;
@@ -127,14 +69,6 @@ const Aniart = styled.div`
   }
 `;
 
-// const PrevIcon = styled(LeftOutlined)`
-//   ${defaultIconStyle}
-// `;
-
-// const NextIcon = styled(RightOutlined)`
-//   ${defaultIconStyle}
-// `;
-
 // 객체 한글자씩 호출되는 리스트&코드
 const OPTION = {
   writeArr: [],
@@ -145,20 +79,6 @@ const WORD_TYPING_SPEED = 400;
 const msgArr = ["TravelBasket★"]; // 객체 하나씩 추가하면 한줄씩 내려감
 
 const Main = () => {
-  const [isOpen, setMenu] = useState(false); // 메뉴 초기값 false
-  const [userOpen, setUser] = useState(false); // 유저메뉴 초기값 false
-
-  // const [mp, setmp] = useState(true);
-  // setmp(false);
-
-  const toggleMenu = () => {
-    setMenu((isOpen) => !isOpen); // on,off
-  };
-
-  const toggleuser = () => {
-    setUser((userOpen) => !userOpen); // on,off
-  };
-
   const slickRef = useRef(null); // 슬라이드 좌우 버튼 ref로 제어
 
   const settings = {
@@ -291,46 +211,15 @@ const Main = () => {
 
   return (
     <div className="main">
-      <MenuIcon>
-        <button
-          type="button"
-          className="menu-btnf"
-          onClick={() => toggleMenu()}
-        >
-          <p className="menu-btnffont">Menu</p>
-        </button>
-        <ul className={isOpen ? "show-menu" : "hide-menu"}>
-          <li>여행지 찾기</li>
-          <li>후기 게시판</li>
-          <li>일정 공유 게시판</li>
-          <li>공지사항</li>
-          <li>장바구니</li>
-          <li>일정 만들기</li>
-          <li>일정 보관함</li>
-        </ul>
-        <button
-          type="button"
-          className="user-btnf"
-          onClick={() => toggleuser()}
-        >
-          <p className="user-btnffont">User</p>
-        </button>
-        <ul className={userOpen ? "show-user" : "hide-user"}>
-          <li>회원정보 수정</li>
-          <li>로그아웃</li>
-        </ul>
-      </MenuIcon>
-      <h1 className="slider_title">풀슬라이드 반응형 홈페이지 여행 제목</h1>
       <Slider ref={slickRef} {...settings}>
         <div className="card-wrapper">
           <div className="card">
             <div className="card-image">
-              <img src="images/1.jpg" />
+              <img src={test} />
             </div>
             <div className="details">
               <h2>
-                대충 풀슬라이드 반응형
-                <span className="job-title">좌우버튼 구현</span>
+                슬라이드 1<span className="job-title">내용 1</span>
               </h2>
             </div>
           </div>
@@ -338,14 +227,11 @@ const Main = () => {
         <div className="card-wrapper">
           <div className="card">
             <div className="card-image">
-              <img src="images/2.png" />
+              <img src={test1} />
             </div>
             <div className="details">
               <h2>
-                대충 풀슬라이드 반응형
-                <span className="job-title">
-                  이미지에 마우스 누르고 슬라이드로 넘기기 가능
-                </span>
+                슬라이드 2<span className="job-title">내용 2</span>
               </h2>
             </div>
           </div>
@@ -353,14 +239,11 @@ const Main = () => {
         <div className="card-wrapper">
           <div className="card">
             <div className="card-image">
-              <img src="images/3.png" />
+              <img src={test2} />
             </div>
             <div className="details">
               <h2>
-                대충 풀슬라이드 반응형
-                <span className="job-title">
-                  이미지만 보이다가 마우스 드롭시 글 보이게
-                </span>
+                슬라이드 3<span className="job-title">내용 3</span>
               </h2>
             </div>
           </div>
@@ -368,24 +251,19 @@ const Main = () => {
         <div className="card-wrapper">
           <div className="card">
             <div className="card-image">
-              <img src="images/4.jpg" />
+              <img src={test3} />
             </div>
             <div className="details">
               <h2>
-                대충 풀슬라이드 반응형
-                <span className="job-title">자동넘기기 마우스 대면 멈춤</span>
+                슬라이드 4<span className="job-title">내용 4</span>
               </h2>
             </div>
           </div>
         </div>
       </Slider>
       <>
-        <PrevButton onClick={previous}>
-          <span className="hidden">◀◀◀</span>
-        </PrevButton>
-        <NextButton onClick={next}>
-          <span className="hidden">▶▶▶</span>
-        </NextButton>
+        <PrevButton onClick={previous}></PrevButton>
+        <NextButton onClick={next}></NextButton>
       </>
 
       <Aniart>
@@ -469,64 +347,3 @@ const Main = () => {
 };
 
 export default Main;
-
-// 페이징 셋팅
-// activePage={page}
-// itemsCountPerPage=총 페이지 수
-// totalItemsCount=총 게시글의 개수
-// pageRangeDisplayed=표시되는 페이지 범위
-// prevPageText={"<-"}
-// nextPageText={"->"}
-// firstPageText={"Frist"}
-// lastPageText={"Last"}
-// onChange=페이지 버튼을 눌렀을 때 일어나는 이벤트 이를 이용해 페이지 증감
-
-// MainPaging
-//         totalCount={posts.length}
-//         page={page}
-//         postPerPage={postPerPage}
-//         pageRangeDisplayed={5}
-//         handlePageChange={handlePageChange}
-
-// {RandomIndex(Randoms.length)}
-
-// 라디오 (안넣을듯)
-
-// <div className="radios">
-//       <label>
-//         <input
-//           type="radio"
-//           id="kakao"
-//           value={"kakao"}
-//           name="view"
-//           checked={radiocheck === "kakao"}
-//           onChange={handleClickRadioButton}
-//         />
-//         KaKao
-//       </label>
-//       <label>
-//         <input
-//           type="radio"
-//           id="instar"
-//           value={"instar"}
-//           name="view"
-//           checked={radiocheck === "instar"}
-//           onChange={handleClickRadioButton}
-//         />
-//         instar
-//       </label>
-//     </div>
-
-// 2. 문자
-
-//RandomStringUtils.random(10, true, false);
-
-//RandomStringUtils.randomAlphabetic(10);
-
-//슬라이드 안 링크 아이콘 생성 코드
-// <ul className="social-icons">
-// <li><a href="#"><i className="fa fa-facebook"></i></a></li>
-// <li><a href="#"><i className="fa fa-instagram"></i></a></li>
-// <li><a href="#"><i className="fa fa-twitter"></i></a></li>
-// <li><a href="#"><i className="fa fa-dribbble"></i></a></li>
-// </ul>

@@ -63,8 +63,16 @@ const ReviewView = () => {
     .replace("T", " ")
     .replace(/\..*/, "");
 
+  // 뒤로 이동
+  const back = () => {
+    navigate("/review");
+  };
+
   // 수정 페이지 링크
-  const modifyLink = `/review/modify/${view.review_idx}`;
+  // const modifyLink = `/review/modify/${view.review_idx}`;
+  const insert = () => {
+    navigate(`/review/modify/${view.review_idx}`);
+  };
 
   // 게시물 삭제
   const handleDelete = (e) => {
@@ -85,9 +93,9 @@ const ReviewView = () => {
 
   return (
     <div>
-      <a href="/review">
-        <IoIosArrowDropleft className="back" />
-      </a>
+      <p>
+        <IoIosArrowDropleft onClick={back} className="back" />
+      </p>
       <div className="ViewBox">
         <div className="ViewTitle">
           <h2>{view.review_title}</h2>
@@ -107,12 +115,12 @@ const ReviewView = () => {
         ></div>
       </div>
       <div className="btn-wrap">
-        <a className="btn-go" href={modifyLink} id={view.review_idx}>
+        <button className="btn-go" onClick={insert} id={view.review_idx}>
           수정
-        </a>
-        <a className="btn-go" href="#" onClick={handleDelete}>
+        </button>
+        <button className="btn-go" onClick={handleDelete}>
           삭제
-        </a>
+        </button>
       </div>
     </div>
   );

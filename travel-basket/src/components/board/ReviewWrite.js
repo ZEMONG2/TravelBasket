@@ -38,8 +38,9 @@ const ReviewWrite = () => {
           <h2>후기 작성</h2>
         </div>
         <div className="WTitle">
-          <p className="title">제목</p>
+          <p className="RW_title">제목</p>
           <input
+            className="title_input"
             type="text"
             name="title"
             ref={titleRef}
@@ -56,10 +57,10 @@ const ReviewWrite = () => {
                 </div>
                  */}
         <div className="btnWrap">
-          <button type="submit" onClick={handleWrite}>
+          <button className="submit" type="submit" onClick={handleWrite}>
             등록
           </button>
-          <button type="reset" onClick={() => navigate(-1)}>
+          <button className="cancel" type="reset" onClick={() => navigate(-1)}>
             취소
           </button>
         </div>

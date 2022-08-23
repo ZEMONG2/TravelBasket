@@ -20,8 +20,13 @@ const ReviewArticle = ({ article, viewClick }) => {
     backgroundPosition: "center",
   };
 
-  // // 상세 페이지 이동
-  const viewLink = `/review/view/${article.REVIEW_IDX}`;
+  // // // 상세 페이지 이동
+  // const viewLink = `/review/view/${article.REVIEW_IDX}`;
+
+  // 게시글 이동
+  const view = () => {
+    navigate(`/review/view/${article.REVIEW_IDX}`);
+  };
 
   // 게시글 시간 변경 (리스트 화면)
   const listTime = List.reviewTime(article.REVIEW_DATE)
@@ -31,8 +36,8 @@ const ReviewArticle = ({ article, viewClick }) => {
 
   return (
     <div>
-      <div className="ListBox">
-        <a href={viewLink} id={article.REVIEW_IDX}></a>
+      <div onClick={view} className="ListBox">
+        <p id={article.REVIEW_IDX}></p>
         {url === "" ? (
           <div className="noImg">
             <img src={logo} alt="travel basket" />
