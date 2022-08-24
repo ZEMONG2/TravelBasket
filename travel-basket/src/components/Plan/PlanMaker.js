@@ -8,9 +8,9 @@ import PlanContainer from './container/PlanContainer'; //일차별 여행 계획
 import PlanMap from './container/PlanMap'; //지도 컨테이너
 import AddPlan from './AddPlan'; //일정 추가 컨테이너
 import './css/plan.css';
-
 //import NaverPlanMap from './NaverPlanMap';
 import AddMemo from './AddMemo';
+import * as utill from '../../Utils/Utils';
 
 /*
   남은 작업: 1.데이터 업로드, 2.지도, 3.지역 검색해서 날짜별 여행지에 저장
@@ -50,22 +50,39 @@ const PlanMaker = () => {
   const calRef = useRef(); //캘린더 랩 ref
   const searchRef = useRef(); //검색창 ref
   const memoPopupRef = useRef(); //메모창 ref
+  const searchConRef = useRef({}); //검색창 컨테이너 ref
 
   const [searchCtrl, setSearchCtrl] = useState(true); //검색결과 태그 컨트롤
   const [selectedItem, selectItem] = useState({}); //메모를 남길 아이템
+
+  // const [dayList, setDayList] = useState([
+  //   {
+  //     day: '1일차', //n일차
+  //     area: [
+  //       {
+  //         address_name: '',
+  //         place_name: '',
+  //         place_url: '',
+  //         road_address_name: '',
+  //         x: '',
+  //         y: '',
+  //       },
+  //     ], //저장한 가고싶은 장소 객체배열
+  //     memo: [
+  //       //여기가 메모부
+  //       {
+  //         category: '',
+  //         title: '',
+  //         memo: '',
+  //       },
+  //     ],
+  //   },
+  // ]); //일정(n박 m일)
   const [dayList, setDayList] = useState([
     {
       day: '1일차', //n일차
-      area: [{}], //저장한 가고싶은 장소 객체배열
-      memo: [
-        //여기가 메모부
-        {
-          category: '',
-          title: '',
-          memo: '',
-          place: '',
-        },
-      ],
+      area: [], //저장한 가고싶은 장소 객체배열
+      memo: [], //여기가 메모부
     },
   ]); //일정(n박 m일)
   const [daytxt, setDayText] = useState('일정을 선택하세요'); //일정(몇월 몇일부터 몇월 몇일 몇박 몇일을 표기해주는 state)
@@ -142,6 +159,7 @@ const PlanMaker = () => {
 
   const selectDate = (e) => {
     //날짜를 선택하여 선택 버튼을 누르면 실행되는 함수.
+
     var totalDayStr =
       startDate.toLocaleDateString() + ' ~ ' + endDate.toLocaleDateString();
     // yyyy. MM. dd ~ yyyy. MM. dd
@@ -157,20 +175,14 @@ const PlanMaker = () => {
     for (let i = 0; i < nFullDay; i++) {
       var planperdays = {
         day: `${i + 1}일차`,
-        area: [{}], //저장한 가고싶은 장소 객체배열
-        memo: [
-          {
-            category: '',
-            title: '',
-            memo: '',
-            place: '',
-          },
-        ],
+        area: [], //저장한 가고싶은 장소 객체배열
+        memo: [],
       };
       //배열에 `n일차` 텍스트를 삽입-> 컨테이너에서 받아서 표기
       //추가로 여기서 객체 틀을 생성해줘서 추후에 데이터 업로드때 활횽
       daysArr.push(planperdays);
     }
+
     setDayList(daysArr); //state에 반영
     handleCalendar(e); //캘린더 visibility on/off
   };
@@ -215,9 +227,9 @@ const PlanMaker = () => {
     }
     ref.current.className = newClassname; //클래스명을 재설정
   };
-  const savePlace = (data) => {
+  const setMemoData = (data) => {
     //일차별 계획 저장
-    console.log('selectedDays, data : ', selectedDays, data);
+    //console.log('selectedDays, data : ', selectedDays, data);
     //daynostr : n일차(문자열), idx: n일차의 n-1, data : dayList.plan
 
     //1. css (숨겨놨던 메모 팝업을 띄운다)
@@ -243,11 +255,46 @@ const PlanMaker = () => {
     setDayList(newDayList);
   };
   const handleMemoPopup = (mode) => {
-    if (mode === 'open') {
+    //메모장 팝업 처리
+    // if (mode === 'open') {
+    // } else
+    if (mode === 'save') {
+      //메모 저장하면 메모장이랑 검색창 모두 닫기
+      searchConRef.current.init();
+      controllClassName(searchRef, 'searchWrap', 'open'); //검색창 열고 닫기
+      controllClassName(memoPopupRef, 'addMemoWrap', 'displayNone'); //메모창 열고 닫기
+      setSearchCtrl(true); //검색창 숨김을 해제
+      alert('저장완료!');
     } else {
       //mode===close
       closeMemo();
     }
+  };
+  const makePlanPerDay = (memoData, placeData) => {
+    // console.log(
+    //   'n일차, placedata , memo => ',
+    //   selectedDays + '일차', //현재 선택된 일차
+    //   placeData, //고른 장소 데이터
+    //   memo, //메모
+    // );
+    var now = selectedDays + '일차';
+    var setArr = [];
+
+    for (let i = 0; i < dayList.length; i++) {
+      var base = utill.emptyPlan();
+      base.day = i + 1 + '일차';
+      console.log(dayList[i].day, now);
+      if (dayList[i].day === now) {
+        base.area = [...dayList[i].area, placeData];
+        base.memo = [...dayList[i].memo, memoData];
+      } else {
+        base.area = dayList[i].area;
+        base.memo = dayList[i].memo;
+      }
+      setArr.push(base);
+    }
+    console.log(setArr);
+    setDayList(setArr);
   };
   const closeMemo = () => {
     //메모장 닫기
@@ -262,9 +309,10 @@ const PlanMaker = () => {
       <div className="searchWrap " ref={searchRef}>
         {/* 검색창 컨테이너 */}
         <AddPlan
+          ref={searchConRef}
           selectedDays={selectedDays} //선택한 n일차
           closeSerchPopup={handlePopup} //여기서 팝업창 여닫기 컨트롤
-          savePlace={savePlace} //데이터 저장 함수
+          setMemoData={setMemoData} //데이터 저장 함수
           controllClassName={controllClassName} //검색창 내부에서 메모창 팝업 컨트롤하기위해 보내주는 함수
           isSearching={searchCtrl} //현재 검색중인지 메모장을 켰는지를 체크
           setMode={setSearchCtrl} //검색/메모장 모드 세트
@@ -277,6 +325,7 @@ const PlanMaker = () => {
         <AddMemo
           handleMemoPopup={handleMemoPopup} //메모장 팝업 컨트롤
           selectedItem={selectedItem} //메모할 아이템 선택
+          makePlan={makePlanPerDay}
         />
       </div>
 

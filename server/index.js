@@ -35,10 +35,14 @@ app.use(cors(corsOptions));
 
 // 디비 서버 port번호는 default 3306
 const db = mysql.createPool({
-  host: "210.114.22.116",
-  user: "js_team_5",
-  password: "tb123456",
-  database: "js_team_5",
+  // host: "210.114.22.116",
+  // user: "js_team_5",
+  // password: "tb123456",
+  // database: "js_team_5",
+  host: "localhost",
+  user: "root",
+  password: "123456",
+  database: "travel_test",
   // charset: "utf8mb4",
 });
 
@@ -276,6 +280,10 @@ app.use("/thumbnail", express.static("thumbnail"));
 let plan = require("./planModules/planModule");
 app.post("/getcart", (req, res) => {
   plan.getCartList(req, res, db);
+});
+//220824 선우 - 일차별 메모 저장할때 보여줄 카테고리 목록
+app.get("/getPlanCate", (req, res) => {
+  plan.getPlanCategory(req, res, db);
 });
 
 /* ------------- 네이버 지역 검색 api ------------- 220822 선우 */

@@ -13,7 +13,7 @@ const SearchedItem = ({
     saveItem :
   */
   const saveThisPlan = (e) => {
-    //saveItem(idx);//메모장 띄우기 임시 주석처리
+    saveItem(idx);
     e.preventDefault();
   }; //여기서 데이터를 디비에 저장할 객체에 담는다.
 
@@ -24,12 +24,14 @@ const SearchedItem = ({
           <a
             //href={isSearched === true ? searchedData.link : cartData.CART_LINK}
             href={
-              isSearched === true ? searchedData.place_url : cartData.CART_LINK
+              isSearched === true || isSearched === '메모장모드'
+                ? searchedData.place_url
+                : cartData.CART_LINK
             }
           >
             <span className="itemTitle">
               {/* {isSearched === true ? searchedData.title : cartData.CART_NAME} */}
-              {isSearched === true
+              {isSearched === true || isSearched === '메모장모드'
                 ? searchedData.place_name
                 : cartData.CART_NAME}
             </span>
@@ -37,7 +39,9 @@ const SearchedItem = ({
           </a>
           <span className="itemCategory">
             {/* {isSearched === true ? searchedData.category : ''} */}
-            {isSearched === true ? searchedData.category_name : ''}
+            {isSearched === true || isSearched === '메모장모드'
+              ? searchedData.category_name
+              : ''}
           </span>
           <br />
           <br />
@@ -45,7 +49,7 @@ const SearchedItem = ({
             {/* {isSearched === true
               ? searchedData.roadAddress
               : cartData.CART_ADDR_ROAD} */}
-            {isSearched === true
+            {isSearched === true || isSearched === '메모장모드'
               ? searchedData.road_address_name
               : cartData.CART_ADDR_ROAD}
           </span>
@@ -53,17 +57,21 @@ const SearchedItem = ({
           <span className="itemAddr">
             (지번)
             {/* {isSearched === true ? searchedData.address : cartData.CART_ADDR} */}
-            {isSearched === true
+            {isSearched === true || isSearched === '메모장모드'
               ? searchedData.address_name
               : cartData.CART_ADDR}
           </span>
           <br />
         </div>
-        <div className="searchedItemBtn">
-          <button className="savePlan" onClick={saveThisPlan}>
-            저장
-          </button>
-        </div>
+        {isSearched === '메모장모드' ? (
+          <></>
+        ) : (
+          <div className="searchedItemBtn">
+            <button className="savePlan" onClick={saveThisPlan}>
+              저장
+            </button>
+          </div>
+        )}
       </div>
       <div className="clear"></div>
     </>
