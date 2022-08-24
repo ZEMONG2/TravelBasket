@@ -55,29 +55,6 @@ const PlanMaker = () => {
   const [searchCtrl, setSearchCtrl] = useState(true); //검색결과 태그 컨트롤
   const [selectedItem, selectItem] = useState({}); //메모를 남길 아이템
 
-  // const [dayList, setDayList] = useState([
-  //   {
-  //     day: '1일차', //n일차
-  //     area: [
-  //       {
-  //         address_name: '',
-  //         place_name: '',
-  //         place_url: '',
-  //         road_address_name: '',
-  //         x: '',
-  //         y: '',
-  //       },
-  //     ], //저장한 가고싶은 장소 객체배열
-  //     memo: [
-  //       //여기가 메모부
-  //       {
-  //         category: '',
-  //         title: '',
-  //         memo: '',
-  //       },
-  //     ],
-  //   },
-  // ]); //일정(n박 m일)
   const [dayList, setDayList] = useState([
     {
       day: '1일차', //n일차
@@ -271,23 +248,24 @@ const PlanMaker = () => {
     }
   };
   const makePlanPerDay = (memoData, placeData) => {
-    // console.log(
-    //   'n일차, placedata , memo => ',
-    //   selectedDays + '일차', //현재 선택된 일차
-    //   placeData, //고른 장소 데이터
-    //   memo, //메모
-    // );
-    var now = selectedDays + '일차';
-    var setArr = [];
+    //여기서 일차별 장소 리스트와 각각 장소별 메모를 저장.
+    // 장소리스트와 메모 리스트가 분리되어있기 때문에 이 둘은 항상 같은 인덱스로 관리해야함.
+    //더 좋은 방법 고민해봐야할듯
+    var now = selectedDays + '일차'; //지금 저장하려고 하는 데이터가 몇일차인지 확인하게해줌
+    var setArr = []; //데이터 세팅을 위한 공백 배열
 
     for (let i = 0; i < dayList.length; i++) {
-      var base = utill.emptyPlan();
-      base.day = i + 1 + '일차';
-      console.log(dayList[i].day, now);
+      //날짜를 선택할때 같이 생성되는 객체 배열의 길이만큼 반복
+      //이때 객체 배열의 길이는 최종 여행 일자와 같음
+      var base = utill.emptyPlan(); // 빈 객체
+      base.day = i + 1 + '일차'; //객체에 저장할 n일차
+      //console.log(dayList[i].day, now);
       if (dayList[i].day === now) {
+        //현재 일차라면 저장된 리스트를 불러와서 거기에 신규 데이터를 합친다.
         base.area = [...dayList[i].area, placeData];
         base.memo = [...dayList[i].memo, memoData];
       } else {
+        //그 외에는 리스트 유지.
         base.area = dayList[i].area;
         base.memo = dayList[i].memo;
       }
@@ -325,7 +303,7 @@ const PlanMaker = () => {
         <AddMemo
           handleMemoPopup={handleMemoPopup} //메모장 팝업 컨트롤
           selectedItem={selectedItem} //메모할 아이템 선택
-          makePlan={makePlanPerDay}
+          makePlan={makePlanPerDay} //일정별 장소와 메모 저장
         />
       </div>
 
