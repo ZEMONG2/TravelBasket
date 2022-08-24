@@ -1,6 +1,6 @@
 .ListBox {
   // border: 1px solid #333;
-  box-shadow: 10px 10px 5px lightgrey;
+  box-shadow: 5px 20px 20px rgb(226, 226, 226);
   box-sizing: border-box;
   position: relative;
   width: 40%;
@@ -39,4 +39,8 @@
 
 .noImg {
   background-color:rgb(245, 245, 245);
+}
+
+.ReviewTxt h3 {
+  margin: 20px 0;
 }
