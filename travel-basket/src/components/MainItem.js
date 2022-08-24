@@ -1,52 +1,35 @@
 import React from "react";
-import styled from "styled-components";
-import { useDispatch } from "react-redux";
-// import { Cart } from "./";
-
-// 보관함 추가 CSS
-const Mainitem = styled.div`
-  .Cart_btn {
-    border-radius: 1px;
-    padding: 3px;
-  }
-`;
+import "../css/main_css/MainItem.scss";
 
 const MainItem = (props) => {
-  // const dispatch = useDispatch();
+  const write_post = () => {
+    window.open(props.url, "_blank");
+  };
 
   return (
-    <Mainitem>
-      <li>
-        <dl>
-          <dt>
-            <img src={props.thumbnail} alt={props.thumbnail} />
-          </dt>
-          <dd>
-            <h3 dangerouslySetInnerHTML={{ __html: props.title }}></h3>
-            <p dangerouslySetInnerHTML={{ __html: props.blogname }}></p>
-            <article
-              dangerouslySetInnerHTML={{ __html: props.contents }}
-            ></article>
-            <a href={props.url}>포스팅 바로가기</a>
-            <p>{props.datetime}</p>
-          </dd>
-          <button type="button" onClick={() => props} className="Cart_btn">
-            + 보관함 추가
-          </button>
-        </dl>
+    <div>
+      <li className="blogWrite">
+        <h3
+          className="blog_title"
+          dangerouslySetInnerHTML={{ __html: props.title }}
+          onClick={write_post}
+        ></h3>
+        <img
+          className="write_img"
+          src={props.thumbnail}
+          alt={props.thumbnail}
+        />
+        <article dangerouslySetInnerHTML={{ __html: props.contents }}></article>
+        <br />
+        <span dangerouslySetInnerHTML={{ __html: props.blogName }}></span>
+        <span>✍🏻{props.dateTime}</span>
+        <button onClick={() => props} className="cart_btn">
+          장바구니
+        </button>
       </li>
-    </Mainitem>
+      <hr />
+    </div>
   );
 };
 
-// dangerouslySetInnerHTML={{ __html: props.code }} = 검색어에 html 태그 포함현상 제거
-
 export default MainItem;
-
-// dispatch(Cart(props))
-
-{
-  /* <button onClick={() => dispatch(props)} className="Cart_btn">
-            <p className="Carts">장바구니 담기</p>
-            </button> */
-}

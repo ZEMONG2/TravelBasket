@@ -35,7 +35,7 @@ const ReviewWrite = () => {
     <div>
       <div className="Write">
         <div className="Title">
-          <h2>후기 작성</h2>
+          <h1>후기 작성</h1>
         </div>
         <div className="WTitle">
           <p className="RW_title">제목</p>

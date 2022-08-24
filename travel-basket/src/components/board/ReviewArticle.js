@@ -16,7 +16,7 @@ const ReviewArticle = ({ article, viewClick }) => {
     backgroundImage: `url(${url})`,
     width: "100%",
     height: "240px",
-    // backgroundSize: "cover",
+    backgroundSize: "cover",
     backgroundPosition: "center",
   };
 
