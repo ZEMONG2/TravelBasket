@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import ModifyEditor from "./editor/ModifyEditor";
 import { useNavigate } from "react-router-dom";
+import "../../css/board_css/ReviewModify.scss";
 
 const ReviewModify = () => {
   // console.log('수정페이지 view => ', view);
