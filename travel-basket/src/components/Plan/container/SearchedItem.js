@@ -13,7 +13,7 @@ const SearchedItem = ({
     saveItem :
   */
   const saveThisPlan = (e) => {
-    saveItem(idx);
+    //saveItem(idx);//메모장 띄우기 임시 주석처리
     e.preventDefault();
   }; //여기서 데이터를 디비에 저장할 객체에 담는다.
 
