@@ -1,9 +1,6 @@
 import { useRef, useState } from 'react';
-import './addMemo.css';
-const AddMemo = ({ handlePopupType }) => {
-  const [text, setText] = useState('');
-  const [area, setArea] = useState('');
-  const [select, setSelect] = useState('');
+import './css/addMemo.css';
+const AddMemo = ({ handleMemoPopup, selectedItem }) => {
   const [memo, setMemo] = useState({});
   const selectRef = useRef();
   const textRef = useRef();
@@ -19,6 +16,7 @@ const AddMemo = ({ handlePopupType }) => {
     textRef.current.value = '';
     areaRef.current.value = '';
     setMemo({});
+    handleMemoPopup('close');
   };
   const handleInputVal = (e) => {
     // setSelect(selectRef.current.value);
@@ -34,10 +32,10 @@ const AddMemo = ({ handlePopupType }) => {
       <select ref={selectRef} onChange={handleInputVal}>
         <option value={'장소1'}>장소1</option>
         <option value={'장소2'}>장소2</option>
-        <option value={'장소3'}>장소2</option>
+        <option value={'장소3'}>장소3</option>
       </select>
-      <input ref={textRef} type="text" defaultValue={text} />
-      <input ref={areaRef} type="textarea" defaultValue={area} />
+      <input ref={textRef} type="text" />
+      <input ref={areaRef} type="textarea" />
       <div>
         <button className="saveMemo memobtn" onClick={saveMemo}>
           저장

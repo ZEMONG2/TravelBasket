@@ -3,11 +3,11 @@ import DatePicker from 'react-datepicker'; //캘린더 라이브러리
 import { ko } from 'date-fns/esm/locale'; //한국어 처리
 import 'react-datepicker/dist/react-datepicker.css'; //캘린더 라이브러리(css)
 
-import TypeContainer from './TypeContainer'; //여행타입 / 이동 수단 컨테이너
-import PlanContainer from './PlanContainer'; //일차별 여행 계획 저장 컨테이너
-import PlanMap from './PlanMap'; //지도 컨테이너
+import TypeContainer from './container/TypeContainer'; //여행타입 / 이동 수단 컨테이너
+import PlanContainer from './container/PlanContainer'; //일차별 여행 계획 저장 컨테이너
+import PlanMap from './container/PlanMap'; //지도 컨테이너
 import AddPlan from './AddPlan'; //일정 추가 컨테이너
-import './plan.css';
+import './css/plan.css';
 
 //import NaverPlanMap from './NaverPlanMap';
 import AddMemo from './AddMemo';
@@ -47,16 +47,18 @@ const PlanMaker = () => {
   const is_share = false; //공개 여부
   const plan_or_trans = ['타입', '교통'];
 
-  const handlePopupType = ['검색', '메모', '지우기'];
+  const calRef = useRef(); //캘린더 랩 ref
+  const searchRef = useRef(); //검색창 ref
+  const memoPopupRef = useRef(); //메모창 ref
 
-  const calRef = useRef();
-  const searchRef = useRef();
-  const memoPopupRef = useRef();
-
+  const [searchCtrl, setSearchCtrl] = useState(true); //검색결과 태그 컨트롤
+  const [selectedItem, selectItem] = useState({}); //메모를 남길 아이템
   const [dayList, setDayList] = useState([
     {
       day: '1일차', //n일차
-      plan: [
+      area: [{}], //저장한 가고싶은 장소 객체배열
+      memo: [
+        //여기가 메모부
         {
           category: '',
           title: '',
@@ -145,7 +147,7 @@ const PlanMaker = () => {
     // yyyy. MM. dd ~ yyyy. MM. dd
 
     var btms = endDate.getTime() - startDate.getTime(); //마지막날과 첫날과의 시간차를 계산
-    var nSleep = btms / (1000 * 60 * 60 * 24); //n박
+    var nSleep = Math.ceil(btms / (1000 * 60 * 60 * 24)); //n박(소수로 계산되면 반올림처리)
     var nFullDay = nSleep + 1; //n일
     totalDayStr += `  (${nSleep}박 ${nFullDay}일)`;
     setDayText(totalDayStr);
@@ -155,7 +157,8 @@ const PlanMaker = () => {
     for (let i = 0; i < nFullDay; i++) {
       var planperdays = {
         day: `${i + 1}일차`,
-        plan: [
+        area: [{}], //저장한 가고싶은 장소 객체배열
+        memo: [
           {
             category: '',
             title: '',
@@ -165,6 +168,7 @@ const PlanMaker = () => {
         ],
       };
       //배열에 `n일차` 텍스트를 삽입-> 컨테이너에서 받아서 표기
+      //추가로 여기서 객체 틀을 생성해줘서 추후에 데이터 업로드때 활횽
       daysArr.push(planperdays);
     }
     setDayList(daysArr); //state에 반영
@@ -172,7 +176,6 @@ const PlanMaker = () => {
   };
   const cancelDate = (e) => {
     //캘린더 취소 버튼을 누르면 아무것도 하지 않고 캘린더 팝업을 닫는다.
-    console.log(startDate, endDate);
     handleCalendar(e);
   };
 
@@ -185,34 +188,16 @@ const PlanMaker = () => {
     //   newCalClassname += 'hidden';
     // }
     // calRef.current.className = newCalClassname; //클래스명을 재설정
-    controllClassName(calRef, 'calWraper', 'hidden');
+    controllClassName(calRef, 'calWraper', 'hidden'); //여기서 팝업창의 열고 닫기를 활성화
     e.preventDefault();
   };
   const handleMonthChange = (date) => {
     //현재 몇월인지를 세팅(캘린더에서 이번달 이외의 날짜 글씨색 처리를 하기 위함)
     setMonth(date.getMonth());
   };
-  const handleSearchPopup = (daycnt, handleType) => {
-    //data:일차별 일정, daycnt:n일차의 n
-    // var searchClassArr = searchRef.current.className.split(' '); // 컨테이너의 클래스명 배열
-    // var newSearchClassname = 'searchWrap '; //숨겨져있다면 그대로 이 텍스트가 클래스명이 됨.
-    // if (searchClassArr[1] !== 'open') {
-    //   //클래스명에 open이 포함되어있는지 아닌지 체크해서 추가
-    //   newSearchClassname += 'open';
-    // }
-    // searchRef.current.className = newSearchClassname; //클래스명을 재설정
+  const handlePopup = (daycnt) => {
+    //검색창 팝업 컨트롤 함수
 
-    //alert(handleType);
-    switch (handleType) {
-      case handlePopupType[0]:
-        break;
-      case handlePopupType[1]:
-        break;
-      case handlePopupType[2]:
-        break;
-      default:
-        break;
-    }
     controllClassName(searchRef, 'searchWrap', 'open'); //검색창 열고 닫기
 
     if (memoPopupRef.current.className.split(' ')[1] !== 'displayNone') {
@@ -237,6 +222,9 @@ const PlanMaker = () => {
 
     //1. css (숨겨놨던 메모 팝업을 띄운다)
     controllClassName(memoPopupRef, 'addMemoWrap', 'displayNone');
+    //2. 메모장에 데이터를 전달한다.
+    selectItem(data);
+
     //var nowlist = dayList[idx].plan.push(data);
     //현재 n일차의 저장된 리스트를 새로운 배열로 재생성해서 푸시 한 후에 그대로 반영
     // setDayList(
@@ -254,34 +242,59 @@ const PlanMaker = () => {
     console.log(newDayList);
     setDayList(newDayList);
   };
+  const handleMemoPopup = (mode) => {
+    if (mode === 'open') {
+    } else {
+      //mode===close
+      closeMemo();
+    }
+  };
+  const closeMemo = () => {
+    //메모장 닫기
+    //1.메모장을 닫는다.
+    controllClassName(memoPopupRef, 'addMemoWrap', 'displayNone');
+
+    //2. 숨겨놨던 검색결과(장바구니)를 연다
+    setSearchCtrl(true);
+  };
   return (
     <div className="planerWrap">
       <div className="searchWrap " ref={searchRef}>
+        {/* 검색창 컨테이너 */}
         <AddPlan
-          selectedDays={selectedDays}
-          closeSerchPopup={handleSearchPopup}
-          savePlace={savePlace}
-          controllClassName={controllClassName}
-          handlePopupType={handlePopupType}
+          selectedDays={selectedDays} //선택한 n일차
+          closeSerchPopup={handlePopup} //여기서 팝업창 여닫기 컨트롤
+          savePlace={savePlace} //데이터 저장 함수
+          controllClassName={controllClassName} //검색창 내부에서 메모창 팝업 컨트롤하기위해 보내주는 함수
+          isSearching={searchCtrl} //현재 검색중인지 메모장을 켰는지를 체크
+          setMode={setSearchCtrl} //검색/메모장 모드 세트
         />
       </div>
       <div ref={memoPopupRef} className="addMemoWrap displayNone">
-        <AddMemo handlePopupType={handlePopupType} />
+        {/* 메모장 
+        
+        */}
+        <AddMemo
+          handleMemoPopup={handleMemoPopup} //메모장 팝업 컨트롤
+          selectedItem={selectedItem} //메모할 아이템 선택
+        />
       </div>
 
       <div className="calWraper hidden" ref={calRef}>
         {/* 캘린더 컨테이너 */}
         <DatePicker
-          dateFormat="yyyy년 MM월 dd일"
-          selected={startDate}
-          onChange={onCalChange}
-          locale={ko}
-          startDate={startDate}
-          endDate={endDate}
-          selectsRange
+          dateFormat="yyyy년 MM월 dd일" //날짜 포맷
+          onChange={onCalChange} //내부에서 데이터 변경시 setState
+          locale={ko} //달력 국가 설정
+          startDate={startDate} // 선택한 첫 날짜(날짜 범위지정에 쓰임)
+          endDate={endDate} //선택한 마지막 날짜(날짜 범위지정에 쓰임)
+          selectsRange //범위지정 속성
           inline
-          onMonthChange={handleMonthChange}
-          dayClassName={(d) =>
+          onMonthChange={handleMonthChange} //달 옮길때 이벤트 처리
+          dayClassName={(
+            //이번달이 아닌 날은 글씨 색을 회색 처리
+            d,
+          ) =>
             d.getDate() === startDate.getDate()
               ? 'custom-day selected-day'
               : d.getMonth() === month
@@ -340,14 +353,15 @@ const PlanMaker = () => {
             <tr>
               <td className="t_label">타입</td>
               <td className="t_component">
+                {/* 여행 타입 컨테이너 */}
                 {trip_type.map((val, idx) => (
                   <TypeContainer
                     key={idx}
-                    type={plan_or_trans[0]}
-                    val={val}
-                    idx={idx}
-                    selected={planArr.selected[idx]}
-                    handleType={handleType}
+                    type={plan_or_trans[0]} //여행 타입인지 이동수단인지를 전달(여행타입과 이동수단이 같은 컨테이너를 사용)
+                    val={val} //여행타입
+                    idx={idx} //선택시 데이터 처리를 위한 인덱스
+                    selected={planArr.selected[idx]} //선택시 css 처리를 위한 속성
+                    handleType={handleType} //버튼 클릭시 발생하는 이벤트
                   />
                 ))}
               </td>
@@ -358,11 +372,11 @@ const PlanMaker = () => {
                 {transport.map((val, idx) => (
                   <TypeContainer
                     key={idx}
-                    type={plan_or_trans[1]}
-                    val={val}
-                    idx={idx}
-                    selected={transArr.selected[idx]}
-                    handleType={handleType}
+                    type={plan_or_trans[1]} //여행 타입인지 이동수단인지를 전달(여행타입과 이동수단이 같은 컨테이너를 사용)
+                    val={val} //이동수단
+                    idx={idx} //선택시 데이터 처리를 위한 인덱스
+                    selected={transArr.selected[idx]} //선택시 css 처리를 위한 속성
+                    handleType={handleType} //버튼 클릭시 발생하는 이벤트
                   />
                 ))}
               </td>
@@ -381,19 +395,20 @@ const PlanMaker = () => {
         </table>
         <div className="updownSpace"></div>
         <div className="map center_con">
+          {/* 카카오 지도 */}
           <PlanMap></PlanMap>
           {/* <NaverPlanMap></NaverPlanMap> */}
         </div>
 
         <div className="updownSpace"></div>
         <div className="planByDaysWrap center_con">
+          {/* 일정 목록 컨테이너(n박 n일에 맞춰서 생성됨) */}
           {dayList.map((val, idx) => (
             <PlanContainer
               key={idx}
-              daycnt={idx + 1}
-              data={val}
-              openSearchPopup={handleSearchPopup}
-              handlePopupType={handlePopupType}
+              daycnt={idx + 1} //n박의 n
+              data={val} //dayList[idx] => 저장할 n일차의 정보
+              openSearchPopup={handlePopup} //팝업 컨트롤
             />
           ))}
         </div>
