@@ -296,3 +296,6 @@ let kakaoapi = require("./webApi/KaKaoApiModule");
 app.post("/searchbykakao", (req, res) => {
   kakaoapi.searchData(req, res);
 });
+
+/* ------------ 카카오 마커 송출 -------------- 220826 선우 */
+app.use("/rainbow_marker", express.static("rainbow_marker"));

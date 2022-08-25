@@ -173,3 +173,20 @@ button{/* 버튼 태그 공용 css(보더 꾸미기, 커서처리 등) */
 .react-datepicker__day--today{/* 오늘 날짜는 font-weight:bold가 default여서 normal로 재설정 */
     font-weight:normal;
 }
+.deleteItem{/* 아이템 삭제 버튼 */
+    float:right;
+    height: 24px;
+    width:50px;
+}
+.updateMemo{/* 메모 수정 버튼 */
+    float:right;
+    height: 24px;
+    width:75px;
+    margin-right:10px;
+}
+.selectedItemArticle{/* 등록한 아이템을 감싸는 태그 */
+    padding: 10px;
+}
+.selectedItemLabel{/* 등록한 아이템 라벨 태그 */
+    cursor: pointer;
+}

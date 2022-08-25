@@ -15,17 +15,19 @@ import * as utill from '../../Utils/Utils';
 /*
   남은 작업: 1.데이터 업로드, 2.지도, 3.지역 검색해서 날짜별 여행지에 저장
   기억해야하는 특이사항 :
-    지역 검색하여 저장할때 여행별 카테고리(장소, 먹거리 등), 저장할 이름, 메모를 적도록 되어있음
-    ㄴ> 테이블 수정이 필수불가결
     검색할때 장바구니에 담긴 내용이 있으면 그걸 먼저 띄워야함 
     ㄴ> 장바구니 테이블 추가 필수불가결(현재 장바구니 테이블 없음)
     지도는 일차에서 지역을 픽하면 일차별로 마커 색구분을 해서 지도에 마커를 찍는 정도로 하자.
-    ㄴ> 지도는 카카오 api 검색은 네이버 지역 검색 api를  활용
+    ㄴ> 지도는 카카오 api 검색은 카카오 지역 검색 api를  활용
     ㄴ> 지도를 캡쳐할수있는지가 중요. 화면캡쳐? html2canvas 라이브러리 활용하면 가능할듯?
     ㄴ> 일정 저장할때 html2canvas 로 캡쳐한 이미지가 로컬에 남지 않는게 베스트지만 남는다면 제거
 */
 
 var selectedDays = 0; //검색하고자 하는 일자(배열 탐색에 쓰이므로 0부터 시작)
+var pointsArr = []; //실제로 저장될 맵 가운데 정렬용 좌표 리스트
+//const maikingState = ["normal", "making"];
+var isMaking = false; //제작중 여부
+var selectedAreaBefore = 0; //기본으로는 선택된 지역(서울)
 
 const PlanMaker = () => {
   const title = ''; //제목
@@ -39,7 +41,7 @@ const PlanMaker = () => {
     '울산',
     '세종',
     '제주',
-    '울릉도/독도',
+    '울릉도',
   ]; //지역
 
   const transport = ['도보', '자전거', '오토바이', '대중교통', '자동차']; //교통수단
@@ -51,12 +53,22 @@ const PlanMaker = () => {
   const searchRef = useRef(); //검색창 ref
   const memoPopupRef = useRef(); //메모창 ref
   const searchConRef = useRef({}); //검색창 컨테이너 ref
+  const cityRef = useRef(); //도시 선택 ref
+  const titleRef = useRef(); //제목 ref
+  const [isopen, setOX] = useState('O'); //공유 여부 체크
+  const setRadioValue = (e) => {
+    setOX(e.target.value);
+  };
 
   const [searchCtrl, setSearchCtrl] = useState(true); //검색결과 태그 컨트롤
   const [selectedItem, selectItem] = useState({}); //메모를 남길 아이템
 
+  var initPoint = utill.cityPoints[0]; //초기화용 좌표 세팅값(초기값은 서울)
+  const [points, setPoints] = useState([initPoint]); //맵 중앙정렬을 위해 저장되는 좌표 리스트
+
   const [dayList, setDayList] = useState([
     {
+      noEditted: true,
       day: '1일차', //n일차
       area: [], //저장한 가고싶은 장소 객체배열
       memo: [], //여기가 메모부
@@ -85,9 +97,38 @@ const PlanMaker = () => {
     setStartDate(start);
     setEndDate(end);
   };
-  const upload = (e) => {
-    //계획한 일정을 디비에 업로드(추후 개발)
-    e.preventDefault();
+  const [isUpdatingMemo, setUpdateMemoMode] = useState(false); //메모 수정 여부 체크, 기본값은 false
+  const [updateMemoData, setUpdateMemoData] = useState({}); //수정하고자 하는 메모 데이터
+  const init = () => {
+    //총합 정보 초기화 기능
+    //제작중 여부 초기화
+    isMaking = false;
+    //제목 초기화
+    titleRef.current.value = '';
+    //지역 초기화
+    selectedAreaBefore = 0;
+    cityRef.current.value = selectedAreaBefore;
+    //날짜초기화는 일단 스킵
+    setStartDate(new Date());
+    setEndDate(null);
+    setDayText('일정을 선택하세요');
+
+    //여행타입 초기화
+    setPlan({
+      plan: [],
+      selected: [false, false, false, false, false],
+    });
+    //이동수단 초기화
+    setTrans({
+      //선택된 이동수단을 저장하는 객체(selected는 선택 버튼의 활성화/비활성화를 담당)
+      trans: [],
+      selected: [false, false, false, false, false],
+    });
+    //공개여부는 기본적으로 O
+    setOX('O');
+
+    //저장정보? 초기화?
+    setDayList([utill.emptyPlan()]);
   };
 
   const handleType = (type, val, idx) => {
@@ -150,17 +191,23 @@ const PlanMaker = () => {
     var daysArr = []; //일정 검색 및 추가 컨테이너를 활성화하기 위한 배열
 
     for (let i = 0; i < nFullDay; i++) {
-      var planperdays = {
-        day: `${i + 1}일차`,
-        area: [], //저장한 가고싶은 장소 객체배열
-        memo: [],
-      };
+      var daytxt = `${i + 1}일차`;
+      var planperdays = utill.emptyPlan();
+      planperdays.day = daytxt;
+      // var planperdays = {
+      //   noEditted: true,
+      //   day: `${i + 1}일차`,
+      //   area: [], //저장한 가고싶은 장소 객체배열
+      //   memo: [],
+      // };
       //배열에 `n일차` 텍스트를 삽입-> 컨테이너에서 받아서 표기
       //추가로 여기서 객체 틀을 생성해줘서 추후에 데이터 업로드때 활횽
       daysArr.push(planperdays);
     }
-
-    setDayList(daysArr); //state에 반영
+    isMaking = false; //날짜를 재설정하면 일정 제작 여부도 초기화
+    setPoints([initPoint]); //날짜가 선택되거나 기간을 재선택하면 저장된 좌표를 초기화
+    pointsArr = []; //날짜가 선택되거나 기간을 재선택하면 저장된 좌표초기화2
+    setDayList(daysArr); //일정 갯수를 state에 반영
     handleCalendar(e); //캘린더 visibility on/off
   };
   const cancelDate = (e) => {
@@ -223,18 +270,32 @@ const PlanMaker = () => {
     // );
     // console.log(nowlist);
   };
-  const deletePlace = (idx) => {
+  const deletePlace = (idx, daycnt) => {
     //n일차의 n번째 저장 정보를 제거
     //n일차의 몇번째 인덱스인지만 받아오면 됨
-    var nowlist = dayList[idx].plan;
-    const newDayList = dayList.filter((val, idx) => val.plan[idx] !== nowlist);
-    console.log(newDayList);
-    setDayList(newDayList);
+    var arr = [];
+    console.log('idx, daycnt', idx, daycnt);
+    for (let i = 0; i < dayList.length; i++) {
+      var data = dayList[i];
+      if (data.day === daycnt + '일차') {
+        data.area.splice(idx, 1);
+        data.memo.splice(idx, 1);
+      }
+      arr.push(data);
+    }
+    //console.log(arr);
+    setDayList(arr);
   };
-  const handleMemoPopup = (mode) => {
+  const handleMemoPopup = (mode, updateData) => {
     //메모장 팝업 처리
     // if (mode === 'open') {
     // } else
+    //console.log('수정중인가요 : ', isUpdatingMemo, mode);
+    // if (isUpdatingMemo === true) {
+    //   //메모장 수정모드가 켜지면 메모장만 켜고 반환한다.
+    //   controllClassName(memoPopupRef, 'addMemoWrap', 'displayNone'); //메모창 열고 닫기
+    //   return;
+    // }
     if (mode === 'save') {
       //메모 저장하면 메모장이랑 검색창 모두 닫기
       searchConRef.current.init();
@@ -242,6 +303,30 @@ const PlanMaker = () => {
       controllClassName(memoPopupRef, 'addMemoWrap', 'displayNone'); //메모창 열고 닫기
       setSearchCtrl(true); //검색창 숨김을 해제
       alert('저장완료!');
+    } else if (mode === 'update') {
+      controllClassName(memoPopupRef, 'addMemoWrap', 'displayNone'); //메모창 열고 닫기
+    } else if (mode === 'updateComplete') {
+      var arr = [];
+      //updateData.item;//이거도 그냥 비교용
+      //updateData.memo;
+      for (let i = 0; i < dayList.length; i++) {
+        var data = dayList[i];
+        for (let j = 0; j < data.area.length; j++) {
+          var area = data.area[j];
+
+          if (
+            data.day === selectedDays + '일차' &&
+            area.place_name === updateData.item.place_name
+          ) {
+            data.memo[j] = updateData.memo; //메모를 수정
+          }
+          //   console.log(data.area);
+          // }
+        }
+        arr.push(data);
+      }
+      setDayList(arr); //갱신된 데이터 저장
+      controllClassName(memoPopupRef, 'addMemoWrap', 'displayNone'); //메모창 열고 닫기
     } else {
       //mode===close
       closeMemo();
@@ -251,36 +336,92 @@ const PlanMaker = () => {
     //여기서 일차별 장소 리스트와 각각 장소별 메모를 저장.
     // 장소리스트와 메모 리스트가 분리되어있기 때문에 이 둘은 항상 같은 인덱스로 관리해야함.
     //더 좋은 방법 고민해봐야할듯
+    isMaking = true; //일정 제작이 시작되면 상태 변경
     var now = selectedDays + '일차'; //지금 저장하려고 하는 데이터가 몇일차인지 확인하게해줌
     var setArr = []; //데이터 세팅을 위한 공백 배열
-
     for (let i = 0; i < dayList.length; i++) {
       //날짜를 선택할때 같이 생성되는 객체 배열의 길이만큼 반복
       //이때 객체 배열의 길이는 최종 여행 일자와 같음
       var base = utill.emptyPlan(); // 빈 객체
+      base.noEditted = false;
       base.day = i + 1 + '일차'; //객체에 저장할 n일차
       //console.log(dayList[i].day, now);
       if (dayList[i].day === now) {
         //현재 일차라면 저장된 리스트를 불러와서 거기에 신규 데이터를 합친다.
         base.area = [...dayList[i].area, placeData];
         base.memo = [...dayList[i].memo, memoData];
+        //신규 데이터가 들어올때 좌표도 같이 추가
+
+        const lat = parseFloat(placeData.y);
+        const lng = parseFloat(placeData.x);
+        pointsArr.push(utill.getMapsLatLng(lat, lng));
       } else {
         //그 외에는 리스트 유지.
         base.area = dayList[i].area;
         base.memo = dayList[i].memo;
       }
+
       setArr.push(base);
     }
-    console.log(setArr);
+    // console.log('!!!!!!!!!!!!!!!!!', pointsArr);
+    //console.log(setArr);
+    setPoints(pointsArr); //좌표 배열을 누적된대로 재배치
+    //console.log(utill.getPoints(setArr));
     setDayList(setArr);
   };
   const closeMemo = () => {
     //메모장 닫기
     //1.메모장을 닫는다.
     controllClassName(memoPopupRef, 'addMemoWrap', 'displayNone');
+    setUpdateMemoMode(false); //메모를 닫으면 어떤 상태였던 수정 모드를 종료한다.
 
     //2. 숨겨놨던 검색결과(장바구니)를 연다
     setSearchCtrl(true);
+  };
+  const changeCity = (e) => {
+    //자역 선택이 바뀌면 지도 위치재설정
+    const selectedArea = parseInt(cityRef.current.value); //지금 선택한 지역
+    //selectedAreaBefore
+    console.log(isMaking, selectedArea, selectedAreaBefore);
+    if (isMaking && selectedArea !== selectedAreaBefore) {
+      if (
+        window.confirm(
+          '일정을 만드는중에 지역을 이동하면 저장한 정보가 초기화됩니다. 그래도 괜찮으세요?',
+        )
+      ) {
+        init();
+      } else {
+        cityRef.current.value = selectedAreaBefore;
+        return;
+      }
+    }
+    //여기서 위치 조정 세팅 재설정(init에서 위치 건들필요 없음)
+    const citypoints = utill.cityPoints[cityRef.current.value];
+    setPoints([citypoints]);
+    selectedAreaBefore = selectedArea; //선택중인 지역을 수정
+  };
+
+  const getUpdateMemoData = (data, idx, daycnt) => {
+    //수정할 메모 데이터를 세팅.
+    selectItem(data.area[idx]);
+    setUpdateMemoData(data.memo[idx]);
+    setUpdateMemoMode(true);
+    selectedDays = daycnt; //선택한 수정할 메모의 일차
+    //이게 메모가 적힐 장소 데이터
+  };
+
+  const uploadPlan = (e) => {
+    //여기서 일정 디비에 업로드
+    const title = titleRef.current.value; //제목
+    const selectedArea = cityRef.current.value; //선택한지역
+    const day = daytxt; //일정(몇박 몇일)
+    const plan = planArr.plan; //여행타입
+    const trans = transArr.trans; //이동수단
+    const uploadIsopen = isopen; //공개여부
+    const finalPlan = dayList;
+    console.log(isMaking);
+    console.log(title, selectedArea, day, plan, trans, uploadIsopen, finalPlan);
+    e.preventDefault();
   };
   return (
     <div className="planerWrap">
@@ -302,8 +443,10 @@ const PlanMaker = () => {
         */}
         <AddMemo
           handleMemoPopup={handleMemoPopup} //메모장 팝업 컨트롤
-          selectedItem={selectedItem} //메모할 아이템 선택
+          selectedItem={selectedItem} //메모할 아이템 / 메모를 수정할 아이템을 선택
           makePlan={makePlanPerDay} //일정별 장소와 메모 저장
+          isUpdating={isUpdatingMemo} // 메모를 수정중인지 여부
+          updatingData={isUpdatingMemo ? updateMemoData : ''} //메모 수정중이면 수정하려는 메모 데이터, 아니면 ""
         />
       </div>
 
@@ -347,15 +490,15 @@ const PlanMaker = () => {
             <tr>
               <td className="t_label">제목</td>
               <td className="t_component">
-                <input type="text" id="title" />
+                <input ref={titleRef} type="text" id="title" />
               </td>
             </tr>
             <tr>
               <td className="t_label">지역</td>
               <td className="t_component">
-                <select id="area">
+                <select id="area" ref={cityRef} onChange={changeCity}>
                   {area.map((_area, idx) => (
-                    <option key={idx} value={_area}>
+                    <option key={idx} value={idx}>
                       {_area}
                     </option>
                   ))}
@@ -411,10 +554,24 @@ const PlanMaker = () => {
             <tr>
               <td className="t_label">공유</td>
               <td className="t_component">
-                <input type="radio" id="O" name="share" value="O" />
+                <input
+                  type="radio"
+                  id="O"
+                  name="share"
+                  value="O"
+                  checked={isopen === 'O'}
+                  onChange={setRadioValue}
+                />
                 <label htmlFor="O">공개</label>
                 &nbsp;&nbsp;&nbsp;
-                <input type="radio" id="X" name="share" value="X" />
+                <input
+                  type="radio"
+                  id="X"
+                  name="share"
+                  value="X"
+                  checked={isopen === 'X'}
+                  onChange={setRadioValue}
+                />
                 <label htmlFor="X">비공개</label>
               </td>
             </tr>
@@ -423,7 +580,7 @@ const PlanMaker = () => {
         <div className="updownSpace"></div>
         <div className="map center_con">
           {/* 카카오 지도 */}
-          <PlanMap></PlanMap>
+          <PlanMap markerlist={dayList} pointsList={points}></PlanMap>
           {/* <NaverPlanMap></NaverPlanMap> */}
         </div>
 
@@ -436,13 +593,17 @@ const PlanMaker = () => {
               daycnt={idx + 1} //n박의 n
               data={val} //dayList[idx] => 저장할 n일차의 정보
               openSearchPopup={handlePopup} //팝업 컨트롤
+              setUpdateMode={setUpdateMemoMode}
+              openMemo={handleMemoPopup}
+              setUpdateMemoItem={getUpdateMemoData}
+              deletePlace={deletePlace}
             />
           ))}
         </div>
         <div className="updownSpace"></div>
         <div className="btnWrap center_con">
           {/* <button type="submit" onClick={upload}> */}
-          <button onClick={upload}>등록</button>
+          <button onClick={uploadPlan}>등록</button>
           <button type="reset">취소</button>
         </div>
         <div className="updownSpace"></div>

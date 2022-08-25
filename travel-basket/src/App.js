@@ -22,6 +22,10 @@ import ModifyInfo from './components/ModifyInfo';
 //20220822 선우 병합
 import PlanMaker from './components/Plan/PlanMaker';
 import Schedule from './components/Schedule/Schedule';
+
+//드래그앤드랍 테스트용
+import DnDPractice from './components/Plan/DnDPractice';
+
 //import Schedule from './components/Schedule';
 // =======
 // import { Route, Routes } from "react-router-dom";
@@ -83,6 +87,9 @@ const App = () => {
           <Route path="/makeplan" element={<PlanMaker />} />
           {/* 일정 공유 게시판 */}
           <Route path="/schedule" element={<Schedule />} />
+
+          {/* 드래그앤드랍 테스트용 */}
+          <Route path="/test" element={<DnDPractice />} />
         </Routes>
       </div>
 

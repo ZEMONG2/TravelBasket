@@ -1,49 +1,49 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import SearchedItem from './container/SearchedItem';
 import Select from 'react-select';
 import * as utill from '../../Utils/Utils.js';
 import './css/addMemo.css';
-const AddMemo = ({ handleMemoPopup, selectedItem, makePlan }) => {
+const AddMemo = ({
+  handleMemoPopup,
+  selectedItem,
+  makePlan,
+  isUpdating,
+  updatingData,
+}) => {
   /*
   handleMemoPopup ://메모장 팝업 컨트롤
   selectedItem :  //메모할 아이템 선택
   makePlan    :  //일정별 장소와 메모 저장
+  isUpdating : 수정중인지 여부를 체크
+  updatingData : 수정하려는 메모데이터(수정모드가 아니면 "")
    */
   const [memo, setMemo] = useState({}); //메모
-  const [cate, setCate] = useState([
-    // {
-    //   P_CATE_IDX: 0,
-    //   P_CATEGORY: '카테고리를 선택해주세요',
-    // },
-  ]);
+
   const selectRef = useRef();
   const textRef = useRef();
   const areaRef = useRef();
-
   useEffect(() => {
-    //렌더링 후에 db에서 추출한 카테고리 리스트를 select option 에 반영
-    utill //여기서 서버랑 get 통신을 실행
-      // 반복코드 줄이려고 만든건데 오히려 더 구린 코드같아서 나중에 다시 수정.
-      // 왜냐하면 비동기로 작업을 수행하면
-      //utill.getDataAsGetWithNoParams 내부의 then은 AddMemo의 then이 끝날때까지 대기하기 때문
-      .getDataAsGetWithNoParams(utill.common_url + '/getPlanCate')
-      .then((resolvedata) => {
-        if (cate.length === 0) setCate([...cate, ...resolvedata]);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  }, []);
+    if (isUpdating) {
+      selectRef.current.value = updatingData.category;
+      textRef.current.value = updatingData.title;
+      areaRef.current.value = updatingData.memo;
+    }
+  });
 
   const saveMemo = () => {
     //메모 저장 버튼을 누르면 실행.
-    memo.category = selectRef.current.value;
+    memo.category = parseInt(selectRef.current.value);
     memo.title = textRef.current.value;
     memo.memo = areaRef.current.value;
     //console.log(memo);
-    makePlan(memo, selectedItem); //일정별 장소와 메모 저장
-    handleMemoPopup('save'); //팝업창 컨트롤
+    if (isUpdating) {
+      handleMemoPopup('updateComplete', { item: selectedItem, memo: memo }); //팝업창 컨트롤
+    } else {
+      makePlan(memo, selectedItem); //일정별 장소와 메모 저장
+      handleMemoPopup('save', ['nothing']); //팝업창 컨트롤
+    }
+
     clearMemo(); //입력값 초기화
   };
 
@@ -71,13 +71,22 @@ const AddMemo = ({ handleMemoPopup, selectedItem, makePlan }) => {
       />
 
       <div className="memoDiv">
-        <select className="memoPlace memoInput" ref={selectRef}>
+        <select
+          className="memoPlace memoInput"
+          ref={selectRef}
+          defaultValue={'default'}
+        >
           <option value="default">카테고리를 선택해주세요</option>
-          {cate.map((val, idx) => (
+          <option value={1}>관광지</option>
+          <option value={2}>숙박</option>
+          <option value={3}>맛집</option>
+          <option value={4}>카페</option>
+          <option value={5}>기타</option>
+          {/* {cate.map((val, idx) => (
             <option key={idx} value={val.P_CATE_IDX}>
               {val.P_CATEGORY}
             </option>
-          ))}
+          ))} */}
         </select>
       </div>
       <div className="memoDiv">
@@ -86,6 +95,7 @@ const AddMemo = ({ handleMemoPopup, selectedItem, makePlan }) => {
           ref={textRef}
           type="text"
           placeholder="저장할 이름을 적어주세요"
+          defaultValue={''}
         />
       </div>
       <div className="memoDiv">
@@ -93,6 +103,7 @@ const AddMemo = ({ handleMemoPopup, selectedItem, makePlan }) => {
           className="memoArea memoInput"
           ref={areaRef}
           placeholder="메모를 적어보세요 ex)사진찍기, 먹어보기"
+          defaultValue={''}
         />
       </div>
       <div className="memoBtnWrap">
