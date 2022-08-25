@@ -128,16 +128,16 @@ button{/* 버튼 태그 공용 css(보더 꾸미기, 커서처리 등) */
     float:right;
 }
 .calWraper{/* 달력을 감싸주는 랩 태그 */
-    width:248px;
-    height:275px;
+    width:247px;
+    height:283px;
     border:0.8px solid #aaa;
     border-radius: 5px;
     background: white;
     position: absolute;
     margin:0 auto;
-    left: 50%;
-    top:50%;
-    transform: translate(-50%, -50%);
+    left: 35%;
+    top: 250px;
+    /* transform: translate(-50%, -50%); */
     z-index: 95;
 }
 .hidden{/* 달력 팝업 숨김 처리 */

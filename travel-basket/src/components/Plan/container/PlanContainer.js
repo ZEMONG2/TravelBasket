@@ -1,6 +1,11 @@
-const PlanContainer = ({ daycnt, openSearchPopup, data, handlePopupType }) => {
+const PlanContainer = ({ daycnt, openSearchPopup, data }) => {
+  /*
+      daycnt : n박의 n
+      data : dayList[idx] => 저장할 n일차의 정보
+      openSearchPopup : 팝업 컨트롤
+  */
   const openPopup = () => {
-    openSearchPopup(daycnt, handlePopupType[0]);
+    openSearchPopup(daycnt);
   };
   return (
     <>

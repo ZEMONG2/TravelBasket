@@ -5,8 +5,15 @@ const SearchedItem = ({
   idx,
   saveItem,
 }) => {
+  /*
+    isSearched : 검색 상태인지 장바구니인지 체크
+    cartData: 사용자의 장바구니 데이터
+    searchedData : 검색된 데이터
+    idx : 
+    saveItem :
+  */
   const saveThisPlan = (e) => {
-    //saveItem(idx); //임시 주석처리(메모장 켜는 부분)
+    //saveItem(idx);//메모장 띄우기 임시 주석처리
     e.preventDefault();
   }; //여기서 데이터를 디비에 저장할 객체에 담는다.
 

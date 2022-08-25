@@ -18,6 +18,7 @@ const ScheduleList = ({
 
   useEffect(() => {
     //로그인되어있다면 일정 리스트를 가져온다.
+    //현재는 로그인 확인 처리를 거치지 않고 처리
     handlelist();
   }, []);
 

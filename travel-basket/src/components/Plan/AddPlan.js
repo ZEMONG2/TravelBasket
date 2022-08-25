@@ -1,19 +1,28 @@
 import { useState, useRef } from 'react';
 import axios from 'axios';
-import SearchedItem from './SearchedItem';
-import './addPlan.css';
+import SearchedItem from './container/SearchedItem';
+import './css/addPlan.css';
 
-var cartCnt = 0;
-var searchPage = 1;
-var beforeKeyword = '';
-const itemListClassName = 'searchList';
+var cartCnt = 0; //장바구니 갯수
+var searchPage = 1; //현재 조회중인 페이지(서버에서 api 활용 검색에 사용)
+var beforeKeyword = ''; //전에 검색한 키워드(페이지 초기화에 쓰임)
+const itemListClassName = 'searchList'; //검색된 데이터 리스트 태그의 클래스명(on/off에 사용)
 const AddPlan = ({
   selectedDays,
   closeSerchPopup,
   savePlace,
   controllClassName,
-  handlePopupType,
+  isSearching,
+  setMode,
 }) => {
+  /*
+      selectedDays : 선택한 n일차
+      closeSerchPopup: 여기서 팝업창 여닫기 컨트롤
+      savePlace : 데이터 저장 함수
+      controllClassName : 검색창 내부에서 메모창 팝업 컨트롤하기위해 보내주는 함수
+      isSearching : 현재 검색중인지 메모장을 켰는지를 체크
+      setMode : 검색/메모장 모드 세트
+  */
   const testarr = [1, 2, 3, 4, 5, 6];
   const [cartArr, setCart] = useState([]);
   const [searchedData, setData] = useState([]);
@@ -21,18 +30,11 @@ const AddPlan = ({
   const keyword = useRef();
   const itemList = useRef();
   const closePopup = () => {
-    closeSerchPopup(0, handlePopupType[2]);
+    closeSerchPopup(0);
   };
   const handleMemoPopup = () => {
     //메모 창 띄우고 없애기
-    // var itemClassArr = itemList.current.className.split(' '); //캘린더 컨테이너의 클래스명 배열
-    // var newItemClass = itemListClassName + ' '; //캘린더가 숨겨져있다면 그대로 이 텍스트가 클래스명이 됨.
-    // if (itemClassArr[1] !== 'displayNone') {
-    //   //클래스명에 hidden이 포함되어있는지 아닌지 체크해서 추가
-    //   newItemClass += 'displayNone';
-    // }
-    // itemList.current.className = newItemClass; //클래스명을 재설정
-    controllClassName(itemList, 'searchList', 'displayNone');
+    setMode(!isSearching);
   };
   const saveItem = (idx) => {
     handleMemoPopup();
@@ -64,7 +66,8 @@ const AddPlan = ({
       return;
     }
     if (itemList.current.className.split(' ')[1] === 'displayNone') {
-      controllClassName(itemList, 'searchList', 'displayNone');
+      //controllClassName(itemList, 'searchList', 'displayNone');
+      setMode(true);
     }
     axios
       //.post(`http://localhost:8000/searchbynaver`, {
@@ -105,7 +108,7 @@ const AddPlan = ({
       .catch((e) => {
         console.error(e);
       });
-    console.log(searchedData);
+    //console.log(searchedData);
     setLabel('검색 결과');
 
     if (e.key !== 'Enter') e.preventDefault();
@@ -145,7 +148,11 @@ const AddPlan = ({
         <div id="searchlabeldiv">{searchLabel}</div>
       </div>
       <div className="updownSpace"></div>
-      <div className="searchList " ref={itemList}>
+      {/* <div className="searchList " ref={itemList}> */}
+      <div
+        className={isSearching ? 'searchList' : 'searchList displayNone'}
+        ref={itemList}
+      >
         {searchLabel === '나의 장바구니' ? (
           getCart() > 0 ? (
             testarr.map((val, idx) => (

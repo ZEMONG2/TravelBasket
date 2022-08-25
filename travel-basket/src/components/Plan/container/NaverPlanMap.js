@@ -3,7 +3,7 @@ const {
   NaverMap,
   Marker,
 } = require('react-naver-maps');
-
+/* 카카오 api로 검색 선향하면서 유기 */
 const NaverPlanMap = () => {
   return (
     <RenderAfterNavermapsLoaded
