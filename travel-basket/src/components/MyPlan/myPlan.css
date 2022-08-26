@@ -1,0 +1,44 @@
+.myPlanBody{/* 전체 감싸주는 태그*/
+    width:70%;
+    margin:0 auto;
+}
+.myPlanBtnWrap{/* 최상단 버튼부 */
+    text-align: right;
+    height:50px;
+}
+.btnMyplan{/* 최상단 버튼 공용 css */
+    margin:10px 10px 0 0;
+    height:30px;
+    font-size:14px;
+}
+#updateMyplan{/* 수정하기 버튼 */
+    width:70px;
+}
+#deleteThisPlan{/* 삭제하기 버튼 */
+    width:50px;
+}
+#planTitle{/* 타이틀 p태그 */
+    font-size:20px;
+    padding:10px 0 10px 0;
+}
+#planRange{/* 여행 기간 p태그 */
+    font-size:15px;
+    padding:10px 0 10px 0;
+}
+.halfGrid{/* 셀렉터랑 작성자 태그를 나눠주는 그리드 */
+    width:48%;
+    float:left;
+}
+#daysSelecterWrap{/* 셀렉터 랩 */
+    margin:15px 0 15px 10px;
+}
+#writerWrap{/* 작성자/작성일 랩  */
+    text-align:right;
+    font-size:12px;
+    margin:15px 10px 15px 0;
+}
+#daySelecter{ /* n일차 셀렉터 */
+    width:150px;
+    height:35px;
+    border-radius: 5px;
+}

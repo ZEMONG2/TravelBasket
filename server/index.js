@@ -290,6 +290,10 @@ app.get("/getPlanCate", (req, res) => {
 app.post("/uploadPlan", (req, res) => {
   plan.uploadPlan(req, res, db);
 });
+//220826 선우 - 내 일정 조회
+app.post("/getMyPlan", (req, res) => {
+  plan.getMyPlan(req, res, db);
+});
 
 /* ------------- 네이버 지역 검색 api ------------- 220822 선우 */
 let naverapi = require("./webApi/NaverApiModule");

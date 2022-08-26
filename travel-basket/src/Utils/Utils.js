@@ -42,6 +42,41 @@ export async function getDataAsGetWithParams(url, params) {
   return data;
 }
 
+export async function getMyPlan(user_id, schedule_idx) {
+  var returnVal = {};
+  //일정 가져오기, 일정 페이징
+  await axios
+    .post('http://localhost:8000/getMyPlan', {
+      user_id: user_id,
+      schedule_idx: schedule_idx,
+    })
+    .then((res) => {
+      const { data } = res;
+      console.log(data);
+
+      //2. 공용데이터는 한번만 뺀다.
+      const schedule = {
+        SCHEDULE_TITLE: data[0].SCHEDULE_TITLE,
+        SCHEDULE_PLAN: data[0].SCHEDULE_PLAN,
+        SCHEDULE_PLACE: data[0].SCHEDULE_PLACE,
+        SCHEDULE_DAY: data[0].SCHEDULE_DAY,
+        SCHEDULE_OX: data[0].SCHEDULE_OX,
+        USER_IDX: data[0].USER_IDX,
+        SCHEDULE_VEHICLE: data[0].SCHEDULE_VEHICLE.split(','),
+        SCHEDULE_TOGETHER: data[0].SCHEDULE_TOGETHER.split(','),
+      };
+
+      for (let i = 0; i < data.length; i++) {}
+
+      //1. 일차별로 분리.
+      //3. 일차별 마커 세팅은 2차원 배열로 묶는다.
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+  return returnVal;
+}
+
 export function getDatesStartToLast(startDay, endDay) {
   //두 날짜(문자열) 사이의 모든 일차를 배열로 반환
 
@@ -224,8 +259,6 @@ export var cityPoints = [
   getMapsLatLng(33.499597, 126.531254), //제주
   getMapsLatLng(37.4884577, 130.9043746), //울릉도
 ];
-
-export function getPointListByCities() {}
 
 export function getMapsLatLng(lat, lng) {
   const returnVal = new window.kakao.maps.LatLng(lat, lng);

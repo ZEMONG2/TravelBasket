@@ -1,5 +1,6 @@
 import * as utill from '../../Utils/Utils';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const ScheduleArticle = ({ data, idx }) => {
   const [dayLabel, setState] = useState('');
@@ -21,19 +22,31 @@ const ScheduleArticle = ({ data, idx }) => {
       <div className={`mySchedule ${data.SCHEDULE_IDX}`}>
         <div className="img">
           {/* 추후 페이지 이동 경로 추가 */}
-          <a href="#!">
+          <Link
+            to={'/myplan'}
+            state={{
+              user_id: window.sessionStorage.getItem('USER_ID'),
+              schedule_idx: data.SCHEDULE_IDX,
+            }}
+          >
             {/* 서버에 섬네일 경로를 요청해서 받아옴 */}
             {/* <img src={'http://localhost:8000' + data.THUMBNAIL} alt="" /> */}
             {/* <img src={require('../../img/서울_남산.jpg')} alt="" /> */}
             <img src={utill.thumbnailSrc()[data.SCHEDULE_PLACE]} alt="" />
-          </a>
+          </Link>
         </div>
         <div className="scheduleDate">
           {/* 추후 페이지 이동 경로 추가 */}
-          <a href="#!">
+          <Link
+            to={'/myplan'}
+            state={{
+              user_id: window.sessionStorage.getItem('USER_ID'),
+              schedule_idx: data.SCHEDULE_IDX,
+            }}
+          >
             <p className="dayLabel">{dayLabel}</p>
             <p className="scheduleLabel">{data.SCHEDULE_TITLE}</p>
-          </a>
+          </Link>
         </div>
       </div>
     </>

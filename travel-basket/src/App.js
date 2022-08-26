@@ -26,6 +26,7 @@ import Main from '../src/components/Main/Main';
 
 /* Plan */
 import PlanMaker from '../src/components/Plan/PlanMaker';
+import MyPlan from '../src/components/MyPlan/MyPlan'; //220826 선우 내 일정 상세보기
 
 /* Schedule */
 import Schedule from '../src/components/Schedule/Schedule';
@@ -110,9 +111,11 @@ const App = () => {
           <Route path="/schedule_board" element={<Scheduleboard />} />
           {/* 내 일정 보관함 */}
           <Route path="/schedule" element={<Schedule />} />
+          {/* 내 일정 상세보기 */}
+          <Route path="/myplan" element={<MyPlan />} />
 
           {/* 드래그앤드랍 테스트용 */}
-          <Route path="/test" element={<DnDPractice />} />
+          {/* <Route path="/test" element={<DnDPractice />} /> */}
         </Routes>
       </div>
 

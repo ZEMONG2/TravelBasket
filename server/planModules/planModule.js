@@ -32,8 +32,22 @@ planModule.getPlanCategory = function (req, res, db) {
   return;
 };
 
+planModule.getMyPlan = function (req, res, db) {
+  const user_id = req.body.user_id;
+  const schedule_idx = req.body.schedule_idx;
+  var sqlQuery = `SELECT *
+  FROM TB_PLAN AS A
+  INNER JOIN TB_SCHEDULE AS B ON A.SCHEDULE_IDX = B.SCHEDULE_IDX
+  INNER JOIN TB_USER AS C ON B.USER_IDX = C.USER_IDX
+  WHERE C.USER_ID = '${user_id}' AND B.SCHEDULE_IDX = ${schedule_idx};`;
+
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+  return;
+};
+
 planModule.uploadPlan = function (req, res, db) {
-  console.log(req.body);
   const schedule = JSON.parse(req.body.schedule); //사용자 아이디가
   const plan = JSON.parse(req.body.plan);
 
