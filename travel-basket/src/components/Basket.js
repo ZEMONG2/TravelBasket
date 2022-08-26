@@ -107,26 +107,11 @@ const Basket = () => {
         {categories.map((idx) => (
           <div key={idx.value}>{idx.text}</div>
         ))}
-        <br />
-        <br />
-        <div className="category_btn">
+        -----------------------------------------------------
+        <div>
           <button>
             <MdLocalHotel />
           </button>
-          <button>
-            <MdLocalCafe />
-          </button>
-          <button>
-            <MdLocalDining />
-          </button>
-          <button>
-            <MdLocalActivity />
-          </button>
-        </div>
-        <br />
-        <br />
-        <div className="HotelCate">
-          -----------------------------------------------------
           {searchData
             .filter((SEARCH_IDX) => SEARCH_IDX.SEARCH_CATEGORY === 'Hotel')
             .map((SEARCH_IDX) => (
@@ -145,6 +130,9 @@ const Basket = () => {
         </div>
         ------------------------------------------
         <div>
+          <button>
+            <MdLocalCafe />
+          </button>
           {searchData
             .filter((SEARCH_IDX) => SEARCH_IDX.SEARCH_CATEGORY === 'Cafe')
             .map((SEARCH_IDX) => (
@@ -163,6 +151,9 @@ const Basket = () => {
         </div>
         ----------------------------------------------------------
         <div>
+          <button>
+            <MdLocalDining />
+          </button>
           {searchData
             .filter((SEARCH_IDX) => SEARCH_IDX.SEARCH_CATEGORY === 'Dining')
             .map((SEARCH_IDX) => (
@@ -181,6 +172,10 @@ const Basket = () => {
         </div>
         ----------------------------------------------------------
         <div>
+          <button>
+            <MdLocalActivity />
+          </button>
+
           {searchData
             .filter((SEARCH_IDX) => SEARCH_IDX.SEARCH_CATEGORY === 'Activity')
             .map((SEARCH_IDX) => (
