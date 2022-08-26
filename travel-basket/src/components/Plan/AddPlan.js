@@ -1,8 +1,13 @@
 import { useState, useRef, forwardRef, useImperativeHandle } from 'react';
 import axios from 'axios';
 import SearchedItem from './container/SearchedItem';
+
 import * as utill from '../../Utils/Utils';
 import './css/addPlan.css';
+// =======
+// // import './css/addPlan.css';
+// import './plan_css/addPlan.scss';
+// >>>>>>> main
 
 var cartCnt = 0; //장바구니 갯수
 var searchPage = 1; //현재 조회중인 페이지(서버에서 api 활용 검색에 사용)

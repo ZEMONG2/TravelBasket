@@ -1,12 +1,12 @@
-import React, { useRef, useState } from "react";
-import axios from "axios";
-import WriteEditor from "./editor/WriteEditor";
-import { useNavigate } from "react-router-dom";
-import "../../css/board_css/ReviewWrite.scss";
+import React, { useRef, useState } from 'react';
+import axios from 'axios';
+import WriteEditor from './editor/WriteEditor';
+import { useNavigate } from 'react-router-dom';
+import '../Board/board_css/ReviewWrite.scss';
 
 const ReviewWrite = () => {
-  const [desc, setDesc] = useState("");
-  const [image, setImage] = useState("");
+  const [desc, setDesc] = useState('');
+  const [image, setImage] = useState('');
 
   const titleRef = useRef();
   const navigate = useNavigate();
@@ -15,14 +15,14 @@ const ReviewWrite = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:8000/review/write", {
+      .post('http://localhost:8000/review/write', {
         title: titleRef.current.value,
         content: desc,
-        user: window.sessionStorage.getItem("USER_IDX"),
+        user: window.sessionStorage.getItem('USER_IDX'),
       })
       .then((res) => {
-        alert("새 글이 등록되었습니다.");
-        navigate("/review");
+        alert('새 글이 등록되었습니다.');
+        navigate('/review');
         // titleRef.current.value = "";
         // content = "";
       })
@@ -38,7 +38,7 @@ const ReviewWrite = () => {
           <h1>후기 작성</h1>
         </div>
         <div className="WTitle">
-          <p className="RW_title">제목</p>
+          <p className="RW_title"></p>
           <input
             className="title_input"
             type="text"

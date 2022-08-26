@@ -1,9 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import ModifyEditor from "./editor/ModifyEditor";
-import { useNavigate } from "react-router-dom";
-import "../../css/board_css/ReviewModify.scss";
+import React, { useRef, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import ModifyEditor from './editor/ModifyEditor';
+import { useNavigate } from 'react-router-dom';
+import '../Board/board_css/ReviewModify.scss';
 
 const ReviewModify = () => {
   // console.log('수정페이지 view => ', view);
@@ -11,17 +11,17 @@ const ReviewModify = () => {
 
   // 수정페이지에 param으로 게시물 번호에 맞는 게시물 내용 가져오기
   const params = useParams();
-  console.log("수정 페이지 params :", params);
+  console.log('수정 페이지 params :', params);
 
   const [modify, setModify] = useState({
     review_idx: 0,
-    review_title: "",
-    review_txt: "",
-    review_date: "",
-    user_idx: "",
-    user_nick: "",
-    review_like: "",
-    review_cnt: "",
+    review_title: '',
+    review_txt: '',
+    review_date: '',
+    user_idx: '',
+    user_nick: '',
+    review_like: '',
+    review_cnt: '',
   });
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const ReviewModify = () => {
 
   const handleModify = (e) => {
     axios
-      .post("http://localhost:8000/review/view", { params })
+      .post('http://localhost:8000/review/view', { params })
       .then((res) => {
         // console.log('handleModify res =>', res);
         const { data } = res;
@@ -55,15 +55,15 @@ const ReviewModify = () => {
   };
 
   // 게시물 수정
-  console.log("Modify에 저장확인 =>", modify);
-  const [desc, setDesc] = useState("");
-  const [images, setImage] = useState("");
+  console.log('Modify에 저장확인 =>', modify);
+  const [desc, setDesc] = useState('');
+  const [images, setImage] = useState('');
 
   const newArticle = modify.review_txt;
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
 
-  console.log("Modify에 newArticle =>", newArticle);
-  console.log("Modify에 content =>", content);
+  console.log('Modify에 newArticle =>', newArticle);
+  console.log('Modify에 content =>', content);
 
   const onChangeTitle = (e) => {
     // console.log('제목변경', modify);
@@ -84,16 +84,16 @@ const ReviewModify = () => {
     // console.log('handleUpdate => ', content);
 
     axios
-      .post("http://localhost:8000/review/modify", {
+      .post('http://localhost:8000/review/modify', {
         modify: modify,
         content: content,
       })
       .then((res) => {
-        console.log("응답데이터 :", res.data);
-        if (res.data === "업데이트성공") {
-          console.log("뜬다");
-          alert("수정이 완료되었습니다.");
-          navigate("/review");
+        console.log('응답데이터 :', res.data);
+        if (res.data === '업데이트성공') {
+          console.log('뜬다');
+          alert('수정이 완료되었습니다.');
+          navigate('/review');
         }
       })
       .catch((e) => {
@@ -108,7 +108,7 @@ const ReviewModify = () => {
           <h2>후기 게시판 수정</h2>
         </div>
         <div className="WTitle">
-          <p className="RW_title">제목</p>
+          <p className="RW_title"></p>
           <input
             className="title_input"
             type="text"
@@ -127,7 +127,7 @@ const ReviewModify = () => {
             onChange={txtChange}
           />
         </div>
-        <div className="btnWrap">
+        <div className="btnWrap_edit">
           <button type="submit" onClick={handleUpdate}>
             등록
           </button>

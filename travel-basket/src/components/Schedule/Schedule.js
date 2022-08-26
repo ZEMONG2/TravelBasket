@@ -1,5 +1,7 @@
-import './schedule.css';
-import '../../css/common.css';
+// import './schedule.css';
+import './schedule_css/schedule.scss';
+// import '../../css/common.css';
+import '../../css/common.scss';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

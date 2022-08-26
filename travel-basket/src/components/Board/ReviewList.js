@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import ReviewArticle from "./ReviewArticle";
-import "../../css/board_css/ReviewList.scss";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import ReviewArticle from './ReviewArticle';
+import '../Board/board_css/ReviewList.scss';
 
 const ReviewList = () => {
   // 세션값 있는 경우만 이동가능
@@ -28,12 +28,12 @@ const ReviewList = () => {
 
   // 글쓰기 이동
   const write = () => {
-    navigate("/review/write");
+    navigate('/review/write');
   };
 
   const getList = () => {
     axios
-      .get("http://localhost:8000/review", {})
+      .get('http://localhost:8000/review', {})
       .then((res) => {
         // console.log('리뷰 getList res => ', res);
 
@@ -89,15 +89,15 @@ export function reviewTime(date) {
   const diff = end - start;
 
   const times = [
-    { time: "분", milliSeconds: 1000 * 60 },
-    { time: "시간", milliSeconds: 1000 * 60 * 60 },
-    { time: "일", milliSeconds: 1000 * 60 * 60 * 24 },
-    { time: "개월", milliSeconds: 1000 * 60 * 60 * 24 * 30 },
-    { time: "년", milliSeconds: 1000 * 60 * 60 * 24 * 365 },
+    { time: '분', milliSeconds: 1000 * 60 },
+    { time: '시간', milliSeconds: 1000 * 60 * 60 },
+    { time: '일', milliSeconds: 1000 * 60 * 60 * 24 },
+    { time: '개월', milliSeconds: 1000 * 60 * 60 * 24 * 30 },
+    { time: '년', milliSeconds: 1000 * 60 * 60 * 24 * 365 },
   ].reverse(); // 아래 코드를 위해서는 (년 ~ 분) 순서여야함
 
   if (diff >= 86400000) {
-    console.log("diff를 확인하고싶어", diff);
+    // console.log('diff를 확인하고싶어', diff);
     // const pastDate = date.toString().replace("T", " ").replace(/\..*/, '');;
     return `${date}`;
   } else {
@@ -112,5 +112,5 @@ export function reviewTime(date) {
   }
 
   // 모든 단위가 맞지 않을 시
-  return "방금 전";
+  return '방금 전';
 }

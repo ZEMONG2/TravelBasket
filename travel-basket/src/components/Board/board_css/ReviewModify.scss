@@ -1,0 +1,18 @@
+.btnWrap_edit {
+  display: flex;
+  justify-content: center;
+}
+
+.btnWrap_edit button {
+  background-color: lightgrey;
+  text-align: center;
+  border: none;
+  border-radius: 2px 2px;
+  background-color: lightgray;
+  padding: 1%;
+  margin: 1%;
+  width: 70px;
+  // left: 40%;
+  // position: relative;
+  cursor: pointer;
+}

@@ -1,0 +1,51 @@
+.ListBox {
+  // border: 1px solid #333;
+  box-shadow: 5px 20px 20px rgb(226, 226, 226);
+  box-sizing: border-box;
+  position: relative;
+  width: 40%;
+  // height: 40%;
+  margin: 4% 5%;
+  padding: 1%;
+  float: left;
+  min-height: 400px;
+}
+
+.ListBox:hover {
+  background-color: rgb(231, 231, 231);
+}
+
+.ListBox > a {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+
+.ul {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.li {
+  padding: 0;
+  display: inline-flex;
+}
+
+.noImg img{
+  max-width: 100%;
+}
+
+.noImg {
+  background-color:rgb(245, 245, 245);
+  height: 240px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ReviewTxt h3 {
+  margin: 20px 0;
+}
