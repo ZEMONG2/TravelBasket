@@ -42,6 +42,20 @@ export async function getDataAsGetWithParams(url, params) {
   return data;
 }
 
+export async function uploadPlan2DB(data) {
+  //post로 서버통신
+  await axios
+    .post('http://localhost:8000', {})
+    .then((res) => {
+      ({ data } = res);
+      if (data === 'success') alert('저장완료되었습니다!');
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+  return data;
+}
+
 export function emptyPlan() {
   var plan = {
     noEditted: true,
@@ -51,49 +65,49 @@ export function emptyPlan() {
   };
   return plan;
 }
-var arr = [
-  //29박 30일까지 커버... 몇번만 보여주면 되니까.. 이제 생각하는것도 좀 그만두고싶음..ㅠㅠ
-  '/rainbow_marker/blue_marker.png',
-  '/rainbow_marker/green_marker.png',
-  '/rainbow_marker/indigo_marker.png',
-  '/rainbow_marker/orange_marker.png',
-  '/rainbow_marker/purple_marker.png',
-  '/rainbow_marker/red_marker.png',
-  '/rainbow_marker/yellow_marker.png',
-
-  '/rainbow_marker/blue_marker.png',
-  '/rainbow_marker/green_marker.png',
-  '/rainbow_marker/indigo_marker.png',
-  '/rainbow_marker/orange_marker.png',
-  '/rainbow_marker/purple_marker.png',
-  '/rainbow_marker/red_marker.png',
-  '/rainbow_marker/yellow_marker.png',
-
-  '/rainbow_marker/blue_marker.png',
-  '/rainbow_marker/green_marker.png',
-  '/rainbow_marker/indigo_marker.png',
-  '/rainbow_marker/orange_marker.png',
-  '/rainbow_marker/purple_marker.png',
-  '/rainbow_marker/red_marker.png',
-  '/rainbow_marker/yellow_marker.png',
-
-  '/rainbow_marker/blue_marker.png',
-  '/rainbow_marker/green_marker.png',
-  '/rainbow_marker/indigo_marker.png',
-  '/rainbow_marker/orange_marker.png',
-  '/rainbow_marker/purple_marker.png',
-  '/rainbow_marker/red_marker.png',
-  '/rainbow_marker/yellow_marker.png',
-
-  '/rainbow_marker/blue_marker.png',
-  '/rainbow_marker/green_marker.png',
-  '/rainbow_marker/indigo_marker.png',
-  '/rainbow_marker/orange_marker.png',
-  '/rainbow_marker/purple_marker.png',
-  '/rainbow_marker/red_marker.png',
-  '/rainbow_marker/yellow_marker.png',
-];
 export function getMarkerListSrc() {
+  var arr = [
+    //29박 30일까지 커버... 몇번만 보여주면 되니까.. 이제 생각하는것도 좀 그만두고싶음..ㅠㅠ
+    '/rainbow_marker/blue_marker.png',
+    '/rainbow_marker/green_marker.png',
+    '/rainbow_marker/indigo_marker.png',
+    '/rainbow_marker/orange_marker.png',
+    '/rainbow_marker/purple_marker.png',
+    '/rainbow_marker/red_marker.png',
+    '/rainbow_marker/yellow_marker.png',
+
+    '/rainbow_marker/blue_marker.png',
+    '/rainbow_marker/green_marker.png',
+    '/rainbow_marker/indigo_marker.png',
+    '/rainbow_marker/orange_marker.png',
+    '/rainbow_marker/purple_marker.png',
+    '/rainbow_marker/red_marker.png',
+    '/rainbow_marker/yellow_marker.png',
+
+    '/rainbow_marker/blue_marker.png',
+    '/rainbow_marker/green_marker.png',
+    '/rainbow_marker/indigo_marker.png',
+    '/rainbow_marker/orange_marker.png',
+    '/rainbow_marker/purple_marker.png',
+    '/rainbow_marker/red_marker.png',
+    '/rainbow_marker/yellow_marker.png',
+
+    '/rainbow_marker/blue_marker.png',
+    '/rainbow_marker/green_marker.png',
+    '/rainbow_marker/indigo_marker.png',
+    '/rainbow_marker/orange_marker.png',
+    '/rainbow_marker/purple_marker.png',
+    '/rainbow_marker/red_marker.png',
+    '/rainbow_marker/yellow_marker.png',
+
+    '/rainbow_marker/blue_marker.png',
+    '/rainbow_marker/green_marker.png',
+    '/rainbow_marker/indigo_marker.png',
+    '/rainbow_marker/orange_marker.png',
+    '/rainbow_marker/purple_marker.png',
+    '/rainbow_marker/red_marker.png',
+    '/rainbow_marker/yellow_marker.png',
+  ];
   return arr;
 }
 export var cityPoints = [

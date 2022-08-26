@@ -14,7 +14,6 @@ const PlanMap = ({ markerlist, pointsList }) => {
     color: '#000',
     zIndex: '0',
   });
-  const testfunc = () => {};
   return (
     <Map
       center={{ lat: pointsList[0].getLat(), lng: pointsList[0].getLng() }}
@@ -33,15 +32,6 @@ const PlanMap = ({ markerlist, pointsList }) => {
           }
         }
       }}
-      // onCenterChanged={(map) => {
-      //   setState({
-      //     level: map.getLevel(),
-      //     center: {
-      //       lat: map.getCenter().getLat(),
-      //       lng: map.getCenter().getLng(),
-      //     },
-      //   });
-      // }}
     >
       {markerlist[0].noEditted !== true &&
         markerlist.map(
@@ -49,9 +39,6 @@ const PlanMap = ({ markerlist, pointsList }) => {
             val, //이거는 일차를 순회
             idx,
           ) =>
-            //() => {
-            //==> 이런식으로 해서 div를 반환하면 되지 않을까?아니면 위에서 컴포넌트를 반환하는 함수 갈겨버리기
-
             val.area.map((val2, idx2) => (
               <MapMarker
                 key={idx2}
@@ -84,9 +71,6 @@ const PlanMap = ({ markerlist, pointsList }) => {
                 </div>
               </MapMarker>
             )),
-          //   if (iconIdx === 6) iconIdx = 0;
-          //   else iconIdx += 1;
-          // },
         )}
     </Map>
   );

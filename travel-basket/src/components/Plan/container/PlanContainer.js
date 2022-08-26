@@ -29,6 +29,7 @@ const PlanContainer = ({
     e.preventDefault();
   };
   const deleteItem = (e, idx) => {
+    //저장한 장소와 메모 삭제
     deletePlace(idx, daycnt);
     e.preventDefault();
   };

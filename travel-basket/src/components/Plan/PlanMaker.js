@@ -99,6 +99,7 @@ const PlanMaker = () => {
   };
   const [isUpdatingMemo, setUpdateMemoMode] = useState(false); //메모 수정 여부 체크, 기본값은 false
   const [updateMemoData, setUpdateMemoData] = useState({}); //수정하고자 하는 메모 데이터
+
   const init = () => {
     //총합 정보 초기화 기능
     //제작중 여부 초기화
@@ -127,8 +128,14 @@ const PlanMaker = () => {
     //공개여부는 기본적으로 O
     setOX('O');
 
-    //저장정보? 초기화?
+    //저장정보
     setDayList([utill.emptyPlan()]);
+  };
+  const reset = () => {
+    //초기화
+    init();
+    const citypoints = utill.cityPoints[cityRef.current.value];
+    setPoints([citypoints]);
   };
 
   const handleType = (type, val, idx) => {
@@ -278,7 +285,7 @@ const PlanMaker = () => {
     for (let i = 0; i < dayList.length; i++) {
       var data = dayList[i];
       if (data.day === daycnt + '일차') {
-        data.area.splice(idx, 1);
+        data.area.splice(idx, 1); //여기서 idx번째 인덱스부터 1개의 객체를 세어서 제거한다.
         data.memo.splice(idx, 1);
       }
       arr.push(data);
@@ -382,8 +389,9 @@ const PlanMaker = () => {
     //자역 선택이 바뀌면 지도 위치재설정
     const selectedArea = parseInt(cityRef.current.value); //지금 선택한 지역
     //selectedAreaBefore
-    console.log(isMaking, selectedArea, selectedAreaBefore);
+    //console.log(isMaking, selectedArea, selectedAreaBefore);
     if (isMaking && selectedArea !== selectedAreaBefore) {
+      //일정 제작중이고 지역이 재선택되었으면 초기화
       if (
         window.confirm(
           '일정을 만드는중에 지역을 이동하면 저장한 정보가 초기화됩니다. 그래도 괜찮으세요?',
@@ -604,7 +612,9 @@ const PlanMaker = () => {
         <div className="btnWrap center_con">
           {/* <button type="submit" onClick={upload}> */}
           <button onClick={uploadPlan}>등록</button>
-          <button type="reset">취소</button>
+          <button type="reset" onClick={reset}>
+            초기화
+          </button>
         </div>
         <div className="updownSpace"></div>
       </form>
