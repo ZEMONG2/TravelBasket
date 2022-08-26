@@ -8,7 +8,9 @@ scheduleModules.searchMySchedule = function (req, res, db) {
   const start_limit = (page_num - 1) * page_size;
   const id = req.body.id; //사용자 아이디
 
-  const sqlQuery = `SELECT A.SCHEDULE_IDX, A.SCHEDULE_TITLE, A.THUMBNAIL FROM TB_SCHEDULE AS A
+  const sqlQuery = `SELECT A.SCHEDULE_IDX, A.SCHEDULE_TITLE, A.SCHEDULE_PLAN, A.SCHEDULE_PLACE,
+                    A.SCHEDULE_DAY
+                     FROM TB_SCHEDULE AS A
                         INNER JOIN TB_USER AS B
                         ON A.USER_IDX = B.USER_IDX
                     WHERE B.USER_ID = '${id}'

@@ -43,6 +43,7 @@ const db = mysql.createPool({
   user: "root",
   password: "123456",
   database: "travel_test",
+  multipleStatements: true, //220826 선우 여러 쿼리를 동시에 전송하기 위한 설정
   // charset: "utf8mb4",
 });
 
@@ -286,7 +287,7 @@ app.get("/getPlanCate", (req, res) => {
   plan.getPlanCategory(req, res, db);
 });
 //220826 선우 - 일정 업로드
-app.get("/uploadPlan", (req, res) => {
+app.post("/uploadPlan", (req, res) => {
   plan.uploadPlan(req, res, db);
 });
 

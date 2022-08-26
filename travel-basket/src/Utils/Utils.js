@@ -80,49 +80,74 @@ export function getDatesStartToLast(startDay, endDay) {
   }
   return result;
 }
+export function thumbnailSrc(idx) {
+  return [
+    '/img/서울_남산.jpg',
+    '/img/부산_광안리.jpg',
+    '/img/대구_디아크문화관.jpg',
+    '/img/인천_송도.jpg',
+    '/img/광주_무등산.jpg',
+    '/img/대전_엑스포과학공원.jpg',
+    '/img/울산_간절곶.jpg',
+    '/img/세종_로고.jpg',
+    '/img/제주_돌하르방.jpg',
+    '/img/울릉도,독도.jpg',
+  ];
+}
 
 function makeScheduleUploadData(data) {
   var schedule = {
     SCHEDULE_TITLE: data.title,
     SCHEDULE_PLAN: data.day,
+    SCHEDULE_PLACE: parseInt(data.selectedArea),
+    SCHEDULE_DAY: data.totalday,
+    SCHEDULE_OX: data.uploadIsopen,
+    USER_IDX: parseInt(data.useridx),
+    SCHEDULE_VEHICLE: data.trans.join(','),
+    SCHEDULE_TOGETHER: data.plan.join(','),
   };
+  return schedule;
+}
+function makePlanUploadData(data) {
+  var plan = [];
+  //일차별로 객체를 하나씩 만들고
+  //객체안에 정보를 하나씩 넣는다
+  for (let i = 0; i < data.finalPlan.length; i++) {
+    var planByDay = [];
+    const area = data.finalPlan[i].area;
+    const memo = data.finalPlan[i].memo;
+    for (let j = 0; j < area.length; j++) {
+      //저장한 지역갯수와 메모 갯수는 항상 일치하니 같이 반복문 돌린다.
+      var planInfo = {
+        //n일차별 플랜
+        PLAN_DAYS: data.finalPlan[i].day,
+        P_CATE_IDX: memo[j].category,
+        PLAN_MEMO: memo[j].memo,
+        PLAN_TITLE: memo[j].title,
+        PLAN_LAT: area[j].y,
+        PLAN_LNG: area[j].x,
+        PLAN_LINK: area[j].place_url,
+        PLAN_SHOP_CATE: area[j].category_name,
+        PLAN_POINT_NAME: area[j].place_name,
+        PLAN_ADDR: area[j].address_name,
+        PLAN_ADDR_ROAD: area[j].road_address_name,
+      };
+      planByDay.push(planInfo);
+    }
+    plan.push(planByDay);
+  }
+
+  return plan;
 }
 
 export async function uploadPlan2DB(data) {
-  //post로 서버통신
-  // const mergedData = {
-  //   title: titleRef.current.value, //제목
-  //   selectedArea: cityRef.current.value, //선택한지역
-  //   day: daytxt, //일정(몇박 몇일)
-  //   plan: planArr.plan, //여행타입
-  //   trans: transArr.trans, //이동수단
-  //   uploadIsopen: isopen, //공개여부
-  //   finalPlan: {
-  //                noEditted: true,
-  //                day: '1일차', //n일차
-  //                area: [{
-  //                          address_name: "서울 중구 명동2가 25-36"
-  //                          category_group_code: "FD6"
-  //                          category_group_name: "음식점"
-  //                          category_name: "음식점 > 분식"
-  //                          distance: ""
-  //                          id: "10332413"
-  //                          phone: "02-776-5348"
-  //                          place_name: "명동교자 본점"
-  //                          place_url: "http://place.map.kakao.com/10332413"
-  //                          road_address_name: "서울 중구 명동10길 29"
-  //                          x: "126.98561429978552"
-  //                          y: "37.56255453417897"
-  //                        }
-  //                      ], //저장한 가고싶은 장소 객체배열
-  //              memo: [{
-  //                      category: 2, title: 'asd', memo: 'asd'
-  //                    }],
-  //              };
-  // };
-
+  const schedule_upload = makeScheduleUploadData(data);
+  const plan_upload = makePlanUploadData(data);
   await axios
-    .post('http://localhost:8000/uploadPlan', {})
+    .post('http://localhost:8000/uploadPlan', {
+      schedule: JSON.stringify({ data: schedule_upload }),
+      plan: JSON.stringify({ data: plan_upload }),
+    })
     .then((res) => {
       ({ data } = res);
       if (data === 'success') alert('저장완료되었습니다!');

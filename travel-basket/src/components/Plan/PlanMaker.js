@@ -48,7 +48,7 @@ const PlanMaker = () => {
     '울산',
     '세종',
     '제주',
-    '울릉도',
+    '울릉도,독도',
   ]; //지역
 
   const transport = ['도보', '자전거', '오토바이', '대중교통', '자동차']; //교통수단
@@ -377,7 +377,11 @@ const PlanMaker = () => {
     //console.log(setArr);
     const lat = parseFloat(placeData.y);
     const lng = parseFloat(placeData.x);
-    if (pointsArr.length === 1) pointsArr = [utill.getMapsLatLng(lat, lng)];
+    if (
+      pointsArr.length === 1 &&
+      utill.cityPoints.indexOf(utill.getMapsLatLng(lat, lng)) !== -1
+    )
+      pointsArr = [utill.getMapsLatLng(lat, lng)];
     else pointsArr.push(utill.getMapsLatLng(lat, lng));
 
     setPoints(pointsArr); //좌표 배열을 누적된대로 재배치
@@ -436,18 +440,23 @@ const PlanMaker = () => {
 
     var dayarr = utill.getDatesStartToLast(startDate, endDate).join(',');
 
+    if (daytxt === '일정을 선택하세요') {
+      alert('일정을 만들어주세요!');
+      return;
+    }
     const mergedData = {
       title: titleRef.current.value, //제목
       selectedArea: cityRef.current.value, //장소
       day: daytxt, //일정(몇박 몇일)
       plan: planArr.plan, //여행타입
+      totalday: dayarr, //n일부터 m일까지 ,로 연결한 문자열
       trans: transArr.trans, //이동수단
       uploadIsopen: isopen, //공개여부
+      useridx: window.sessionStorage.getItem('USER_IDX'), //회원번호
       finalPlan: dayList,
     };
-    console.log(mergedData);
     //utill.uploadPlan2DB(mergedData);
-
+    utill.uploadPlan2DB(mergedData);
     e.preventDefault();
   };
   return (
