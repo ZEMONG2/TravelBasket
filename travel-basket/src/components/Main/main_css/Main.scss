@@ -1,0 +1,255 @@
+/*********************************/
+/*  슬라이드                     */
+/*********************************/
+
+// 기존 slick 버튼 숨김
+.slick-prev, .slick-next {
+  display: none !important;
+}
+
+.left_btn {
+  border: none;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 170px;
+  left : 10px;
+  color:rgb(66, 66, 66);
+  opacity: 1;
+}
+
+.right_btn {
+  border: none;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 170px;
+  right : 10px; 
+  color: rgb(66, 66, 66);
+  opacity: 1;
+}
+
+.card-wrapper:active,
+.card-wrapper:hover,
+.card-wrapper:focus {
+  outline: none;
+  border: none;
+}
+
+.card {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.card .card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // z-index: 2;
+  transition: 0.5;
+  background-color: rgb(128, 128, 128);
+}
+
+.card .card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+.details  {
+  margin: 100px 0;
+  position:absolute;
+  left: 50%;
+  transform:translateX(-50%);
+  color:white;
+  opacity: 0.9;
+  // background-color: rgba(128, 128, 128, 0.3);
+}
+
+
+.move_btn {
+  height: 0;
+}
+
+.carousel .slick-dots li button:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  content: "";
+  text-align: center;
+  opacity: 0.2;
+  background-color: #333;
+  transform: translate(-50%, -50%);
+  transition: all .3s ease-in-out;
+}
+
+.carousel .slick-dots li.slick-active button:before, .carousel .slick-dots li:hover button:before {
+  opacity: 1;
+}
+
+.carousel .slick-dots {
+  bottom: 20px
+}
+
+// 모바일에서는 hover 놉!
+// .card:hover img {
+//   opacity: 0.4;
+//   transition: 0.5s;
+// }
+
+// .card:hover .social-icons li a {
+//   transform: translateY(0px);
+//   opacity: 1;
+// }
+
+// .card:hover li:nth-child(1) a {
+//   transition-delay: 0.1s;
+// }
+
+// .card:hover li:nth-child(2) a {
+//   transition-delay: 0.2s;
+// }
+
+// .card:hover li:nth-child(3) a {
+//   transition-delay: 0.3s;
+// }
+
+// .card:hover li:nth-child(4) a {
+//   transition-delay: 0.4s;
+// }
+
+
+/*********************************/
+/*  검색창 & 글                  */
+/*********************************/
+
+.input_search {
+  // text-align: center;
+  margin: 10px;
+  padding: 1.5%;
+  width: 320px;
+  border: solid 1px lightgray;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.serch_none {
+  text-align: center;
+}
+
+.search_a {
+  margin : 5%;
+}
+
+// 페이지 글 개수
+.pageCount {
+  margin: 2% 5%;
+  padding: 5px;
+  display: inline-flex;
+  position: absolute;
+  left:70%
+}
+
+// 검색 결과 리스트 출력
+.Blog {
+  margin : 5%;
+  height: 100%;
+}
+
+/*********************************/
+/*  검색전 탭메뉴                */
+/*********************************/
+
+.tab_all {
+  width: 600px;
+  display: inline-block;
+}
+
+.tab_title {
+  font-size: 24px;
+  display: block;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.tab > .tab-link-active {
+  opacity: 1;
+} 
+
+.tab > button {
+  background: none !important;
+  font-size: 15px !important;
+  color: navy;
+  opacity: 0.6;
+  padding: 0 10px 0 0;
+}
+
+.tab_list {
+  // font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+  list-style: none;
+  display: flex;
+  margin-top: 10px;
+}
+
+.tab_content {
+  // border: 1px solid;
+  font-size: 13px;
+  text-align: left;
+  background-color: #f9f9f9;
+  min-height: 400px;
+  padding:  10px 20px;
+}
+
+.tab_content  table > tr > td:first-child {
+  width: 70px !important;
+  font-weight: bold;
+}
+
+/*********************************/
+/*  페이징                       */
+/*********************************/
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 5% 0;
+}
+
+ul.pagination li {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin : 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F0F0F0;
+  border-radius: 5px 5px 5px 5px;
+}
+
+ul.pagination li.active a {
+  color: #fff;
+}
+
+ul.pagination li.active {
+  background-color: #0066cc;
+}
+

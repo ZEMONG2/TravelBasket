@@ -1,49 +1,39 @@
 import { Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
-import Basket from './components/Basket';
-import Main from './components/Main';
 
-import Login from './components/Login';
-import Register from './components/Register';
-import ReviewList from './components/board/ReviewList';
-import ReviewModify from './components/board/ReviewModify';
-import ReviewView from './components/board/ReviewView';
-import ReviewWrite from './components/board/ReviewWrite';
-import NotFound from './components/NotFound';
+/* Board */
+import ReviewList from '../src/components/Board/ReviewList';
+import ReviewModify from '../src/components/Board/ReviewModify';
+import ReviewView from '../src/components/Board/ReviewView';
+import ReviewWrite from '../src/components/Board/ReviewWrite';
+
+/* Header */
+import Basket from '../src/components/Header/Basket';
+import Header from '../src/components/Header/Header';
+import Loading from '../src/components/Header/Loading';
+import NotFound from '../src/components/Header/NotFound';
+import Scheduleboard from '../src/components/Header/Scheduleboard';
+
+/* Login */
+import Forgot from '../src/components/Login/Forgot';
+import KakaoLogin from '../src/components/Login/KakaoLogin';
+import Login from '../src/components/Login/Login';
+import ModifyInfo from '../src/components/Login/ModifyInfo';
+import Nick from '../src/components/Login/Nick';
+import Register from '../src/components/Login/Register';
+
+/* Main */
+import Main from '../src/components/Main/Main';
+
+/* Plan */
+import PlanMaker from '../src/components/Plan/PlanMaker';
+import PlanMap from '../src/components/Plan/container/PlanMap';
+
+/* Schedule */
+import Schedule from '../src/components/Schedule/Schedule';
+
+/* 그외 */
 import './css/App.scss';
 import background from '../src/img/summer.mp4';
-import Loading from './components/Loading';
-import KakaoLogin from './components/KakaoLogin';
-import Forgot from './components/Forgot';
-import Nick from './components/Nick';
-import ModifyInfo from './components/ModifyInfo';
-//import NaverLogin from './components/NaverLogin';
-
-//20220822 선우 병합
-import PlanMaker from './components/Plan/PlanMaker';
-import Schedule from './components/Schedule/Schedule';
-//import Schedule from './components/Schedule';
-// =======
-// import { Route, Routes } from "react-router-dom";
-// import Header from "./components/Header";
-// import Basket from "./components/Basket";
-// import Main from "./components/Main";
-// import Schedule from "./components/Schedule";
-// import Login from "./components/Login";
-// import Register from "./components/Register";
-// import ReviewList from "./components/board/ReviewList";
-// import ReviewModify from "./components/board/ReviewModify";
-// import ReviewView from "./components/board/ReviewView";
-// import ReviewWrite from "./components/board/ReviewWrite";
-// import NotFound from "./components/NotFound";
-// import "./css/App.scss";
-// import background from "../src/img/summer.mp4";
-// import Loading from "./components/Loading";
-// import KakaoLogin from "./components/KakaoLogin";
-// import Forgot from "./components/Forgot";
-// import Nick from "./components/Nick";
-// import ModifyInfo from "./components/ModifyInfo";
-// >>>>>>> main
 
 const App = () => {
   return (
@@ -82,6 +72,8 @@ const App = () => {
           {/* 일정 만들기 */}
           <Route path="/makeplan" element={<PlanMaker />} />
           {/* 일정 공유 게시판 */}
+          <Route path="/schedule_board" element={<Scheduleboard />} />
+          {/* 내 일정 보관함 */}
           <Route path="/schedule" element={<Schedule />} />
         </Routes>
       </div>

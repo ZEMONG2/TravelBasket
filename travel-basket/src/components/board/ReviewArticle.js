@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import logo from "../../img/NEXTRAVEL_v.png";
-import * as List from "./ReviewList";
-import "../../css/board_css/ReviewArticle.scss";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import logo from '../../img/NEXTRAVEL_v.png';
+import * as List from './ReviewList';
+import '../Board/board_css/ReviewArticle.scss';
 
 const ReviewArticle = ({ article, viewClick }) => {
   const navigate = useNavigate();
   const txt = article.REVIEW_TXT;
-  const url = txt.substring(txt.indexOf("http"), txt.indexOf('g">') + 1);
+  const url = txt.substring(txt.indexOf('http'), txt.indexOf('g">') + 1);
 
   // 리스트 썸네일 이미지 배경으로 변경
   const thumbImg = {
-    backgroundRepeat: "no-repeat",
+    backgroundRepeat: 'no-repeat', // 배경 이미지 반복X
     backgroundImage: `url(${url})`,
-    width: "100%",
-    height: "240px",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
+    width: '100%',
+    height: '240px',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
   };
 
   // // // 상세 페이지 이동
@@ -31,16 +31,16 @@ const ReviewArticle = ({ article, viewClick }) => {
   // 게시글 시간 변경 (리스트 화면)
   const listTime = List.reviewTime(article.REVIEW_DATE)
     .toString()
-    .split("T")[0];
+    .split('T')[0];
   // console.log(listTime);
 
   return (
     <div>
       <div onClick={view} className="ListBox">
         <p id={article.REVIEW_IDX}></p>
-        {url === "" ? (
+        {url === '' ? (
           <div className="noImg">
-            <img src={logo} alt="travel basket" />
+            <img src={logo} alt="NEXT TRAVEL" />
           </div>
         ) : (
           <div className="ReviewThumb" style={thumbImg}></div>

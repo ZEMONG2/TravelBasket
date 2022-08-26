@@ -7,7 +7,8 @@ import TypeContainer from './container/TypeContainer'; //여행타입 / 이동 �
 import PlanContainer from './container/PlanContainer'; //일차별 여행 계획 저장 컨테이너
 import PlanMap from './container/PlanMap'; //지도 컨테이너
 import AddPlan from './AddPlan'; //일정 추가 컨테이너
-import './css/plan.css';
+// import './css/plan.css';
+import '../Plan/plan_css/planMaker.scss';
 
 //import NaverPlanMap from './NaverPlanMap';
 import AddMemo from './AddMemo';

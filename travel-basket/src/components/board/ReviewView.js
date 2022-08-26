@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import * as List from "./ReviewList";
-import "../../css/board_css/ReviewView.scss";
-import { IoIosArrowDropleft } from "react-icons/io";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as List from './ReviewList';
+import '../Board/board_css/ReviewView.scss';
+import { IoIosArrowDropleft } from 'react-icons/io';
 
 const ReviewView = () => {
   const navigate = useNavigate();
   const params = useParams();
-  console.log("params :", params);
+  console.log('params :', params);
 
   const [view, setView] = useState({
     review_idx: 0,
-    review_title: "",
-    review_txt: "",
-    review_date: "",
-    user_idx: "",
-    user_nick: "",
-    review_like: "",
-    review_cnt: "",
+    review_title: '',
+    review_txt: '',
+    review_date: '',
+    user_idx: '',
+    user_nick: '',
+    review_like: '',
+    review_cnt: '',
   });
 
-  console.log("뷰어 view => ", view);
+  console.log('뷰어 view => ', view);
 
   useEffect(() => {
     handleView();
@@ -31,9 +31,9 @@ const ReviewView = () => {
 
   const handleView = () => {
     axios
-      .post("http://localhost:8000/review/view", { params })
+      .post('http://localhost:8000/review/view', { params })
       .then((res) => {
-        console.log("handleView res =>", res);
+        console.log('handleView res =>', res);
         // console.log('target =>', e.target.id);
 
         const { data } = res;
@@ -60,12 +60,12 @@ const ReviewView = () => {
   // 게시글 시간 변경 (뷰어)
   const viewTime = List.reviewTime(view.review_date)
     .toString()
-    .replace("T", " ")
-    .replace(/\..*/, "");
+    .replace('T', ' ')
+    .replace(/\..*/, '');
 
   // 뒤로 이동
   const back = () => {
-    navigate("/review");
+    navigate('/review');
   };
 
   // 수정 페이지 링크
@@ -76,14 +76,14 @@ const ReviewView = () => {
 
   // 게시물 삭제
   const handleDelete = (e) => {
-    console.log("삭제 버튼 만들거야 ", view.review_idx);
-    if (window.confirm("정말 삭제하시겠습니까?")) {
+    console.log('삭제 버튼 만들거야 ', view.review_idx);
+    if (window.confirm('정말 삭제하시겠습니까?')) {
       axios
-        .post("http://localhost:8000/delete", {
+        .post('http://localhost:8000/delete', {
           idx: view.review_idx,
         })
         .then((res) => {
-          navigate("/review");
+          navigate('/review');
         })
         .catch((e) => {
           console.error(e);

@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react';
 import './css/addMemo.css';
+// import '../Plan/plan_css/addMemo.scss';
+
 const AddMemo = ({ handleMemoPopup, selectedItem }) => {
   const [memo, setMemo] = useState({});
   const selectRef = useRef();
@@ -35,7 +37,7 @@ const AddMemo = ({ handleMemoPopup, selectedItem }) => {
         <option value={'장소3'}>장소3</option>
       </select>
       <input ref={textRef} type="text" />
-      <input ref={areaRef} type="textarea" />
+      <input ref={areaRef} type="text" />
       <div>
         <button className="saveMemo memobtn" onClick={saveMemo}>
           저장
