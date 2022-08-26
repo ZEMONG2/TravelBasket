@@ -346,6 +346,7 @@ const PlanMaker = () => {
     isMaking = true; //일정 제작이 시작되면 상태 변경
     var now = selectedDays + '일차'; //지금 저장하려고 하는 데이터가 몇일차인지 확인하게해줌
     var setArr = []; //데이터 세팅을 위한 공백 배열
+    console.log(placeData, memoData);
     for (let i = 0; i < dayList.length; i++) {
       //날짜를 선택할때 같이 생성되는 객체 배열의 길이만큼 반복
       //이때 객체 배열의 길이는 최종 여행 일자와 같음
@@ -420,15 +421,21 @@ const PlanMaker = () => {
 
   const uploadPlan = (e) => {
     //여기서 일정 디비에 업로드
-    const title = titleRef.current.value; //제목
-    const selectedArea = cityRef.current.value; //선택한지역
-    const day = daytxt; //일정(몇박 몇일)
-    const plan = planArr.plan; //여행타입
-    const trans = transArr.trans; //이동수단
-    const uploadIsopen = isopen; //공개여부
-    const finalPlan = dayList;
-    console.log(isMaking);
-    console.log(title, selectedArea, day, plan, trans, uploadIsopen, finalPlan);
+
+    var dayarr = utill.getDatesStartToLast(startDate, endDate).join(',');
+
+    const mergedData = {
+      title: titleRef.current.value, //제목
+      selectedArea: cityRef.current.value, //장소
+      day: daytxt, //일정(몇박 몇일)
+      plan: planArr.plan, //여행타입
+      trans: transArr.trans, //이동수단
+      uploadIsopen: isopen, //공개여부
+      finalPlan: dayList,
+    };
+
+    //utill.uploadPlan2DB(mergedData);
+
     e.preventDefault();
   };
   return (
