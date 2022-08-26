@@ -21,6 +21,8 @@ const PlanMap = ({ markerlist, pointsList }) => {
       style={{ width: '100%', height: '360px' }}
       onTileLoaded={(map) => {
         //지도 이동이벤트 발생하면 마커들이 다 보이게 중앙정렬
+
+        console.log(pointsList, pointsList.length);
         if (map.getLevel() !== 6) {
           return;
         } else {
@@ -56,13 +58,13 @@ const PlanMap = ({ markerlist, pointsList }) => {
                       width: 33,
                       height: 42,
                     },
-                    options: {
-                      offset: {
-                        //마커 이미지 옵션, 마커의 좌표와 일치시킬 이미지안에서의 좌표 설정
-                        x: 15,
-                        y: 40,
-                      },
-                    },
+                    // options: {
+                    //   offset: {
+                    //     //마커 이미지 옵션, 마커의 좌표와 일치시킬 이미지안에서의 좌표 설정
+                    //     x: 15,
+                    //     y: 40,
+                    //   },
+                    // },
                   }
                 }
               >

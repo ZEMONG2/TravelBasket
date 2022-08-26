@@ -203,10 +203,12 @@ export var cityPoints = [
 export function getPointListByCities() {}
 
 export function getMapsLatLng(lat, lng) {
-  return new window.kakao.maps.LatLng(lat, lng);
+  const returnVal = new window.kakao.maps.LatLng(lat, lng);
+  return returnVal;
 }
 var bounds = new window.kakao.maps.LatLngBounds();
 export function setBounds(points, map) {
+  console.log('bounds : ', points);
   for (let i = 0; i < points.length; i++) {
     bounds.extend(points[i]);
   }

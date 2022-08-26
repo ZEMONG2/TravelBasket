@@ -34,6 +34,7 @@ var pointsArr = []; //실제로 저장될 맵 가운데 정렬용 좌표 리스�
 //const maikingState = ["normal", "making"];
 var isMaking = false; //제작중 여부
 var selectedAreaBefore = 0; //기본으로는 선택된 지역(서울)
+var initPoint = utill.cityPoints[0]; //초기화용 좌표 세팅값(초기값은 서울)
 
 const PlanMaker = () => {
   const title = ''; //제목
@@ -69,7 +70,6 @@ const PlanMaker = () => {
   const [searchCtrl, setSearchCtrl] = useState(true); //검색결과 태그 컨트롤
   const [selectedItem, selectItem] = useState({}); //메모를 남길 아이템
 
-  var initPoint = utill.cityPoints[0]; //초기화용 좌표 세팅값(초기값은 서울)
   const [points, setPoints] = useState([initPoint]); //맵 중앙정렬을 위해 저장되는 좌표 리스트
 
   const [dayList, setDayList] = useState([
@@ -140,8 +140,8 @@ const PlanMaker = () => {
   const reset = () => {
     //초기화
     init();
-    const citypoints = utill.cityPoints[cityRef.current.value];
-    setPoints([citypoints]);
+    //const citypoints = utill.cityPoints[cityRef.current.value];
+    setPoints([initPoint]);
   };
 
   const handleType = (type, val, idx) => {
@@ -352,7 +352,7 @@ const PlanMaker = () => {
     isMaking = true; //일정 제작이 시작되면 상태 변경
     var now = selectedDays + '일차'; //지금 저장하려고 하는 데이터가 몇일차인지 확인하게해줌
     var setArr = []; //데이터 세팅을 위한 공백 배열
-    console.log(placeData, memoData);
+    //console.log(placeData, memoData);
     for (let i = 0; i < dayList.length; i++) {
       //날짜를 선택할때 같이 생성되는 객체 배열의 길이만큼 반복
       //이때 객체 배열의 길이는 최종 여행 일자와 같음
@@ -365,10 +365,6 @@ const PlanMaker = () => {
         base.area = [...dayList[i].area, placeData];
         base.memo = [...dayList[i].memo, memoData];
         //신규 데이터가 들어올때 좌표도 같이 추가
-
-        const lat = parseFloat(placeData.y);
-        const lng = parseFloat(placeData.x);
-        pointsArr.push(utill.getMapsLatLng(lat, lng));
       } else {
         //그 외에는 리스트 유지.
         base.area = dayList[i].area;
@@ -379,6 +375,11 @@ const PlanMaker = () => {
     }
     // console.log('!!!!!!!!!!!!!!!!!', pointsArr);
     //console.log(setArr);
+    const lat = parseFloat(placeData.y);
+    const lng = parseFloat(placeData.x);
+    if (pointsArr.length === 1) pointsArr = [utill.getMapsLatLng(lat, lng)];
+    else pointsArr.push(utill.getMapsLatLng(lat, lng));
+
     setPoints(pointsArr); //좌표 배열을 누적된대로 재배치
     //console.log(utill.getPoints(setArr));
     setDayList(setArr);
@@ -411,8 +412,13 @@ const PlanMaker = () => {
       }
     }
     //여기서 위치 조정 세팅 재설정(init에서 위치 건들필요 없음)
+
     const citypoints = utill.cityPoints[cityRef.current.value];
-    setPoints([citypoints]);
+    pointsArr = [];
+    //var arr = [];
+    pointsArr.push(citypoints);
+    //console.log(arr);
+    setPoints(pointsArr);
     selectedAreaBefore = selectedArea; //선택중인 지역을 수정
   };
 
@@ -439,7 +445,7 @@ const PlanMaker = () => {
       uploadIsopen: isopen, //공개여부
       finalPlan: dayList,
     };
-
+    console.log(mergedData);
     //utill.uploadPlan2DB(mergedData);
 
     e.preventDefault();
