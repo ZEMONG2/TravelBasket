@@ -74,7 +74,8 @@ app.post("/register", (req, res) => {
   db.query(sqlQuery1, id, (err, result) => {
     if (result[0].CNT === 0) {
       // 회원가입 요청
-      const sqlQuery2 = "INSERT INTO TB_USER(USER_ID, USER_PW, USER_NICK) VALUES (?,?,?);";
+      const sqlQuery2 =
+        "INSERT INTO TB_USER(USER_ID, USER_PW, USER_NICK) VALUES (?,?,?);";
       db.query(sqlQuery2, [id, pw, nick], (err, result) => {
         res.send("회원가입성공");
       });
@@ -125,7 +126,8 @@ app.post("/nickSend", (req, res) => {
   var email = req.body.email;
   var path = "KAKAO";
   var pw = "kakao";
-  const sqlQuery1 = "INSERT INTO TB_USER(USER_ID, USER_PW, USER_NICK,JOIN_PATH) VALUES (?,?,?,?);";
+  const sqlQuery1 =
+    "INSERT INTO TB_USER(USER_ID, USER_PW, USER_NICK,JOIN_PATH) VALUES (?,?,?,?);";
   db.query(sqlQuery1, [email, pw, nick, path], (err, result) => {
     const sqlQuery2 = "SELECT * FROM TB_USER WHERE USER_ID=? AND JOIN_PATH=?;";
     db.query(sqlQuery2, [email, path], (err, result) => {
@@ -149,12 +151,49 @@ app.post("/modifyInfo", (req, res) => {
   });
 });
 
+// 장바구니 데이터 - 정찬우
+//===========================
+// BASKET WRITE
+//===========================
+app.post("/basket/insert", (req, res) => {
+  console.log("/basket", req.body);
+  var categoly = req.body.categoly;
+  var irum = req.body.irum;
+  var memo = req.body.memo;
+  var link = req.body.link;
+  var user = req.body.user;
+
+  console.log("req Data  ==>", categoly, irum, memo, link, user);
+
+  const sqlQuery =
+    "INSERT INTO TB_SEARCH (SEARCH_TITLE, SEARCH_TXT, SEARCH_LINK, USER_IDX, SEARCH_CATEGORY ) values (?,?,?,?,?);";
+
+  db.query(sqlQuery, [irum, memo, link, user, categoly], (err, result) => {
+    res.send(result);
+  });
+});
+
+//===========================
+// BASKET LIST
+//===========================
+app.post("/basket/select", (req, res) => {
+  console.log("장바구니 받기", req.body);
+
+  var user = req.body.user_idx;
+
+  const sqlQuery = "SELECT * FROM TB_SEARCH WHERE USER_IDX=?;";
+  db.query(sqlQuery, [user], (err, result) => {
+    res.send(result);
+  });
+});
+
 // ◽ 게시판 DB (박지형)
 //===========================
 // REVIEW LIST
 //===========================
 app.get("/review", (req, res) => {
-  const sqlQuery = "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX ORDER BY REVIEW_IDX DESC;";
+  const sqlQuery =
+    "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX ORDER BY REVIEW_IDX DESC;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
@@ -168,7 +207,8 @@ app.post("/review/view", (req, res) => {
 
   var idx = req.body.params.idx;
 
-  const sqlQuery = "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX && REVIEW_IDX=?;";
+  const sqlQuery =
+    "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX && REVIEW_IDX=?;";
   db.query(sqlQuery, [idx], (err, result) => {
     res.send(result);
   });
@@ -185,7 +225,8 @@ app.post("/review/write", (req, res) => {
   var content = req.body.content;
   var user_idx = req.body.user;
 
-  const sqlQuery = "INSERT INTO TB_REVIEW (REVIEW_TITLE, REVIEW_TXT, USER_IDX) values (?,?,?);";
+  const sqlQuery =
+    "INSERT INTO TB_REVIEW (REVIEW_TITLE, REVIEW_TXT, USER_IDX) values (?,?,?);";
   db.query(sqlQuery, [title, content, user_idx], (err, result) => {
     res.send(result);
   });
@@ -204,7 +245,8 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   fileFilter: (req, file, cb) => {
-    if (["image/jpeg", "image/jpg", "image/png"].includes(file.mimetype)) cb(null, true);
+    if (["image/jpeg", "image/jpg", "image/png"].includes(file.mimetype))
+      cb(null, true);
     else cb(new Error("해당 파일 형식을 지원하지 않습니다."), false);
   },
   limits: {
@@ -230,7 +272,8 @@ app.post("/review/modify", (req, res) => {
   var title = req.body.modify.review_title;
   var content = req.body.content;
 
-  const sqlQuery = "UPDATE TB_REVIEW SET REVIEW_TITLE=?, REVIEW_TXT=? WHERE REVIEW_IDX=?;";
+  const sqlQuery =
+    "UPDATE TB_REVIEW SET REVIEW_TITLE=?, REVIEW_TXT=? WHERE REVIEW_IDX=?;";
   db.query(sqlQuery, [title, content, idx], (err, result) => {
     res.send("업데이트성공");
   });

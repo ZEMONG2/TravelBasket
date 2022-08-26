@@ -1,18 +1,18 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
-import styled, { css } from "styled-components";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { blogSearch } from "./api";
-import Item from "./MainItem";
-import Pagination from "react-js-pagination";
-import "../css/main_css/Main.scss";
-import { useDispatch } from "react-redux";
-import test from "../img/test.jpg";
-import test1 from "../img/test1.jpg";
-import test2 from "../img/test2.jpg";
-import test3 from "../img/test3.jpg";
-import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
+import React, { useState, useCallback, useRef, useEffect } from 'react';
+import styled, { css } from 'styled-components';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { blogSearch } from './api';
+import Item from './MainItem';
+import Pagination from 'react-js-pagination';
+import '../css/main_css/Main.scss';
+import { useDispatch } from 'react-redux';
+import test from '../img/test.jpg';
+import test1 from '../img/test1.jpg';
+import test2 from '../img/test2.jpg';
+import test3 from '../img/test3.jpg';
+import { IoIosArrowDropleft, IoIosArrowDropright } from 'react-icons/io';
 
 const Main = () => {
   const settings = {
@@ -27,7 +27,7 @@ const Main = () => {
     autoplay: true, // 자동 재생
     autoplaySpeed: 5000, // 자동 재생 속도
     centerMode: true,
-    centerPadding: "0px", // 0px = 슬라이드 끝쪽 이미지 안잘림
+    centerPadding: '0px', // 0px = 슬라이드 끝쪽 이미지 안잘림
     // cssEase: "linear",
   };
 
@@ -38,8 +38,8 @@ const Main = () => {
 
   // 검색기능
   const [blogs, setBlogs] = useState([]); // 보여줄 포스트
-  const [text, setText] = useState("");
-  const [query, setQuery] = useState("");
+  const [text, setText] = useState('');
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     if (query.length > 0) {
@@ -59,17 +59,12 @@ const Main = () => {
     setText(e.target.value);
   };
 
-  // 검색버튼 눌렀을때 호출
-  const onClick = (e) => {
-    setQuery(text);
-  };
-
   // blog search 핸들러
   const blogSearchHttp = async (query, reset) => {
     // paramter 설정
     const params = {
       query: query,
-      sort: "accuracy", // accuracy | recency (정확도 or 최신)
+      sort: 'accuracy', // accuracy | recency (정확도 or 최신)
       page: 1, // 페이지번호
       size: 50, // 검색 할 문서 갯수
     };
@@ -200,7 +195,7 @@ const Main = () => {
           </select>
         )}
 
-        <div>{query.length === 0 && "검색 전 "}</div>
+        <div>{query.length === 0 && '검색 전 '}</div>
 
         {query.length > 0 && (
           <ul className="Blog">
@@ -214,7 +209,7 @@ const Main = () => {
                   blogName={blog.blogname}
                   contents={blog.contents}
                   url={blog.url}
-                  dateTime={blog.datetime.toString().split("T")[0]}
+                  dateTime={blog.datetime.toString().split('T')[0]}
                   button={blog.button}
                 />
               ))}
@@ -224,10 +219,10 @@ const Main = () => {
               itemsCountPerPage={list}
               totalItemsCount={blogs.length - 1}
               pageRangeDisplayed={5}
-              prevPageText={"<"}
-              nextPageText={">"}
-              firstPageText={"<<"}
-              lastPageText={">>"}
+              prevPageText={'<'}
+              nextPageText={'>'}
+              firstPageText={'<<'}
+              lastPageText={'>>'}
               onChange={handlePageChange}
             />
           </ul>

@@ -14,7 +14,7 @@ const ItemDialog = styled.div`
     align-items: center;
   }
   .modalBody {
-    position: absolute;
+    position: fixed;
     width: 300px;
     height: 500px;
     padding: 40px;
