@@ -32,6 +32,23 @@ planModule.getPlanCategory = function (req, res, db) {
   return;
 };
 
+//일정 삭제하기
+planModule.deletePlan = function (req, res, db) {
+  const schedule_idx = req.body.schedule_idx; //사용자 아이디
+  //const id = "ksw3108";
+
+  //장바구니에 저장된 리스트를 가져오는 테이블
+  const sqlQuery = `DELETE FROM TB_SCHEDULE WHERE SCHEDULE_IDX = ${schedule_idx}`;
+  console.log(sqlQuery);
+  //넘겨받은 db 객체 프로퍼티로 작업 수행
+  db.query(sqlQuery, (err, result) => {
+    if (err) return res.send("fail");
+    else return res.send("success");
+  });
+  return;
+};
+
+//내 일정 불러오기
 planModule.getMyPlan = function (req, res, db) {
   const user_id = req.body.user_id;
   const schedule_idx = req.body.schedule_idx;
@@ -40,9 +57,9 @@ planModule.getMyPlan = function (req, res, db) {
   INNER JOIN TB_SCHEDULE AS B ON A.SCHEDULE_IDX = B.SCHEDULE_IDX
   INNER JOIN TB_USER AS C ON B.USER_IDX = C.USER_IDX
   WHERE C.USER_ID = '${user_id}' AND B.SCHEDULE_IDX = ${schedule_idx};`;
-
+  console.log(sqlQuery);
   db.query(sqlQuery, (err, result) => {
-    res.send(result);
+    res.json(result);
   });
   return;
 };
@@ -97,6 +114,7 @@ planModule.uploadPlan = function (req, res, db) {
       '${data.PLAN_ADDR_ROAD}',
       '${data.PLAN_SHOP_CATE}')
       `;
+      console.log(sub_sql);
       planqueryarr.push(sub_sql);
     }
   }
@@ -106,9 +124,9 @@ planModule.uploadPlan = function (req, res, db) {
 
   //넘겨받은 db 객체 프로퍼티로 작업 수행
   db.query(sqlQuery, (err, result) => {
-    res.send(result);
+    if (err) return res.send("fail");
+    else return res.send("success");
   });
-  return;
 };
 
 module.exports = planModule;

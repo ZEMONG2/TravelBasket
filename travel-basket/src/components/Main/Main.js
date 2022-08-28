@@ -131,32 +131,6 @@ const Main = () => {
   // 장바구니 버튼 (미완성 상태)
   // ====================================================================
 
-  const [orders, setOrders] = useState([]);
-
-  // [{isbn, quantity : 1}]
-  const addToOrder = useCallback((isbn) => {
-    setOrders((orders) => {
-      // 동일한 항목을 추가할 땐 2개, 3개로 변경해주기 위해 동일한 isbn가 있는지 검사
-      const finded = orders.find((order) => order.isbn === isbn);
-      // 장바구니에 중복이 없으면 quantity에 1을 넣어줌
-      if (finded === undefined) {
-        return [...orders, { isbn, quantity: 1 }];
-      } // 동일한 항목이 있으면
-      else {
-        return orders.map((order) => {
-          if (order.isbn === isbn) {
-            return {
-              isbn,
-              quantity: order.quantity + 1,
-            };
-          } else {
-            return order;
-          }
-        });
-      }
-    });
-  }, []);
-
   return (
     <div className="main">
       <div className="carousel">
@@ -422,7 +396,6 @@ const Main = () => {
                   contents={blog.contents}
                   url={blog.url}
                   dateTime={blog.datetime.toString().split('T')[0]}
-                  button={blog.button}
                 />
               ))}
 

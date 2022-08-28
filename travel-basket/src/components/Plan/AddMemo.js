@@ -33,9 +33,16 @@ const AddMemo = ({
 
   const saveMemo = () => {
     //메모 저장 버튼을 누르면 실행.
+
     memo.category = parseInt(selectRef.current.value);
     memo.title = textRef.current.value;
     memo.memo = areaRef.current.value;
+
+    if (selectRef.current.value === 'default') {
+      alert('카테고리를 선택해주세요!');
+      return;
+    }
+
     //console.log(memo);
     if (isUpdating) {
       handleMemoPopup('updateComplete', { item: selectedItem, memo: memo }); //팝업창 컨트롤

@@ -175,6 +175,41 @@ app.post("/review/view", (req, res) => {
   });
 });
 
+// 장바구니 데이터 - 정찬우
+//===========================
+// BASKET WRITE
+//===========================
+app.post("/basket/insert", (req, res) => {
+  console.log("/basket", req.body);
+  var categoly = req.body.categoly;
+  var irum = req.body.irum;
+  var memo = req.body.memo;
+  var link = req.body.link;
+  var user = req.body.user;
+
+  console.log("req Data  ==>", categoly, irum, memo, link, user);
+
+  const sqlQuery = "INSERT INTO TB_SEARCH (SEARCH_TITLE, SEARCH_TXT, SEARCH_LINK, USER_IDX, SEARCH_CATEGORY ) values (?,?,?,?,?);";
+
+  db.query(sqlQuery, [irum, memo, link, user, categoly], (err, result) => {
+    res.send(result);
+  });
+});
+
+//===========================
+// BASKET LIST
+//===========================
+app.post("/basket/select", (req, res) => {
+  console.log("장바구니 받기", req.body);
+
+  var user = req.body.user_idx;
+
+  const sqlQuery = "SELECT * FROM TB_SEARCH WHERE USER_IDX=?;";
+  db.query(sqlQuery, [user], (err, result) => {
+    res.send(result);
+  });
+});
+
 //===========================
 // REVIEW WRITE
 //===========================
@@ -293,6 +328,10 @@ app.post("/uploadPlan", (req, res) => {
 //220826 선우 - 내 일정 조회
 app.post("/getMyPlan", (req, res) => {
   plan.getMyPlan(req, res, db);
+});
+//220828 선우 - 내 일정 삭제
+app.post("/deletePlan", (req, res) => {
+  plan.deletePlan(req, res, db);
 });
 
 /* ------------- 네이버 지역 검색 api ------------- 220822 선우 */

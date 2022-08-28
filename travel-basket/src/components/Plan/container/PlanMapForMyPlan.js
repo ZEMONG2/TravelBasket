@@ -2,12 +2,12 @@ import { Map, MapMarker, CustomOverlayMap } from 'react-kakao-maps-sdk';
 import { useState, useEffect, useMemo } from 'react';
 import * as utill from '../../../Utils/Utils';
 
-const PlanMap = ({ markerlist, pointsList }) => {
+const PlanMapForMyPlan = ({ markerlist, pointsList }) => {
   /* lat: 위도 , lng:경도 */
 
   // const lat = 37.5537586;
   // const lng = 126.9809696;
-  const [info, setInfo] = useState('');
+  const [info, setInfo] = useState();
   const [style, setStyle] = useState({
     color: '#000',
   });
@@ -15,18 +15,18 @@ const PlanMap = ({ markerlist, pointsList }) => {
   return (
     <Map
       center={{ lat: pointsList[0].getLat(), lng: pointsList[0].getLng() }}
-      level={7} //맵의 확대 기본값
+      level={6} //맵의 확대 기본값
       style={{ width: '100%', height: '360px' }}
       onTileLoaded={(map) => {
         //지도 이동이벤트 발생하면 마커들이 다 보이게 중앙정렬
 
         //console.log('this is map!! : ', pointsList, pointsList.length);
-        if (map.getLevel() !== 7) {
+        if (map.getLevel() !== 6) {
           return;
         } else {
           if (pointsList.length === 1) {
             //좌표가 하나밖에 없으면(지역 선택, 첫 장소 선택)
-            map.setLevel(7, { animate: true });
+            map.setLevel(6, { animate: true });
           } else {
             utill.setBounds(pointsList, map);
           }
@@ -47,7 +47,7 @@ const PlanMap = ({ markerlist, pointsList }) => {
                   lng: parseFloat(val2.x),
                 }}
                 clickable={true}
-                onClick={() => setInfo(val2.place_name)}
+                onClick={() => setInfo(val2)}
                 image={
                   //마커 이미지 세팅
                   {
@@ -68,15 +68,15 @@ const PlanMap = ({ markerlist, pointsList }) => {
                   }
                 }
               >
-                <div key={'div' + idx2} style={style}>
-                  <a key={'a' + idx2} href={val2.place_url}>
-                    {val2.place_name}
-                  </a>
-                </div>
+                {info && info.place_name === val2.place_name && (
+                  <div className="tests" style={style}>
+                    <a href={val2.place_url}>{val2.place_name}</a>
+                  </div>
+                )}
               </MapMarker>
             )),
         )}
     </Map>
   );
 };
-export default PlanMap;
+export default PlanMapForMyPlan;

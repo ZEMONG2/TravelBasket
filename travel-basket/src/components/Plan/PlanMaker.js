@@ -312,6 +312,7 @@ const PlanMaker = () => {
     if (mode === 'save') {
       //메모 저장하면 메모장이랑 검색창 모두 닫기
       searchConRef.current.init();
+      //init();
       controllClassName(searchRef, 'searchWrap', 'open'); //검색창 열고 닫기
       controllClassName(memoPopupRef, 'addMemoWrap', 'displayNone'); //메모창 열고 닫기
       setSearchCtrl(true); //검색창 숨김을 해제
@@ -373,7 +374,7 @@ const PlanMaker = () => {
 
       setArr.push(base);
     }
-    // console.log('!!!!!!!!!!!!!!!!!', pointsArr);
+    //console.log('!!!!!!!!!!!!!!!!!', pointsArr);
     //console.log(setArr);
     const lat = parseFloat(placeData.y);
     const lng = parseFloat(placeData.x);
@@ -383,9 +384,9 @@ const PlanMaker = () => {
     )
       pointsArr = [utill.getMapsLatLng(lat, lng)];
     else pointsArr.push(utill.getMapsLatLng(lat, lng));
-
+    //console.log('!!!!!!!!!!!!!!!!!', pointsArr);
     setPoints(pointsArr); //좌표 배열을 누적된대로 재배치
-    //console.log(utill.getPoints(setArr));
+    //console.log(points);
     setDayList(setArr);
   };
   const closeMemo = () => {
@@ -444,6 +445,7 @@ const PlanMaker = () => {
       alert('일정을 만들어주세요!');
       return;
     }
+    console.log(dayList);
     const mergedData = {
       title: titleRef.current.value, //제목
       selectedArea: cityRef.current.value, //장소
@@ -455,9 +457,8 @@ const PlanMaker = () => {
       useridx: window.sessionStorage.getItem('USER_IDX'), //회원번호
       finalPlan: dayList,
     };
-    //utill.uploadPlan2DB(mergedData);
     utill.uploadPlan2DB(mergedData);
-    e.preventDefault();
+    //e.preventDefault();
   };
   return (
     <div className="planerWrap">
@@ -568,6 +569,7 @@ const PlanMaker = () => {
                     idx={idx} //선택시 데이터 처리를 위한 인덱스
                     selected={planArr.selected[idx]} //선택시 css 처리를 위한 속성
                     handleType={handleType} //버튼 클릭시 발생하는 이벤트
+                    isMaking={true}
                   />
                 ))}
               </td>
@@ -583,6 +585,7 @@ const PlanMaker = () => {
                     idx={idx} //선택시 데이터 처리를 위한 인덱스
                     selected={transArr.selected[idx]} //선택시 css 처리를 위한 속성
                     handleType={handleType} //버튼 클릭시 발생하는 이벤트
+                    isMaking={true}
                   />
                 ))}
               </td>

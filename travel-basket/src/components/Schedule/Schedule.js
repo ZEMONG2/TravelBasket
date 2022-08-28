@@ -62,7 +62,7 @@ function Schedule() {
       })
       .then((res) => {
         const { data } = res;
-        console.log(data);
+        //console.log(data);
         article_count = data[0].COUNT;
         page_count = Math.ceil(article_count / page_size);
         var page_activate = [];

@@ -1,4 +1,4 @@
-const TypeContainer = ({ type, val, idx, selected, handleType }) => {
+const TypeContainer = ({ type, val, idx, selected, handleType, isMaking }) => {
   /*
     type : 여행 타입인지 이동수단인지를 전달(여행타입과 이동수단이 같은 컨테이너를 사용)
     val : 여행타입
@@ -7,6 +7,7 @@ const TypeContainer = ({ type, val, idx, selected, handleType }) => {
     handleType : 버튼 클릭시 발생하는 이벤트
   */
   const setType = (e) => {
+    if (!isMaking) return;
     e.preventDefault();
     handleType(type, val, idx);
   };

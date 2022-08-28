@@ -1,11 +1,11 @@
 import * as utill from '../../Utils/Utils';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Router, Link, NavLink } from 'react-router-dom';
 
 const ScheduleArticle = ({ data, idx }) => {
   const [dayLabel, setState] = useState('');
   useEffect(() => {
-    console.log(data);
+    //console.log(data);
     const arr = data.SCHEDULE_DAY.split(',');
     const dayLableStr = arr[0] + ' ~ ' + arr[arr.length - 1];
     setState(dayLableStr);
@@ -25,7 +25,6 @@ const ScheduleArticle = ({ data, idx }) => {
           <Link
             to={'/myplan'}
             state={{
-              user_id: window.sessionStorage.getItem('USER_ID'),
               schedule_idx: data.SCHEDULE_IDX,
             }}
           >
@@ -40,7 +39,6 @@ const ScheduleArticle = ({ data, idx }) => {
           <Link
             to={'/myplan'}
             state={{
-              user_id: window.sessionStorage.getItem('USER_ID'),
               schedule_idx: data.SCHEDULE_IDX,
             }}
           >

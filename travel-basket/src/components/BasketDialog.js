@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import './main_css/MainItemDialog.scss';
+import './header_css/BasketDialog.scss';
 
-function MainItemDialog(props) {
+function BasketDialog(props) {
   // 모달창 활성화 시 스크롤 방지 코드
   // useEffect(() => {
   //   document.body.style.cssText = `
@@ -21,9 +21,9 @@ function MainItemDialog(props) {
   }
 
   return (
-    <div className="Modal" onClick={closeModal}>
-      <div className="modalBody" onClick={(e) => e.stopPropagation()}>
-        <button className="modalCloseBtn" onClick={closeModal}>
+    <div className="BasketModal" onClick={closeModal}>
+      <div className="BasketmodalBody" onClick={(e) => e.stopPropagation()}>
+        <button className="BasketmodalCloseBtn" onClick={closeModal}>
           ✖
         </button>
         {props.children}
@@ -32,4 +32,4 @@ function MainItemDialog(props) {
   );
 }
 
-export default MainItemDialog;
+export default BasketDialog;
