@@ -325,6 +325,10 @@ app.get("/getPlanCate", (req, res) => {
 app.post("/uploadPlan", (req, res) => {
   plan.uploadPlan(req, res, db);
 });
+//220826 선우 - 일정 업로드
+app.post("/updatePlan", (req, res) => {
+  plan.updatePlan(req, res, db);
+});
 //220826 선우 - 내 일정 조회
 app.post("/getMyPlan", (req, res) => {
   plan.getMyPlan(req, res, db);

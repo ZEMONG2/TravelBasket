@@ -173,6 +173,7 @@ export var getMyPlan2 = (data) => {
     };
     var memo_inner = {
       //플랜별메모
+      plan_idx: thisData.PLAN_IDX,
       title: thisData.PLAN_TITLE,
       memo: thisData.PLAN_MEMO,
       category: thisData.P_CATE_IDX,
@@ -410,6 +411,7 @@ export function thumbnailSrc(idx) {
 
 function makeScheduleUploadData(data) {
   var schedule = {
+    SCHEDULE_IDX: data.schedule_idx,
     SCHEDULE_TITLE: data.title,
     SCHEDULE_PLAN: data.day,
     SCHEDULE_PLACE: parseInt(data.selectedArea),
@@ -433,6 +435,7 @@ function makePlanUploadData(data) {
       //저장한 지역갯수와 메모 갯수는 항상 일치하니 같이 반복문 돌린다.
       var planInfo = {
         //n일차별 플랜
+        PLAN_IDX: memo[j].plan_idx,
         PLAN_DAYS: data.finalPlan[i].day,
         P_CATE_IDX: memo[j].category,
         PLAN_MEMO: memo[j].memo,
@@ -451,6 +454,25 @@ function makePlanUploadData(data) {
   }
 
   return plan;
+}
+
+export async function updatePlan2DB(data) {
+  const schedule_upload = makeScheduleUploadData(data);
+  const plan_upload = makePlanUploadData(data);
+  await axios
+    .post('http://localhost:8000/updatePlan', {
+      schedule: JSON.stringify({ data: schedule_upload }),
+      plan: JSON.stringify({ data: plan_upload }),
+    })
+    .then((res) => {
+      ({ data } = res);
+      if (data === 'success') alert('저장완료되었습니다!');
+      else alert('저장에 실패했습니다! 다시 시도해주세요!');
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+  return data;
 }
 
 export async function uploadPlan2DB(data) {

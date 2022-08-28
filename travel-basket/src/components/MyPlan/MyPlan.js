@@ -1,11 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-
-import {
-  MdAirlineSeatReclineExtra,
-  MdRadioButtonChecked,
-} from 'react-icons/md';
+import { Link } from 'react-router-dom';
 import * as utill from '../../Utils/Utils';
 import PlanMapForMyPlan from '../Plan/container/PlanMapForMyPlan';
 import MyDailyPlan from './MyDailyPlan';
@@ -109,9 +105,18 @@ const MyPlan = () => {
   return (
     <div className="myPlanBody">
       <div className="myPlanBtnWrap">
-        <button className="btnMyplan" id="updateMyplan">
-          수정
-        </button>
+        <Link
+          to={'/makeplan'}
+          state={{
+            mode: 'upate',
+            data: article,
+            schedule_idx: location.state.schedule_idx,
+          }}
+        >
+          <button className="btnMyplan" id="updateMyplan">
+            수정
+          </button>
+        </Link>
         <button
           className="btnMyplan"
           id="deleteThisPlan"

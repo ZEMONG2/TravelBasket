@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import DatePicker from 'react-datepicker'; //캘린더 라이브러리
 import { ko } from 'date-fns/esm/locale'; //한국어 처리
 import 'react-datepicker/dist/react-datepicker.css'; //캘린더 라이브러리(css)
-import { useLocation } from 'react-router-dom';
+
 import TypeContainer from './container/TypeContainer'; //여행타입 / 이동 수단 컨테이너
 import PlanContainer from './container/PlanContainer'; //일차별 여행 계획 저장 컨테이너
 import PlanMap from './container/PlanMap'; //지도 컨테이너
@@ -37,53 +37,6 @@ var selectedAreaBefore = 0; //기본으로는 선택된 지역(서울)
 var initPoint = utill.cityPoints[0]; //초기화용 좌표 세팅값(초기값은 서울)
 
 const PlanMaker = () => {
-  const location = useLocation();
-  useEffect(() => {
-    if (location !== null) {
-      //console.log(location.state);
-      const schedule = location.state.data.schedule;
-      const point = location.state.data.points;
-      const dList = location.state.data.dayList;
-      //console.log(schedule, point, dList);
-
-      titleRef.current.value = schedule.SCHEDULE_TITLE; //제목
-      cityRef.current.value = parseInt(schedule.SCHEDULE_PLACE); //장소
-      setDayText(schedule.SCHEDULE_PLAN); //일정(몇박 몇일)
-
-      setStartDate(new Date(Date.parse(schedule.SCHEDULE_DAY[0])));
-      setEndDate(
-        new Date(
-          Date.parse(schedule.SCHEDULE_DAY[schedule.SCHEDULE_DAY.length - 1]),
-        ),
-      );
-
-      setOX(schedule.SCHEDULE_OX);
-      var type_arr = [false, false, false, false, false];
-      var trans_arr = [false, false, false, false, false];
-      for (let i = 0; i < schedule.SCHEDULE_TOGETHER.length; i++) {
-        type_arr[trip_type.indexOf(schedule.SCHEDULE_TOGETHER[i])] = true;
-      }
-      for (let i = 0; i < schedule.SCHEDULE_VEHICLE.length; i++) {
-        trans_arr[transport.indexOf(schedule.SCHEDULE_VEHICLE[i])] = true;
-      }
-      setPlan({ plan: schedule.SCHEDULE_TOGETHER, selected: type_arr });
-      setTrans({ trans: schedule.SCHEDULE_VEHICLE, selected: trans_arr });
-      setDayList(dList);
-      // for (let i = 0; i < point.length; i++) {
-      //   pointsArr.push(utill.getMapsLatLng(point[i].La, point[i].Ma));
-      // }
-
-      // console.log(pointsArr[0]);
-      // // pointsArr = parr;
-      // var parr = [];
-      // console.log([...parr, ...pointsArr]);
-      // const timeout = setTimeout(
-      //   () => setPoints([...points, ...pointsArr]),
-      //   1000,
-      // );
-      // return () => clearTimeout(timeout);
-    }
-  }, []);
   const title = ''; //제목
   const area = [
     '서울',
@@ -238,16 +191,6 @@ const PlanMaker = () => {
   const selectDate = (e) => {
     //날짜를 선택하여 선택 버튼을 누르면 실행되는 함수.
 
-    if (location !== null) {
-      if (
-        !window.confirm(
-          '날짜를 새로 선택하면 기존에 저장된 일정은 사라집니다. 그래도 계속하시겠습니까?',
-        )
-      ) {
-        return;
-      }
-    }
-
     var totalDayStr =
       startDate.toLocaleDateString() + ' ~ ' + endDate.toLocaleDateString();
     // yyyy. MM. dd ~ yyyy. MM. dd
@@ -348,13 +291,8 @@ const PlanMaker = () => {
     for (let i = 0; i < dayList.length; i++) {
       var data = dayList[i];
       if (data.day === daycnt + '일차') {
-        if (location !== null) {
-          //수정중일경우 삭제할 아이템인거만 표기한다.
-          data.memo[idx].isDeleting = true;
-        } else {
-          data.area.splice(idx, 1); //여기서 idx번째 인덱스부터 1개의 객체를 세어서 제거한다.
-          data.memo.splice(idx, 1);
-        }
+        data.area.splice(idx, 1); //여기서 idx번째 인덱스부터 1개의 객체를 세어서 제거한다.
+        data.memo.splice(idx, 1);
       }
       arr.push(data);
     }
@@ -394,7 +332,6 @@ const PlanMaker = () => {
             data.day === selectedDays + '일차' &&
             area.place_name === updateData.item.place_name
           ) {
-            updateData.memo.plan_idx = data.memo[j].plan_idx;
             data.memo[j] = updateData.memo; //메모를 수정
           }
           //   console.log(data.area);
@@ -404,7 +341,6 @@ const PlanMaker = () => {
       }
       setDayList(arr); //갱신된 데이터 저장
       controllClassName(memoPopupRef, 'addMemoWrap', 'displayNone'); //메모창 열고 닫기
-      setUpdateMemoMode(false); //수정이 끝나면 수정모드를 해제
     } else {
       //mode===close
       closeMemo();
@@ -427,30 +363,7 @@ const PlanMaker = () => {
       //console.log(dayList[i].day, now);
       if (dayList[i].day === now) {
         //현재 일차라면 저장된 리스트를 불러와서 거기에 신규 데이터를 합친다.
-        var isdeletedData = false; //삭제된 아이템을 새로 추가했는지 여부를 확인
-        if (location !== null) {
-          //데이터 수정중에 삭제한 정보를 새로 넣으려고 할 경우
-          for (let j = 0; j < dayList[i].area.length; j++) {
-            if (placeData.place_name === dayList[i].area[j].place_name) {
-              //삭제한 후에 같은 곳을 다시 추가했다면 메모랑 카테고리만 초기화하고 isdeleting을 false로 변경
-              console.log(dayList[i].memo[j].plan_idx);
-              isdeletedData = true;
-              dayList[i].memo[j].isDeleting = false;
-              //dayList[i].memo[j].plan_idx = memoData.plan_idx;
-              dayList[i].memo[j].category = memoData.category;
-              dayList[i].memo[j].memo = memoData.memo;
-              dayList[i].memo[j].title = memoData.title;
-            }
-          }
-        }
-        if (isdeletedData) {
-          console.log(dayList);
-          return;
-        }
-        //수정중일경우 삭제할 아이템인거만 표기한다.
         base.area = [...dayList[i].area, placeData];
-
-        memoData.plan_idx = -1; //일정 수정시 새로 추가되는 일정 체크용
         base.memo = [...dayList[i].memo, memoData];
         //신규 데이터가 들어올때 좌표도 같이 추가
       } else {
@@ -532,8 +445,8 @@ const PlanMaker = () => {
       alert('일정을 만들어주세요!');
       return;
     }
+    console.log(dayList);
     const mergedData = {
-      schedule_idx: location !== null ? location.state.schedule_idx : -1,
       title: titleRef.current.value, //제목
       selectedArea: cityRef.current.value, //장소
       day: daytxt, //일정(몇박 몇일)
@@ -544,16 +457,8 @@ const PlanMaker = () => {
       useridx: window.sessionStorage.getItem('USER_IDX'), //회원번호
       finalPlan: dayList,
     };
-    console.log(mergedData);
-    if (location !== null) {
-      //수정
-      utill.updatePlan2DB(mergedData);
-    } else {
-      //신규등록
-      utill.uploadPlan2DB(mergedData);
-    }
-
-    e.preventDefault();
+    utill.uploadPlan2DB(mergedData);
+    //e.preventDefault();
   };
   return (
     <div className="planerWrap">

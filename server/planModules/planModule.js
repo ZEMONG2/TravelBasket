@@ -64,6 +64,72 @@ planModule.getMyPlan = function (req, res, db) {
   return;
 };
 
+planModule.updatePlan = function (req, res, db) {
+  const schedule = JSON.parse(req.body.schedule); //사용자 아이디가
+  const plan = JSON.parse(req.body.plan);
+
+  //const id = "ksw3108";
+  console.log("schedule ==> ", schedule);
+  console.log("plan ==> ", plan);
+
+  var update_query = `UPDATE TB_SCHEDULE SET
+                    SCHEDULE_TITLE = '${schedule.data.SCHEDULE_TITLE}',
+                    SCHEDULE_PLAN = '${schedule.data.SCHEDULE_PLAN}',
+                    SCHEDULE_PLACE = '${schedule.data.SCHEDULE_PLACE}',
+                    SCHEDULE_DAY = '${schedule.data.SCHEDULE_DAY}',
+                    SCHEDULE_OX ='${schedule.data.SCHEDULE_OX}',
+                    SCHEDULE_VEHICLE = '${schedule.data.SCHEDULE_VEHICLE}',
+                    SCHEDULE_TOGETHER = '${schedule.data.SCHEDULE_TOGETHER}'
+                    WHERE SCHEDULE_IDX = ${schedule.data.SCHEDULE_IDX};`;
+
+  var update_plan_query = ``;
+  var insert_query = "";
+  for (let i = 0; i < plan.data.length; i++) {
+    const planbydays = plan.data[i];
+    for (let j = 0; j < planbydays.length; j++) {
+      const data = planbydays[j];
+
+      if (data.PLAN_IDX !== -1)
+        update_plan_query += `UPDATE TB_PLAN SET
+                              P_CATE_IDX =  ${data.P_CATE_IDX},
+                              PLAN_TITLE = '${data.PLAN_TITLE}',
+                              PLAN_MEMO = '${data.PLAN_MEMO}'
+                              WHERE PLAN_IDX = ${data.PLAN_IDX};`;
+      else {
+        insert_query += `INSERT INTO tb_plan(     
+          SCHEDULE_IDX,      PLAN_DAYS,      P_CATE_IDX,      
+          PLAN_TITLE,      PLAN_MEMO,      PLAN_LAT,      
+          PLAN_LNG,      PLAN_LINK,      PLAN_POINT_NAME,     
+          PLAN_ADDR,      PLAN_ADDR_ROAD,      PLAN_SHOP_CATE) VALUES`;
+        insert_query += `(${schedule.data.SCHEDULE_IDX},
+          '${data.PLAN_DAYS}',
+          ${data.P_CATE_IDX},
+          '${data.PLAN_TITLE}',
+          '${data.PLAN_MEMO}',
+          '${data.PLAN_LAT}',
+          '${data.PLAN_LNG}',
+          '${data.PLAN_LINK}',
+          '${data.PLAN_POINT_NAME}',
+          '${data.PLAN_ADDR}',
+          '${data.PLAN_ADDR_ROAD}',
+          '${data.PLAN_SHOP_CATE}')
+          `;
+      }
+    }
+  }
+
+  console.log(plan.data);
+  var sqlQuery = update_query + update_plan_query + insert_query;
+
+  console.log(sqlQuery);
+
+  //넘겨받은 db 객체 프로퍼티로 작업 수행
+  db.query(sqlQuery, (err, result) => {
+    if (err) return res.send("fail");
+    else return res.send("success");
+  });
+};
+
 planModule.uploadPlan = function (req, res, db) {
   const schedule = JSON.parse(req.body.schedule); //사용자 아이디가
   const plan = JSON.parse(req.body.plan);

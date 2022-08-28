@@ -1,7 +1,6 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import { useRef, useState, useEffect } from 'react';
+
 import SearchedItem from './container/SearchedItem';
-import Select from 'react-select';
 import * as utill from '../../Utils/Utils.js';
 import './css/addMemo.css';
 const AddMemo = ({
@@ -25,6 +24,7 @@ const AddMemo = ({
   const areaRef = useRef();
   useEffect(() => {
     if (isUpdating) {
+      console.log('!!!!!!!!!!!!!!!!!!!!!');
       selectRef.current.value = updatingData.category;
       textRef.current.value = updatingData.title;
       areaRef.current.value = updatingData.memo;
@@ -33,7 +33,6 @@ const AddMemo = ({
 
   const saveMemo = () => {
     //메모 저장 버튼을 누르면 실행.
-
     memo.category = parseInt(selectRef.current.value);
     memo.title = textRef.current.value;
     memo.memo = areaRef.current.value;
