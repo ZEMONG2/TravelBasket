@@ -3,7 +3,9 @@ import axios from 'axios';
 import SearchedItem from './container/SearchedItem';
 import Select from 'react-select';
 import * as utill from '../../Utils/Utils.js';
-import './css/addMemo.css';
+// import './css/addMemo.css';
+import '../Plan/plan_css/addMemo.scss';
+
 const AddMemo = ({
   handleMemoPopup,
   selectedItem,

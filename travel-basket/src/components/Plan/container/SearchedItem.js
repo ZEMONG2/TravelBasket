@@ -28,6 +28,7 @@ const SearchedItem = ({
                 ? searchedData.place_url
                 : cartData.CART_LINK
             }
+            target="_blank"
           >
             <span className="itemTitle">
               {/* {isSearched === true ? searchedData.title : cartData.CART_NAME} */}
@@ -74,6 +75,7 @@ const SearchedItem = ({
         )}
       </div>
       <div className="clear"></div>
+      <hr />
     </>
   );
 };

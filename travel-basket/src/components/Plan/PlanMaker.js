@@ -47,12 +47,12 @@ const PlanMaker = () => {
     '대전',
     '울산',
     '세종',
-    '제주',
-    '울릉도',
+    '제주도',
+    '울릉도·독도',
   ]; //지역
 
-  const transport = ['도보', '자전거', '오토바이', '대중교통', '자동차']; //교통수단
   const trip_type = ['나혼자', '친구', '연인', '가족', '반려동물']; //여행타입
+  const transport = ['도보', '자전거', '오토바이', '대중교통', '자동차']; //교통수단
   const is_share = false; //공개 여부
   const plan_or_trans = ['타입', '교통'];
 
@@ -509,8 +509,10 @@ const PlanMaker = () => {
         </div>
       </div>
 
-      <div className="pageTitle">일정 만들기</div>
-      <div className="updownSpace"></div>
+      <div>
+        <h1>일정 만들기</h1>
+      </div>
+      {/* <div className="updownSpace"></div> */}
       <form>
         <table className="selectTable">
           <tbody>
@@ -590,7 +592,6 @@ const PlanMaker = () => {
                   onChange={setRadioValue}
                 />
                 <label htmlFor="O">공개</label>
-                &nbsp;&nbsp;&nbsp;
                 <input
                   type="radio"
                   id="X"

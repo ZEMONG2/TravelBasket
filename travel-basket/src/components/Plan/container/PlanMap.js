@@ -69,7 +69,9 @@ const PlanMap = ({ markerlist, pointsList }) => {
                 }
               >
                 <div style={style}>
-                  <a href={val2.place_url}>{val2.place_name}</a>
+                  <a href={val2.place_url} target="_blank">
+                    {val2.place_name}
+                  </a>
                 </div>
               </MapMarker>
             )),
