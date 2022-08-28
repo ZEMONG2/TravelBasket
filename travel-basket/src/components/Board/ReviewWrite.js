@@ -14,6 +14,17 @@ const ReviewWrite = () => {
   const handleWrite = (e) => {
     e.preventDefault();
 
+    if (titleRef.current.value === "" || titleRef.current.value === undefined) {
+        alert('제목을 입력해주세요:)');
+        titleRef.current.focus();
+        return false;
+    };
+
+    if (desc === "" || desc === undefined) {
+        alert('내용을 입력해주세요:)');
+        return false;
+    };
+
     axios
       .post('http://localhost:8000/review/write', {
         title: titleRef.current.value,
@@ -23,8 +34,6 @@ const ReviewWrite = () => {
       .then((res) => {
         alert('새 글이 등록되었습니다.');
         navigate('/review');
-        // titleRef.current.value = "";
-        // content = "";
       })
       .catch((e) => {
         console.error(e);
@@ -50,12 +59,6 @@ const ReviewWrite = () => {
         <div className="Wysiwyg">
           <WriteEditor desc={desc} setDesc={setDesc} setImage={setImage} />
         </div>
-        {/* 첨부파일
-                <div className="fileWrap">
-                    <label for="input-file">업로드</label>
-                    <input type="file" name="upFile" id="input-file" />
-                </div>
-                 */}
         <div className="btnWrap">
           <button className="submit" type="submit" onClick={handleWrite}>
             등록

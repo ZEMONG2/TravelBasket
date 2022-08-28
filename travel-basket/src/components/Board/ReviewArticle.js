@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import logo from '../../img/NEXTRAVEL_v.png';
 import * as List from './ReviewList';
 import '../Board/board_css/ReviewArticle.scss';
 
-const ReviewArticle = ({ article, viewClick }) => {
+const ReviewArticle = ({ article}) => {
   const navigate = useNavigate();
   const txt = article.REVIEW_TXT;
   const url = txt.substring(txt.indexOf('http'), txt.indexOf('g">') + 1);
@@ -53,7 +52,7 @@ const ReviewArticle = ({ article, viewClick }) => {
             <li className="li">😀 {article.USER_NICK} </li>
             <br />
             <li className="li">❤️{article.REVIEW_LIKE} &nbsp; </li>
-            <li className="li">💬{article.REVIEW_IDX} &nbsp; </li>
+            <li className="li">💬{article.COMMENT_CNT} &nbsp; </li>
             <li className="li">👁️‍🗨️{article.REVIEW_CNT} &nbsp; </li>
             <li className="li">✏️{listTime} </li>
           </ul>

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import '../Board/board_css/ReviewModify.scss';
 
 const ReviewModify = () => {
-  // console.log('수정페이지 view => ', view);
   const navigate = useNavigate();
 
   // 수정페이지에 param으로 게시물 번호에 맞는 게시물 내용 가져오기
@@ -24,10 +23,24 @@ const ReviewModify = () => {
     review_cnt: '',
   });
 
+  const [desc, setDesc] = useState('');
+  const [images, setImage] = useState('');
+
+  const newArticle = modify.review_txt;
+  const [content, setContent] = useState('');
+
+  console.log('Modify에 newArticle =>', newArticle);
+  console.log('Modify에 content =>', content);
+
   useEffect(() => {
     handleModify();
   }, []);
 
+
+  // ==============================================
+  // 게시물 수정
+  // ==============================================
+  // 수정 데이터 가져오기
   const handleModify = (e) => {
     axios
       .post('http://localhost:8000/review/view', { params })
@@ -54,25 +67,15 @@ const ReviewModify = () => {
       });
   };
 
-  // 게시물 수정
-  console.log('Modify에 저장확인 =>', modify);
-  const [desc, setDesc] = useState('');
-  const [images, setImage] = useState('');
-
-  const newArticle = modify.review_txt;
-  const [content, setContent] = useState('');
-
-  console.log('Modify에 newArticle =>', newArticle);
-  console.log('Modify에 content =>', content);
-
+  // 수정된 제목 저장
   const onChangeTitle = (e) => {
-    // console.log('제목변경', modify);
     setModify({
       ...modify,
       review_title: e.target.value,
     });
   };
 
+  // 수정된 내용 저장
   const txtChange = () => {
     setContent({
       ...content,
@@ -80,9 +83,8 @@ const ReviewModify = () => {
     });
   };
 
+  // 수정 데이터 전송
   const handleUpdate = () => {
-    // console.log('handleUpdate => ', content);
-
     axios
       .post('http://localhost:8000/review/modify', {
         modify: modify,
@@ -91,7 +93,6 @@ const ReviewModify = () => {
       .then((res) => {
         console.log('응답데이터 :', res.data);
         if (res.data === '업데이트성공') {
-          console.log('뜬다');
           alert('수정이 완료되었습니다.');
           navigate('/review');
         }
@@ -100,6 +101,7 @@ const ReviewModify = () => {
         console.error(e);
       });
   };
+  
 
   return (
     <div>

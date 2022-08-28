@@ -1,3 +1,9 @@
+/* 페이징 하단으로 떨어뜨리기 위해 넣어놨어요😉 */
+.Review {
+  width: 100%;
+  overflow: hidden;
+}
+
 .btn-write {
   text-align: center;
   // display: inline-flex;
@@ -16,4 +22,3 @@
   display: inline-block;
   padding: 1%;
 }
-
