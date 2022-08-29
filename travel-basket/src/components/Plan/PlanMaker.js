@@ -35,6 +35,8 @@ var pointsArr = []; //실제로 저장될 맵 가운데 정렬용 좌표 리스�
 var isMaking = false; //제작중 여부
 var selectedAreaBefore = 0; //기본으로는 선택된 지역(서울)
 var initPoint = utill.cityPoints[0]; //초기화용 좌표 세팅값(초기값은 서울)
+var isUpdatedCal = false;
+var isUpdatedCal2 = false;
 
 const PlanMaker = () => {
   const location = useLocation();
@@ -233,7 +235,7 @@ const PlanMaker = () => {
   const selectDate = (e) => {
     //날짜를 선택하여 선택 버튼을 누르면 실행되는 함수.
 
-    if (location.state !== null) {
+    if (daytxt !== '일정을 선택하세요') {
       if (
         !window.confirm(
           '날짜를 새로 선택하면 기존에 저장된 일정은 사라집니다. 그래도 계속하시겠습니까?',
@@ -241,6 +243,10 @@ const PlanMaker = () => {
       ) {
         return;
       }
+    }
+
+    if (location.state !== null && isUpdatedCal === false) {
+      isUpdatedCal = true;
     }
 
     var totalDayStr =
@@ -256,9 +262,9 @@ const PlanMaker = () => {
     var daysArr = []; //일정 검색 및 추가 컨테이너를 활성화하기 위한 배열
 
     for (let i = 0; i < nFullDay; i++) {
-      var daytxt = `${i + 1}일차`;
+      var txt = `${i + 1}일차`;
       var planperdays = utill.emptyPlan();
-      planperdays.day = daytxt;
+      planperdays.day = txt;
       // var planperdays = {
       //   noEditted: true,
       //   day: `${i + 1}일차`,
@@ -271,9 +277,30 @@ const PlanMaker = () => {
     }
     isMaking = false; //날짜를 재설정하면 일정 제작 여부도 초기화
 
-    if (location.state !== null) {
+    if (location.state !== null && isUpdatedCal2 === false) {
+      //지역 초기화
+      //제목 초기화
+      titleRef.current.value = '';
+      //지역 초기화
+      selectedAreaBefore = 0;
+      cityRef.current.value = selectedAreaBefore;
+
+      //여행타입 초기화
+      setPlan({
+        plan: [],
+        selected: [false, false, false, false, false],
+      });
+      //이동수단 초기화
+      setTrans({
+        //선택된 이동수단을 저장하는 객체(selected는 선택 버튼의 활성화/비활성화를 담당)
+        trans: [],
+        selected: [false, false, false, false, false],
+      });
+      //공개여부는 기본적으로 O
+      setOX('O');
       setPoints([initPoint]); //날짜가 선택되거나 기간을 재선택하면 저장된 좌표를 초기화
       pointsArr = []; //날짜가 선택되거나 기간을 재선택하면 저장된 좌표초기화2
+      isUpdatedCal2 = true;
     }
 
     setDayList(daysArr); //일정 갯수를 state에 반영

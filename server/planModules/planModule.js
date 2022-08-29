@@ -167,8 +167,7 @@ planModule.uploadPlan = function (req, res, db) {
       const data = planbydays[j];
       console.log(`${i + 1}일차 => `, data);
 
-      const sub_sql = `
-      (LAST_INSERT_ID(),
+      const sub_sql = `(LAST_INSERT_ID(),
       '${data.PLAN_DAYS}',
       ${data.P_CATE_IDX},
       '${data.PLAN_TITLE}',
@@ -187,12 +186,13 @@ planModule.uploadPlan = function (req, res, db) {
   }
   console.log(sqlQuery, planqueryarr);
   sqlQuery += planqueryarr.join(",") + ";";
-  console.log(sqlQuery);
+  console.log("query ==>", sqlQuery);
   //장바구니에 저장된 리스트를 가져오는 테이블
 
   //넘겨받은 db 객체 프로퍼티로 작업 수행
   db.query(sqlQuery, (err, result) => {
-    console.log(result);
+    console.log("result ==> ", result);
+    console.log("err ==> ", err);
     if (err) return res.send("fail");
     else return res.send("success");
   });
