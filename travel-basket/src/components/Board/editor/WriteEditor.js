@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const WriteEditor = ({ desc, setDesc, setImage }) => {
   const [flag, setFlag] = useState(false); // 첫 이미지를 썸네일로 지정
-  const imgLink = "http://localhost:8000/uploads";
+  const imgLink = 'http://localhost:8000/uploads';
   // console.log('에디터',article);
 
   const customUploadAdapter = (loader) => {
@@ -14,16 +14,16 @@ const WriteEditor = ({ desc, setDesc, setImage }) => {
         return new Promise((resolve, reject) => {
           const data = new FormData();
           loader.file.then((file) => {
-            data.append("name", file.name);
-            data.append("file", file);
+            data.append('name', file.name);
+            data.append('file', file);
             // data.append("content", data);
             axios
-              .post("http://localhost:8000/api/upload", data)
+              .post('http://localhost:8000/api/upload', data)
               .then((res) => {
                 if (!flag) {
                   setFlag(true);
                   setImage(res.data.filename);
-                  console.log("오냐?");
+                  console.log('오냐?');
                 }
                 resolve({
                   default: `${imgLink}/${res.data.filename}`,
@@ -39,7 +39,7 @@ const WriteEditor = ({ desc, setDesc, setImage }) => {
   };
 
   function uploadPlugin(editor) {
-    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
       return customUploadAdapter(loader);
     };
   }
@@ -48,7 +48,7 @@ const WriteEditor = ({ desc, setDesc, setImage }) => {
     <CKEditor
       editor={ClassicEditor}
       config={{ extraPlugins: [uploadPlugin] }}
-      data={desc ? desc : ""}
+      data={desc ? desc : ''}
       onReady={(editor) => {
         // console.log('Editor Ready', editor);
       }}

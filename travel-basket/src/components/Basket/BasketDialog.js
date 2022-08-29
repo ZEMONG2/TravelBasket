@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import './main_css/BasketModal_All.scss';
+import '../Main/main_css/BasketModal_All.scss';
 
-function MainItemDialog(props) {
+function BasketDialog(props) {
   // 모달창 활성화 시 스크롤 방지 코드
   // useEffect(() => {
   //   document.body.style.cssText = `
@@ -32,4 +32,4 @@ function MainItemDialog(props) {
   );
 }
 
-export default MainItemDialog;
+export default BasketDialog;

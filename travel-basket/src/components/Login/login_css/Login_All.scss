@@ -1,0 +1,184 @@
+.id {
+  margin: 10px 0;
+  padding: 12px;
+  width: 320px;
+  border: solid 1px lightgray;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  // border: none;
+  // border-radius: 2px 2px;
+  // box-shadow: 2px 2px 2px 1px lightgrey;
+}
+
+.pw {
+  margin: 10px 0;
+  padding: 12px;
+  width: 320px;
+  border: solid 1px lightgray;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  // border: none;
+  // border-radius: 2px 2px;
+  // box-shadow: 2px 2px 2px 1px lightgrey;
+}
+
+.pwck {
+  margin: 10px 0;
+  padding: 12px;
+  width: 320px;
+  border: solid 1px lightgray;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  // cursor: pointer;
+  // border: none;
+  // border-radius: 2px 2px;
+  // box-shadow: 2px 2px 2px 1px lightgrey;
+}
+
+.nick {
+  margin: 10px 0;
+  padding: 12px;
+  width: 300px;
+  border: solid 1px lightgray;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  // cursor: pointer;
+  // border: none;
+  // border-radius: 2px 2px;
+  // box-shadow: 2px 2px 2px 1px lightgrey;
+}
+
+.sign_up {
+  margin: 10px 0;
+  padding: 12px;
+  width: 320px;
+  border: none;
+  border-radius: 2px 2px;
+  background-color: gray;
+  color: white;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.login {
+  margin: 10px 0;
+  padding: 12px;
+  width: 320px;
+  border: none;
+  border-radius: 2px 2px;
+  background-color: gray;
+  color: white;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.kakao {
+  margin: 10px 0;
+  padding: 12px;
+  width: 320px;
+  border: none;
+  border-radius: 2px 2px;
+  background-color: #FDCD00;
+  color: white;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.naver {
+  margin: 10px 0;
+  padding: 12px;
+  width: 320px;
+  border: none;
+  border-radius: 2px 2px;
+  background-color: #04CF5C;
+  color: white;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.facebook {
+  margin: 10px 0;
+  padding: 12px;
+  width: 320px;
+  border: none;
+  border-radius: 2px 2px;
+  background-color: #1877F2;
+  color: white;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.google {
+  margin: 10px 0;
+  padding: 12px;
+  width: 320px;
+  border: none;
+  border-radius: 2px 2px;
+  background-color: whitesmoke;
+  color: black;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+
+
+// 회원정보 수정
+
+.modify_group {
+  margin: 10px 0;
+  padding: 12px;
+  width: 320px;
+  // border: solid 1px lightgray;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+
+}
+
+.modify_insert {
+  margin: 10px 0;
+  padding: 12px;
+  width: 320px;
+  border: none;
+  border-radius: 2px 2px;
+  background-color: gray;
+  color: white;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.contact {
+  width: 150px;
+  height: 150px;
+  left: 50%;
+  position: relative;
+  transform: translateX(-50%);
+  color: darkgrey;
+}
+
+.alert {
+  font-size: 13px;
+  color: red;
+  text-align: left;
+}

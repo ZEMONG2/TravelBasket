@@ -8,14 +8,29 @@
 
 .b_icon {
   height: 50px;
-  width:  50px;
+  width: 50px;
   padding: 10%;
 }
-
 
 /*********************************/
 /*  장바구니 있을 때             */
 /*********************************/
+.basket {
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.basketlistCount {
+  margin: 2% 5%;
+  padding: 5px;
+  display: inline-flex;
+  position: relative;
+  left: 70%;
+}
+
 .basket_tab_all .basket_Tabs {
   display: flex;
   justify-content: center;
@@ -40,18 +55,34 @@
   margin: 0 30px;
 }
 
-
-.basket_tab > .tab-link-active {
+.basket_tab>.tab-link-active {
   opacity: 1;
-} 
+}
 
-.basket_tab > button {
+.basket_tab>button {
   background: none !important;
   color: navy;
   opacity: 0.6;
 }
 
-
 .list_title {
   font-weight: bold;
+  cursor: pointer;
+}
+
+
+.basket_edit {
+  border: none;
+  padding: 7px 10px;
+  margin: 5px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.basket_delete {
+  border: none;
+  padding: 7px 10px;
+  margin: 5px;
+  border-radius: 2px;
+  cursor: pointer;
 }

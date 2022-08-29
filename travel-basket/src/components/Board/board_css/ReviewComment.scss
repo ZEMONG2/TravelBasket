@@ -1,0 +1,39 @@
+.CommentWrite {
+  padding: 5px;
+  width: 500px;
+  border: solid 1px lightgray;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.comment_area {
+  width: 490px;
+  height: 100px;
+  box-sizing: border-box;
+  border: none;
+  background-color: rgb(250, 250, 250);
+}
+
+.comment-nick {
+  color: blue;
+}
+
+.btn-wrap2 {
+  display: flex;
+  justify-content: end;
+  flex-direction: row-reverse;
+}
+
+.comment_list {
+  padding: 5px;
+  width: 500px;
+  // border: solid 1px lightgray;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  cursor: pointer;
+}

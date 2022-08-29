@@ -10,7 +10,7 @@
 
 .search {
   display: inline-flex;
-  padding: 10px ;
+  padding: 10px;
   margin: 1.5%;
   width: 370px;
   border: solid 1px lightgray;
@@ -19,16 +19,16 @@
 .board_btn {
   border: none;
   border-radius: 2px 2px;
-  background-color:lightgray;
+  background-color: lightgray;
   padding: 10px;
   margin: 1%;
   width: 80px;
   position: relative;
   cursor: pointer;
-  }
+}
 
-  .to {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.to {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

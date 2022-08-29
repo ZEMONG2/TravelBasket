@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { KAKAO_REST_API_KEY } from '../../auth/Auth';
 import { KAKAO_REDIRECT_URI } from '../../auth/Auth';
-import '../Login/login_css/Login.scss';
+import '../Login/login_css/Login_All.scss';
 
 const Login = () => {
   // 아이디 패스워드 인풋태그 Ref

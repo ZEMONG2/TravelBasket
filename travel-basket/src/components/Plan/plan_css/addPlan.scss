@@ -1,71 +1,84 @@
-.searchedImg{
-  width:100px;
-  height:100px;
+.searchedImg {
+  width: 100px;
+  height: 100px;
 }
-.searchWrap{
-  width:100%;
-  min-height:50%;
-  position:absolute;
-  top:50%;
-  left:0%;
+
+.searchWrap {
+  width: 100%;
+  min-height: 50%;
+  position: absolute;
+  top: 50%;
+  left: 0%;
   background: rgb(250, 250, 250);
   z-index: 200;
-  visibility: hidden; 
+  visibility: hidden;
   opacity: 0;
   transition: all 0.25s ease-in-out;
 }
-.searchWrap.open{
+
+.searchWrap.open {
   opacity: 1;
   visibility: visible;
 }
-.searchHeader{
-  width:100%;
+
+.searchHeader {
+  width: 100%;
 }
-#searchInput{
-  width:360px;
-  height:40px;
+
+#searchInput {
+  width: 360px;
+  height: 40px;
 }
-#searchbtn{
-  width:40px;
-  height:40px;
+
+#searchbtn {
+  width: 40px;
+  height: 40px;
 }
-.searchListItem{
-  width:100%;
-  height:100px;
+
+.searchListItem {
+  width: 100%;
+  height: 100px;
   text-align: center;
 }
 
-.searchedItemInfo{
-  float:left;
-  width:75%;
-  height:100%;
+.searchedItemInfo {
+  float: left;
+  width: 75%;
+  height: 100%;
   padding: 10px;
   text-align: left;
 }
-.searchedItemBtn{
-  float:left;
+
+.searchedItemBtn {
+  float: left;
 }
-.itemTitle{
+
+.itemTitle {
   font-size: 18px;
 }
-.itemCategory{
+
+.itemCategory {
   font-size: 12px;
-  color:#9C9C9C;
+  color: #9C9C9C;
 }
-.itemRoadAddr{
+
+.itemRoadAddr {
   font-size: 14px;
 }
-.itemAddr{
+
+.itemAddr {
   font-size: 12px;
-  color:#9C9C9C;
+  color: #9C9C9C;
 }
-.savePlan{
-  width:40px;
-  height:40px;
-  background:#0066cc;
-  color:white;
+
+.savePlan {
+  width: 40px;
+  height: 40px;
+  background: #0066cc;
+  color: white;
   font-weight: bold;
 }
+
 /* 
 이제 안쓰는 css
 .searchedItemImageWrap{
@@ -77,64 +90,75 @@
   height:100px;
   margin-left:20px;
 } */
-.searchedItemTextWrap p{
-  text-align:left;
+.searchedItemTextWrap p {
+  text-align: left;
 }
-.searchLabel{
-  width:364px;
-  height:25px;
-  margin:0 auto;
+
+.searchLabel {
+  width: 364px;
+  height: 25px;
+  margin: 0 auto;
 }
-#searchlabeldiv{
+
+#searchlabeldiv {
   background: #00994c;
-  color:white;
+  color: white;
   border-radius: 10px;
-  width:100px;
-  height:25px;
+  width: 100px;
+  height: 25px;
   line-height: 29px;
   font-size: 14px;
   text-align: center;
   font-weight: bold;
 }
-#goback{
-  margin-left:20px;
-  margin-right:20px;
-  width:40px;
-  height:40px;
+
+#goback {
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 40px;
+  height: 40px;
   font-weight: bold;
-  border:0.5px solid black;
+  border: 0.5px solid black;
 }
-.blur-it{/* 팝업창 뜨면 백그라운드 블러처리 */
-  filter:blur(4px);
+
+.blur-it {
+  /* 팝업창 뜨면 백그라운드 블러처리 */
+  filter: blur(4px);
 }
-#searchbtn{
+
+#searchbtn {
   margin-left: 5px;
-  width:40px;
-  height:40px;
-  border:0.5px solid black;
+  width: 40px;
+  height: 40px;
+  border: 0.5px solid black;
 }
-.searchList{
-  width:80%;
-  margin:0 auto;
+
+.searchList {
+  width: 80%;
+  margin: 0 auto;
 }
-.searcherWrap{
-  width:490px;
-  height:40px;
-  margin:0 auto;
+
+.searcherWrap {
+  width: 490px;
+  height: 40px;
+  margin: 0 auto;
 }
-.searchedItemBtn{
-  padding:30px 0 30px 50px;
+
+.searchedItemBtn {
+  padding: 30px 0 30px 50px;
 }
-.showMeMore{
-  width:100%;
-  height:50px;
+
+.showMeMore {
+  width: 100%;
+  height: 50px;
   text-align: center;
 }
-.searchMore{
-  width:150px;
-  height:50px;
-  background:#0066cc;
-  color:white;
+
+.searchMore {
+  width: 150px;
+  height: 50px;
+  background: #0066cc;
+  color: white;
   font-weight: bold;
   font-size: 18px;
 }

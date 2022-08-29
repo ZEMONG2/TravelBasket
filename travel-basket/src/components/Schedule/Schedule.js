@@ -22,8 +22,7 @@ function Schedule() {
     list: [],
   });
   //const login_id = 'ksw3108'; //더미 유저 데이터, 추후 세션에서 사용자 아이디를 가져옴
-  const login_id = 'ksw3108'; //더미 유저 데이터, 추후 세션에서 사용자 아이디를 가져옴
-  // const login_id= window.sessionStorage.getItem("id")
+  const login_id = window.sessionStorage.getItem('USER_ID');
   useEffect(() => {
     //로그인 검증 후 비로그인 상태면 메인으로 돌림. 현재 테스트환경에서 세션을 생성하지 않으므로 임의 주석처리.
     // const login_id = window.sessionStorage.getItem("id");
@@ -63,7 +62,7 @@ function Schedule() {
       })
       .then((res) => {
         const { data } = res;
-        console.log(data);
+        //console.log(data);
         article_count = data[0].COUNT;
         page_count = Math.ceil(article_count / page_size);
         var page_activate = [];

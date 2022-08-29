@@ -3,19 +3,24 @@
   margin: 0;
   padding: 0;
 }
+
 li {
   list-style: none;
 }
+
 a {
   text-decoration: none;
   color: black;
 }
+
 img {
   border: 0;
 }
+
 ul {
   padding-left: 0px;
 }
+
 section {
   height: auto;
 }
@@ -34,6 +39,7 @@ section {
   display: block;
   clear: both;
 }
+
 /* 위아래 공백 */
 .updownSpace {
   width: 100%;
@@ -46,10 +52,12 @@ section {
   font-weight: bold;
   text-align: center;
 }
+
 .container_center {
   margin: 0 auto;
   width: 80%;
 }
+
 .displayNone {
   display: none;
 }

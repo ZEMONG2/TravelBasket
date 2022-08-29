@@ -43,6 +43,7 @@ const db = mysql.createPool({
   // user: "root",
   // password: "123456",
   // database: "travel_test",
+  // multipleStatements: true, //220826 선우 여러 쿼리를 동시에 전송하기 위한 설정
   // charset: "utf8mb4",
 });
 
@@ -170,18 +171,18 @@ app.post("/modifyInfo", (req, res) => {
 //===========================
 app.post("/basket/insert", (req, res) => {
   console.log("/basket", req.body);
-  var categoly = req.body.categoly;
+  var category = req.body.category;
   var irum = req.body.irum;
   var memo = req.body.memo;
   var link = req.body.link;
   var user = req.body.user;
 
-  console.log("req Data  ==>", categoly, irum, memo, link, user);
+  console.log("req Data  ==>", category, irum, memo, link, user);
 
   const sqlQuery =
     "INSERT INTO TB_SEARCH (SEARCH_TITLE, SEARCH_TXT, SEARCH_LINK, USER_IDX, SEARCH_CATEGORY ) values (?,?,?,?,?);";
 
-  db.query(sqlQuery, [irum, memo, link, user, categoly], (err, result) => {
+  db.query(sqlQuery, [irum, memo, link, user, category], (err, result) => {
     res.send(result);
   });
 });
@@ -200,6 +201,21 @@ app.post("/basket/select", (req, res) => {
   });
 });
 
+//===========================
+// BASKET LIST DELETE
+//===========================
+
+app.post("/basket/delete", (req, res) => {
+  console.log("삭제!!!", req.body.idx);
+  var idx = req.body.idx;
+
+  const sqlQuery = "DELETE FROM TB_SEARCH WHERE SEARCH_IDX=?;";
+  db.query(sqlQuery, [idx], (err, result) => {
+    res.send(result);
+  });
+});
+
+// ◽ 게시판 DB (박지형)
 //===========================================================
 // REVIEW & LIKE & COMMENT
 //===========================================================
@@ -483,8 +499,20 @@ app.get("/getPlanCate", (req, res) => {
   plan.getPlanCategory(req, res, db);
 });
 //220826 선우 - 일정 업로드
-app.get("/uploadPlan", (req, res) => {
+app.post("/uploadPlan", (req, res) => {
   plan.uploadPlan(req, res, db);
+});
+//220826 선우 - 일정 업로드
+app.post("/updatePlan", (req, res) => {
+  plan.updatePlan(req, res, db);
+});
+//220826 선우 - 내 일정 조회
+app.post("/getMyPlan", (req, res) => {
+  plan.getMyPlan(req, res, db);
+});
+//220828 선우 - 내 일정 삭제
+app.post("/deletePlan", (req, res) => {
+  plan.deletePlan(req, res, db);
 });
 
 /* ------------- 네이버 지역 검색 api ------------- 220822 선우 */

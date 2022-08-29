@@ -4,7 +4,7 @@ import logo from '../../img/NEXTRAVEL_v.png';
 import * as List from './ReviewList';
 import '../Board/board_css/ReviewArticle.scss';
 
-const ReviewArticle = ({ article}) => {
+const ReviewArticle = ({ article }) => {
   const navigate = useNavigate();
   const txt = article.REVIEW_TXT;
   const url = txt.substring(txt.indexOf('http'), txt.indexOf('g">') + 1);

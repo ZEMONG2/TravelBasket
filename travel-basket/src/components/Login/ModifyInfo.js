@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../Login/login_css/ModifyInfo.scss';
+import '../Login/login_css/Login_All.scss';
 import { IoIosContact } from 'react-icons/io';
 
 const ModifyInfo = () => {
@@ -146,7 +146,8 @@ const ModifyInfo = () => {
     <div>
       <h1>회원정보 수정</h1>
       <form className="modify_group">
-        <IoIosContact className="men" />
+        <IoIosContact className="contact" />
+        <br />
         <input
           className="id"
           type="email"
@@ -155,7 +156,9 @@ const ModifyInfo = () => {
           value={emailMsg}
           ref={idRef}
           readOnly
+          disabled
         />
+        <br />
         {join_path === 'LOCAL' ? (
           <div>
             <input
@@ -168,6 +171,7 @@ const ModifyInfo = () => {
               ref={pwRef}
               placeholder="비밀번호 변경을 원할 시 입력하세요"
             />
+            <br />
             <input
               className="pwck"
               type="password"
@@ -178,11 +182,12 @@ const ModifyInfo = () => {
               ref={pwCkRef}
               placeholder="변경할 비밀번호를 다시 한 번 입력하세요"
             />
-            <p>{pwComment}</p>
+            <p className="alert">{pwComment}</p>
           </div>
         ) : (
           <div></div>
         )}
+        <br />
         <p className="nickname">닉네임</p>
         <input
           className="nick"
@@ -194,9 +199,9 @@ const ModifyInfo = () => {
           onChange={nickChange}
           placeholder={nickMsg}
         />
-        <p>{nickComment}</p>
+        <p className="alert">{nickComment}</p>
         <input
-          className="modify"
+          className="modify_insert"
           type="button"
           value="수정"
           onClick={handleModify}

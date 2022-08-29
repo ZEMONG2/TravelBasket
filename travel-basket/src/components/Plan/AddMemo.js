@@ -1,11 +1,8 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
-import SearchedItem from './container/SearchedItem';
-import Select from 'react-select';
-import * as utill from '../../Utils/Utils.js';
-// import './css/addMemo.css';
-import '../Plan/plan_css/addMemo.scss';
+import { useRef, useState, useEffect } from 'react';
 
+import SearchedItem from './container/SearchedItem';
+import * as utill from '../../Utils/Utils.js';
+import './css/addMemo.css';
 const AddMemo = ({
   handleMemoPopup,
   selectedItem,
@@ -27,6 +24,7 @@ const AddMemo = ({
   const areaRef = useRef();
   useEffect(() => {
     if (isUpdating) {
+      console.log('!!!!!!!!!!!!!!!!!!!!!');
       selectRef.current.value = updatingData.category;
       textRef.current.value = updatingData.title;
       areaRef.current.value = updatingData.memo;
@@ -38,6 +36,12 @@ const AddMemo = ({
     memo.category = parseInt(selectRef.current.value);
     memo.title = textRef.current.value;
     memo.memo = areaRef.current.value;
+
+    if (selectRef.current.value === 'default') {
+      alert('카테고리를 선택해주세요!');
+      return;
+    }
+
     //console.log(memo);
     if (isUpdating) {
       handleMemoPopup('updateComplete', { item: selectedItem, memo: memo }); //팝업창 컨트롤

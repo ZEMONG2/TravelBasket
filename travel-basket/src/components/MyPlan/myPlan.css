@@ -1,0 +1,162 @@
+.myPlanBody {
+    /* 전체 감싸주는 태그*/
+    width: 70%;
+    margin: 0 auto;
+}
+
+.myPlanBtnWrap {
+    /* 최상단 버튼부 */
+    text-align: right;
+    height: 50px;
+}
+
+.btnMyplan {
+    /* 최상단 버튼 공용 css */
+    margin: 10px 10px 0 0;
+    height: 30px;
+    width: 50px;
+    font-size: 14px;
+}
+
+/* #updateMyplan{/* 수정하기 버튼 */
+/*   width:70px;
+}*/
+/*#deleteThisPlan{/* 삭제하기 버튼 */
+/*   width:50px;
+} */
+#planTitle {
+    /* 타이틀 p태그 */
+    font-size: 20px;
+    padding: 10px 0 10px 0;
+}
+
+#planRange {
+    /* 여행 기간 p태그 */
+    font-size: 15px;
+    padding: 10px 0 10px 0;
+}
+
+.halfGrid {
+    /* 셀렉터랑 작성자 태그를 나눠주는 그리드 */
+    width: 48%;
+    float: left;
+}
+
+#daysSelecterWrap {
+    /* 셀렉터 랩 */
+    margin: 15px 0 15px 10px;
+}
+
+#writerWrap {
+    /* 작성자/작성일 랩  */
+    text-align: right;
+    font-size: 12px;
+    margin: 15px 10px 15px 0;
+}
+
+#daySelecter {
+    /* n일차 셀렉터 */
+    width: 150px;
+    height: 35px;
+    border-radius: 5px;
+}
+
+.daillyMemoMain {
+    /*메모 전체를 감싸줌*/
+    width: 100%;
+}
+
+.dailyHeader {
+    /* n일차 */
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+}
+
+.dailyBody {
+    /* 메모 본문 래퍼*/
+    width: 100%;
+    overflow: auto;
+    border-top: 0.8px solid #a0a0a0;
+}
+
+.duplicate {
+    /* 같은 카테고리 데이터가 연속으로 오면 보더 라인을 숨김 */
+    border-top: none;
+}
+
+.duplicate_cate {
+    visibility: hidden;
+}
+
+.dailyCateBody {
+    width: 100%;
+    height: 25px;
+    margin-top: 12.5px;
+}
+
+.dailyicon {
+    /* 카테고리 아이콘 */
+    width: 25px;
+    height: 25px;
+    float: left;
+}
+
+.dailyCateText {
+    /*카테고리 텍스트*/
+    height: 50%;
+    float: left;
+    margin-top: 4px;
+}
+
+.dailyCate {
+    /* 카테고리 전체 그리드 */
+    width: 30%;
+    float: left;
+}
+
+.dailyMemoWrap {
+    /* 메모 전체 그리드 */
+    width: 70%;
+    float: left;
+}
+
+.dailyMemoMain {
+    /* 메모 메인 설명 그리드 */
+    width: 100%;
+    height: 50px;
+    font-size: 17px;
+    line-height: 50px;
+}
+
+.dailyMemoBtn {
+    /* 메모 상세보기 버튼 */
+    float: right;
+    cursor: pointer;
+    width: 60px;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.dailyMemoDetail {
+    /* 메모 상세보기 태그 */
+    border-top: 0.8px solid #a0a0a0;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.placeName {
+    /* 상호명태그(길이가 길면 ...으로 줄임) */
+    width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+}
+
+.typeTable {
+    /* 타입 / 교통수단 버튼을 담아주는 테이블 태그 */
+    width: 100%;
+    margin: 10px 0 10px 0;
+
+}

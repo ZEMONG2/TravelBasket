@@ -1,13 +1,13 @@
-.logo{
+.logo {
   height: 30px;
   padding: 10px;
   cursor: pointer;
 }
 
 .header {
-  width : 100%;
+  width: 100%;
   height: 56.22px;
-  background-color:lightsteelblue;
+  background-color: lightsteelblue;
 
 }
 
@@ -40,8 +40,9 @@
 .Logout {
   cursor: pointer;
 }
-.show-menu{
-  margin : 0;
+
+.show-menu {
+  margin: 0;
   padding: 0;
   padding-left: 20px;
   padding-top: 10px;
@@ -51,12 +52,12 @@
   position: absolute;
   left: 0px;
   transition: 0s;
-  visibility:visible;
+  visibility: visible;
   z-index: 100;
-  }
+}
 
-.hide-menu{
-  margin : 0;
+.hide-menu {
+  margin: 0;
   padding: 0;
   padding-left: 20px;
   width: 0px;
@@ -65,10 +66,10 @@
   // left: -200%;
   transition: 0s;
   visibility: hidden;
-  }
+}
 
-.show-login{
-  margin : 0;
+.show-login {
+  margin: 0;
   padding: 0;
   padding-right: 20px;
   padding-top: 10px;
@@ -78,38 +79,41 @@
   position: absolute;
   right: 0px;
   transition: 0s;
-  visibility:visible;
+  visibility: visible;
   z-index: 100;
-  }
+}
 
-.hide-login{
-  margin : 0;
+.hide-login {
+  margin: 0;
   padding: 0;
   padding-right: 20px;
   width: 0px;
   height: 100vh;
   // position: absolute;
   // left: -200%;
-  right:0px;
+  right: 0px;
   transition: 0s;
   visibility: hidden;
-  }
-  
+}
 
-ul.show-menu, ul.hide-menu, ul.show-login, ul.hide-login {
+
+ul.show-menu,
+ul.hide-menu,
+ul.show-login,
+ul.hide-login {
   list-style: none;
   background-color: ghostwhite;
   padding: 1%;
   margin: 0%;
 }
 
-.menuWrap > ul > li {
+.menuWrap>ul>li {
   width: 150px;
   line-height: 200%;
   cursor: pointer;
 }
 
-.menuWrap > ul > hr {
+.menuWrap>ul>hr {
   margin: 10px 0 10px 0;
   width: 130px;
 }
@@ -122,19 +126,19 @@ ul.show-menu, ul.hide-menu, ul.show-login, ul.hide-login {
   opacity: 0.5;
 }
 
-.loginWrap > ul > li {
+.loginWrap>ul>li {
   width: 150px;
   line-height: 200%;
   text-align: right;
   cursor: pointer;
 }
 
-.loginWrap > ul > hr {
+.loginWrap>ul>hr {
   margin: 10px 0px 10px 20px;
   width: 130px;
 }
 
 a {
   text-decoration: none;
-  color:black;
+  color: black;
 }

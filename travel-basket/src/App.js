@@ -7,11 +7,13 @@ import ReviewView from '../src/components/Board/ReviewView';
 import ReviewWrite from '../src/components/Board/ReviewWrite';
 
 /* Header */
-import Basket from '../src/components/Header/Basket';
 import Header from '../src/components/Header/Header';
 import Loading from '../src/components/Header/Loading';
 import NotFound from '../src/components/Header/NotFound';
 import Scheduleboard from '../src/components/Header/Scheduleboard';
+
+/* Basket */
+import Basket from '../src/components/Basket/Basket';
 
 /* Login */
 import Forgot from '../src/components/Login/Forgot';
@@ -26,6 +28,7 @@ import Main from '../src/components/Main/Main';
 
 /* Plan */
 import PlanMaker from '../src/components/Plan/PlanMaker';
+import MyPlan from '../src/components/MyPlan/MyPlan'; //220826 선우 내 일정 상세보기
 
 /* Schedule */
 import Schedule from '../src/components/Schedule/Schedule';
@@ -110,9 +113,11 @@ const App = () => {
           <Route path="/schedule_board" element={<Scheduleboard />} />
           {/* 내 일정 보관함 */}
           <Route path="/schedule" element={<Schedule />} />
+          {/* 내 일정 상세보기 */}
+          <Route path="/myplan" element={<MyPlan />} />
 
           {/* 드래그앤드랍 테스트용 */}
-          <Route path="/test" element={<DnDPractice />} />
+          {/* <Route path="/test" element={<DnDPractice />} /> */}
         </Routes>
       </div>
 

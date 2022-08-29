@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { useLocation } from 'react-router-dom';
 const PlanContainer = ({
   daycnt,
   openSearchPopup,
@@ -18,7 +18,7 @@ const PlanContainer = ({
       setUpdateMemoItem: 메모 수정할 객체
       deletePlace : 아이템 삭제
   */
-
+  const location = useLocation();
   const openPopup = () => {
     openSearchPopup(daycnt);
   };
@@ -31,6 +31,7 @@ const PlanContainer = ({
   const deleteItem = (e, idx) => {
     //저장한 장소와 메모 삭제
     deletePlace(idx, daycnt);
+
     e.preventDefault();
   };
   return (
@@ -47,25 +48,31 @@ const PlanContainer = ({
         </div>
       </div>
       {data.area.length > 0 &&
-        data.area.map((val, idx) => (
-          <div className="selectedItemArticle" key={idx}>
-            <span
-              className="selectedItemLabel"
-              onClick={(e) => openMemoPopup(e, idx)}
-            >
-              {val.place_name}
-            </span>
-            <button className="deleteItem" onClick={(e) => deleteItem(e, idx)}>
-              삭제
-            </button>
-            <button
-              className="updateMemo"
-              onClick={(e) => openMemoPopup(e, idx)}
-            >
-              메모수정
-            </button>
-          </div>
-        ))}
+        data.area.map(
+          (val, idx) =>
+            !data.memo[idx].isDeleting && (
+              <div className="selectedItemArticle" key={idx}>
+                <span
+                  className="selectedItemLabel"
+                  onClick={(e) => openMemoPopup(e, idx)}
+                >
+                  {val.place_name}
+                </span>
+                <button
+                  className="deleteItem"
+                  onClick={(e) => deleteItem(e, idx)}
+                >
+                  삭제
+                </button>
+                <button
+                  className="updateMemo"
+                  onClick={(e) => openMemoPopup(e, idx)}
+                >
+                  메모수정
+                </button>
+              </div>
+            ),
+        )}
 
       <div className="updownSpace"></div>
     </>

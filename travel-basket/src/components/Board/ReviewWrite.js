@@ -14,16 +14,16 @@ const ReviewWrite = () => {
   const handleWrite = (e) => {
     e.preventDefault();
 
-    if (titleRef.current.value === "" || titleRef.current.value === undefined) {
-        alert('제목을 입력해주세요:)');
-        titleRef.current.focus();
-        return false;
-    };
+    if (titleRef.current.value === '' || titleRef.current.value === undefined) {
+      alert('제목을 입력해주세요:)');
+      titleRef.current.focus();
+      return false;
+    }
 
-    if (desc === "" || desc === undefined) {
-        alert('내용을 입력해주세요:)');
-        return false;
-    };
+    if (desc === '' || desc === undefined) {
+      alert('내용을 입력해주세요:)');
+      return false;
+    }
 
     axios
       .post('http://localhost:8000/review/write', {

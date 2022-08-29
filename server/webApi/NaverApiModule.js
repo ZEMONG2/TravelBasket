@@ -21,7 +21,10 @@ NaverApiModule.searchData = function (req, res) {
       display: 5, // 가져올 갯수
       sort: "sim", // 정렬 유형(sim:유사도)
     },
-    headers: { "X-Naver-Client-Id": NAVER_CLIENT_ID, "X-Naver-Client-Secret": NAVER_CLIENT_SECRET },
+    headers: {
+      "X-Naver-Client-Id": NAVER_CLIENT_ID,
+      "X-Naver-Client-Secret": NAVER_CLIENT_SECRET,
+    },
   };
   console.log(options);
 
