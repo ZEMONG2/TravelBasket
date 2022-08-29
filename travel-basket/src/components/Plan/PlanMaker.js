@@ -39,7 +39,7 @@ var initPoint = utill.cityPoints[0]; //초기화용 좌표 세팅값(초기값�
 const PlanMaker = () => {
   const location = useLocation();
   useEffect(() => {
-    if (location !== null) {
+    if (location.state !== null) {
       //console.log(location.state);
       const schedule = location.state.data.schedule;
       const point = location.state.data.points;
@@ -238,7 +238,7 @@ const PlanMaker = () => {
   const selectDate = (e) => {
     //날짜를 선택하여 선택 버튼을 누르면 실행되는 함수.
 
-    if (location !== null) {
+    if (location.state !== null) {
       if (
         !window.confirm(
           '날짜를 새로 선택하면 기존에 저장된 일정은 사라집니다. 그래도 계속하시겠습니까?',
@@ -348,7 +348,7 @@ const PlanMaker = () => {
     for (let i = 0; i < dayList.length; i++) {
       var data = dayList[i];
       if (data.day === daycnt + '일차') {
-        if (location !== null) {
+        if (location.state !== null) {
           //수정중일경우 삭제할 아이템인거만 표기한다.
           data.memo[idx].isDeleting = true;
         } else {
@@ -428,7 +428,7 @@ const PlanMaker = () => {
       if (dayList[i].day === now) {
         //현재 일차라면 저장된 리스트를 불러와서 거기에 신규 데이터를 합친다.
         var isdeletedData = false; //삭제된 아이템을 새로 추가했는지 여부를 확인
-        if (location !== null) {
+        if (location.state !== null) {
           //데이터 수정중에 삭제한 정보를 새로 넣으려고 할 경우
           for (let j = 0; j < dayList[i].area.length; j++) {
             if (placeData.place_name === dayList[i].area[j].place_name) {
@@ -533,7 +533,7 @@ const PlanMaker = () => {
       return;
     }
     const mergedData = {
-      schedule_idx: location !== null ? location.state.schedule_idx : -1,
+      schedule_idx: location.state !== null ? location.state.schedule_idx : -1,
       title: titleRef.current.value, //제목
       selectedArea: cityRef.current.value, //장소
       day: daytxt, //일정(몇박 몇일)
@@ -544,8 +544,8 @@ const PlanMaker = () => {
       useridx: window.sessionStorage.getItem('USER_IDX'), //회원번호
       finalPlan: dayList,
     };
-    console.log(mergedData);
-    if (location !== null) {
+    //console.log(mergedData);
+    if (location.state !== null) {
       //수정
       utill.updatePlan2DB(mergedData);
     } else {
@@ -553,7 +553,7 @@ const PlanMaker = () => {
       utill.uploadPlan2DB(mergedData);
     }
 
-    e.preventDefault();
+    //e.preventDefault();
   };
   return (
     <div className="planerWrap">
