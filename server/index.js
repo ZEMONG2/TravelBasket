@@ -407,16 +407,32 @@ app.post("/review/delete", (req, res) => {
 app.post("/review/search", (req, res) => {
   // console.log('검색어 option 확인!!', req.body.optionValue);
   // console.log('검색어 search 확인!!', req.body.searchValue);
+  var page_num = req.body.page_num;
+  var page_size = req.body.page_size;
+  const start_limit = (page_num - 1) * page_size;
+
   var search_opt = req.body.optionValue;
   var search_val = req.body.searchValue;
 
-  var sqlQuery = `SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX =  U.USER_IDX && CONCAT(${search_opt}) REGEXP ? ORDER BY R.REVIEW_IDX DESC;`;
+  var sqlQuery = `SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX =  U.USER_IDX && CONCAT(${search_opt}) REGEXP ? ORDER BY R.REVIEW_IDX DESC LIMIT ?,?;`;
 
+  db.query(sqlQuery, [search_val, start_limit, page_size], (err, result) => {
+    res.send(result);
+  });
+});
+// REVIEW SEARCH COUNT ----------------------------------------------
+app.post("/review/search/cnt", (req, res) => {
+  console.log("검색어 option 확인!!", req.body.optionValue);
+  console.log("검색어 search 확인!!", req.body.searchValue);
+
+  var search_opt = req.body.optionValue;
+  var search_val = req.body.searchValue;
+
+  const sqlQuery = `SELECT count(*) AS CNT FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX =  U.USER_IDX && CONCAT(${search_opt}) REGEXP ?;`;
   db.query(sqlQuery, [search_val], (err, result) => {
     res.send(result);
   });
 });
-
 // REVIEW COMMENT LIST ----------------------------------------------
 app.post("/review/comment", (req, res) => {
   var idx = req.body.params.idx;

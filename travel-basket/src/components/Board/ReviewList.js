@@ -6,21 +6,11 @@ import Pagination from 'react-js-pagination';
 import '../Board/board_css/ReviewList.scss';
 
 const ReviewList = () => {
-  // 세션값 있는 경우만 이동가능
-  // const navigate = useNavigate();
-  // useEffect(() => {
-  //   const USER_ID = window.sessionStorage.getItem("USER_ID");
-  //   console.log("window.sessionStorage(USER_ID) =>", USER_ID);
-  //   if (USER_ID === null) {
-  //     alert("로그인후 사용가능합니다!!");
-  //     navigate("/");
-  //   }
-  // });
   const navigate = useNavigate();
 
   useEffect(() => {
     getList();
-    valueSort();
+    // valueSort();
   }, []);
 
   // 페이징 게시물 사용 변수
@@ -28,33 +18,35 @@ const ReviewList = () => {
     reviewList: [],
   });
 
+  // 검색 게시물 사용 변수
+  const [searchlist, setSearchlist] = useState({
+    searchList: [],
+  });
+
+  // 전체 게시물  사용변수
+  const [alllist, setAlllist] = useState({
+    allList: [],
+  });
+  const [searchCK, setSearchCK] = useState(false);
+
   const [articleCnt, setArticleCnt] = useState(0);
   const [page, setPage] = useState(1);
 
   var pageCk = 1;
   var page_num = 1;
   const page_size = 10;
+  var page_cnt = 1;
   var article_cnt = 0;
-
-  // 검색 게시물 사용 변수
-  const [searchlist, setSearchlist] = useState({
-    searchList: [],
-  });
 
   const optionRef = useRef();
   const searchRef = useRef();
-
-  // 전체 게시물  사용변수
-  const [alllist, setAlllist] = useState({
-    allList: [],
-  });
 
   const dateRef = useRef();
   const countRef = useRef();
   const likeRef = useRef();
 
   //총 게시물 수 출력
-  var all_cnt = alllist.allList.length;
+  // var all_cnt = alllist.allList.length;
 
   // 검색 게시물 수 출력
   var search_cnt = searchlist.searchList.length;
@@ -73,6 +65,12 @@ const ReviewList = () => {
     pageCk = pageCking;
     getList();
     // console.log('handlePage=>', page);
+    if (searchlist.searchList.length === 0 && alllist.allList.length !== 0) {
+      getList();
+    } else if (searchlist.searchList.length !== 0) {
+      ReviewSearch();
+      //   valueCompare();
+    }
   };
 
   const getList = () => {
@@ -81,6 +79,7 @@ const ReviewList = () => {
       .then((res) => {
         const { data } = res;
         article_cnt = data[0].CNT;
+        page_cnt = Math.ceil(article_cnt / page_size);
         console.log('총 게시물 개수 =>', (article_cnt = data[0].CNT));
         setArticleCnt(article_cnt);
       })
@@ -116,20 +115,46 @@ const ReviewList = () => {
     var searchValue = searchRef.current.value;
 
     axios
-      .post('http://localhost:8000/review/search', {
+      .post('http://localhost:8000/review/search/cnt', {
         optionValue,
         searchValue,
       })
       .then((res) => {
         // console.log('검색어 결과 출력 =>', res);
-        if (res.data !== 0) {
-          setSearchlist({
-            ...searchlist,
-            searchList: res.data,
+
+        const { data } = res;
+        search_cnt = data[0].CNT; // 총갯수
+        console.log('검색 카운트 ', search_cnt);
+        page_cnt = Math.ceil(article_cnt / page_size);
+
+        setArticleCnt(search_cnt);
+        console.log('articleCnt', articleCnt);
+
+        axios
+          .post('http://localhost:8000/review/search', {
+            page_num: pageCk,
+            page_size: page_size,
+            search_cnt: search_cnt,
+            optionValue,
+            searchValue,
+          })
+          .then((res) => {
+            if (pageCk === 1) {
+              setPage(1);
+              console.log('체크체크체크');
+            }
+            // console.log('검색어 결과 출력 =>', res);
+            console.log('articleCnt2', articleCnt);
+
+            if (res.data !== 0) {
+              setSearchlist({
+                ...searchlist,
+                searchList: res.data,
+              });
+            } else {
+              alert('검색 결과가 없습니다.');
+            }
           });
-        } else {
-          alert('검색 결과가 없습니다.');
-        }
       })
       .catch((e) => {
         console.error(e);
@@ -151,8 +176,8 @@ const ReviewList = () => {
       .then((res) => {
         console.log('valueSort => ', res.data);
         setAlllist({
-          ...alllist,
-          allList: res.data,
+          ...reviewlist,
+          reviewList: res.data,
         });
       })
       .catch((e) => {
@@ -161,7 +186,7 @@ const ReviewList = () => {
   };
 
   const valueCompare = (e) => {
-    var sortAllData = alllist.allList.sort().reverse();
+    var sortAllData = reviewlist.reviewList.sort().reverse();
     var sortSearchData = searchlist.searchList.sort().reverse();
 
     if (dateRef.current.contains(e.target)) {
