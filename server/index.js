@@ -145,10 +145,23 @@ app.post("/modifyInfo", (req, res) => {
   console.log("pw =>", pw);
   console.log("nick =>", nick);
 
-  const sqlQuery = "UPDATE TB_USER SET USER_NICK=?, USER_PW=? WHERE USER_ID=?;";
-  db.query(sqlQuery, [nick, pw, id], (err, result) => {
-    res.send("회원정보수정성공");
-  });
+  if (pw == "") {
+    const sqlQuery = "UPDATE TB_USER SET USER_NICK=? WHERE USER_ID=?;";
+    db.query(sqlQuery, [nick, id], (err, result) => {
+      res.send("닉네임 수정 성공");
+    });
+  } else if (nick == "") {
+    const sqlQuery = "UPDATE TB_USER SET USER_PW=? WHERE USER_ID=?;";
+    db.query(sqlQuery, [pw, id], (err, result) => {
+      res.send("비밀번호 수정 성공");
+    });
+  } else {
+    const sqlQuery =
+      "UPDATE TB_USER SET USER_NICK=?, USER_PW=? WHERE USER_ID=?;";
+    db.query(sqlQuery, [nick, pw, id], (err, result) => {
+      res.send("회원정보 수정 성공");
+    });
+  }
 });
 
 // 장바구니 데이터 - 정찬우
@@ -187,10 +200,6 @@ app.post("/basket/select", (req, res) => {
   });
 });
 
-
-
-
-
 //===========================================================
 // REVIEW & LIKE & COMMENT
 //===========================================================
@@ -203,28 +212,30 @@ app.post("/review", (req, res) => {
   var page_size = req.body.page_size;
   const start_limit = (page - 1) * page_size;
 
-  const sqlQuery = "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX ORDER BY REVIEW_IDX DESC LIMIT ?,?;"
+  const sqlQuery =
+    "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX ORDER BY REVIEW_IDX DESC LIMIT ?,?;";
 
   db.query(sqlQuery, [start_limit, page_size], (err, result) => {
-      res.send(result);
+    res.send(result);
   });
 });
 
-  // 리뷰 게시판 전체 글 개수 카운트
-  app.get('/review/cnt', (req, res) => {
-      const sqlQuery = "SELECT count(*) AS CNT FROM TB_REVIEW;"
-      db.query(sqlQuery, (err, result) => {
-          res.send(result);
-      });
+// 리뷰 게시판 전체 글 개수 카운트
+app.get("/review/cnt", (req, res) => {
+  const sqlQuery = "SELECT count(*) AS CNT FROM TB_REVIEW;";
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
   });
+});
 
-  // 전체 글 가져가기
-  app.get('/review/all', (req, res) => {
-      const sqlQuery ="SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX ORDER BY REVIEW_IDX DESC;"
-      db.query(sqlQuery, (err, result) => {
-          res.send(result);
-      });
+// 전체 글 가져가기
+app.get("/review/all", (req, res) => {
+  const sqlQuery =
+    "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX ORDER BY REVIEW_IDX DESC;";
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
   });
+});
 
 // REVIEW VIEW ----------------------------------------------
 app.post("/review/view", (req, res) => {
@@ -239,71 +250,73 @@ app.post("/review/view", (req, res) => {
   });
 });
 
-  // 게시판 조회수
-  app.post('/view/cnt', (req, res) => {
-      // console.log('조회수 확인 =>', req.body.viewCnt, req.body.viewIdx);
-      const viewCnt = req.body.viewCnt;
-      const viewIdx = req.body.viewIdx;
+// 게시판 조회수
+app.post("/view/cnt", (req, res) => {
+  // console.log('조회수 확인 =>', req.body.viewCnt, req.body.viewIdx);
+  const viewCnt = req.body.viewCnt;
+  const viewIdx = req.body.viewIdx;
 
-      const sqlQuery = "UPDATE TB_REVIEW SET REVIEW_CNT=? WHERE REVIEW_IDX=?;"
-      db.query(sqlQuery, [viewCnt, viewIdx], (err, result) => {
-          res.send("조회수 증가 성공");
-      });
+  const sqlQuery = "UPDATE TB_REVIEW SET REVIEW_CNT=? WHERE REVIEW_IDX=?;";
+  db.query(sqlQuery, [viewCnt, viewIdx], (err, result) => {
+    res.send("조회수 증가 성공");
   });
+});
 
-  // 게시판 좋아요
-  app.post('/view/like', (req, res) => {
-      // console.log('좋아요 게시물 확인 =>', req.body.params.idx);
-      var idx = req.body.params.idx;
-      var user = req.body.sessionIdx;
+// 게시판 좋아요
+app.post("/view/like", (req, res) => {
+  // console.log('좋아요 게시물 확인 =>', req.body.params.idx);
+  var idx = req.body.params.idx;
+  var user = req.body.sessionIdx;
 
-      const sqlQuery = "SELECT R.*, U.USER_NICK, L.LIKE_OX FROM TB_REVIEW R, TB_USER U, TB_REVIEW_LIKE L WHERE R.USER_IDX = U.USER_IDX && R.REVIEW_IDX = L.REVIEW_IDX && R.REVIEW_IDX=? && L.USER_IDX=?;";
+  const sqlQuery =
+    "SELECT R.*, U.USER_NICK, L.LIKE_OX FROM TB_REVIEW R, TB_USER U, TB_REVIEW_LIKE L WHERE R.USER_IDX = U.USER_IDX && R.REVIEW_IDX = L.REVIEW_IDX && R.REVIEW_IDX=? && L.USER_IDX=?;";
 
-      db.query(sqlQuery, [idx ,user], (err, result) => {
-          res.send(result);
-      });
+  db.query(sqlQuery, [idx, user], (err, result) => {
+    res.send(result);
   });
+});
 
-  // 좋아요 테이블에 데이터 추가
-  app.post('/view/like/insert', (req, res) => {
-      // console.log('좋아요 INSERT 게시물 확인 =>', req.body.params.idx);
-      var idx = req.body.params.idx;
-      var user = req.body.sessionIdx;
-      var likeOX = req.body.likeOX;
+// 좋아요 테이블에 데이터 추가
+app.post("/view/like/insert", (req, res) => {
+  // console.log('좋아요 INSERT 게시물 확인 =>', req.body.params.idx);
+  var idx = req.body.params.idx;
+  var user = req.body.sessionIdx;
+  var likeOX = req.body.likeOX;
 
-      const sqlQuery = "INSERT INTO TB_REVIEW_LIKE (REVIEW_IDX, USER_IDX, LIKE_OX) values (?,?,?);";
+  const sqlQuery =
+    "INSERT INTO TB_REVIEW_LIKE (REVIEW_IDX, USER_IDX, LIKE_OX) values (?,?,?);";
 
-      db.query(sqlQuery, [idx, user, likeOX], (err, result) => {
-          res.send("좋아요 +1");
-      });
+  db.query(sqlQuery, [idx, user, likeOX], (err, result) => {
+    res.send("좋아요 +1");
   });
+});
 
-  // 좋아요 값 비교하여 하트 토글
-  app.post('/view/like/update', (req, res) => {
-      // console.log('좋아요 UPDATE 게시물 확인 =>', req.body.likeOX);      
-      var likeOX = req.body.likeOX;
-      var idx = req.body.params.idx;
-      var user = req.body.sessionIdx;
+// 좋아요 값 비교하여 하트 토글
+app.post("/view/like/update", (req, res) => {
+  // console.log('좋아요 UPDATE 게시물 확인 =>', req.body.likeOX);
+  var likeOX = req.body.likeOX;
+  var idx = req.body.params.idx;
+  var user = req.body.sessionIdx;
 
-      const updateQuery = "UPDATE TB_REVIEW_LIKE SET LIKE_OX=? WHERE REVIEW_IDX=? && USER_IDX=?;";
+  const updateQuery =
+    "UPDATE TB_REVIEW_LIKE SET LIKE_OX=? WHERE REVIEW_IDX=? && USER_IDX=?;";
 
-      db.query(updateQuery, [likeOX,idx, user], (err, result) => {
-          res.send("좋아요 업데이트 성공");
-      });
+  db.query(updateQuery, [likeOX, idx, user], (err, result) => {
+    res.send("좋아요 업데이트 성공");
   });
+});
 
-  // 좋아요 카운트
-  app.post("/view/like/cnt", (req, res) => {
-      // console.log('좋아요 COUNT 게시물 확인 =>', req.body.params);
-      var idx = req.body.params.idx;
+// 좋아요 카운트
+app.post("/view/like/cnt", (req, res) => {
+  // console.log('좋아요 COUNT 게시물 확인 =>', req.body.params);
+  var idx = req.body.params.idx;
 
-      const sqlQuery = "UPDATE TB_REVIEW SET REVIEW_LIKE=(SELECT COUNT(*) AS CNT FROM TB_REVIEW_LIKE WHERE REVIEW_IDX=? && LIKE_OX='O') WHERE REVIEW_IDX=?;";
-      db.query(sqlQuery, [idx,idx], (err, result) => {
-          res.send("좋아요 카운트 성공");
-      });
-  })
-
-
+  const sqlQuery =
+    "UPDATE TB_REVIEW SET REVIEW_LIKE=(SELECT COUNT(*) AS CNT FROM TB_REVIEW_LIKE WHERE REVIEW_IDX=? && LIKE_OX='O') WHERE REVIEW_IDX=?;";
+  db.query(sqlQuery, [idx, idx], (err, result) => {
+    res.send("좋아요 카운트 성공");
+  });
+});
 
 // REVIEW WRITE ----------------------------------------------
 app.post("/review/write", (req, res) => {
@@ -319,35 +332,34 @@ app.post("/review/write", (req, res) => {
   });
 });
 
-  // ** CKeditor
-  const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, "uploads");
-    },
-    filename: (req, file, cb) => {
-      cb(null, `${uuid()}.${mime.extension(file.mimetype)}`);
-    },
-  });
+// ** CKeditor
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${uuid()}.${mime.extension(file.mimetype)}`);
+  },
+});
 
-  const upload = multer({
-    storage,
-    fileFilter: (req, file, cb) => {
-      if (["image/jpeg", "image/jpg", "image/png"].includes(file.mimetype))
-        cb(null, true);
-      else cb(new Error("해당 파일 형식을 지원하지 않습니다."), false);
-    },
-    limits: {
-      fileSize: 1024 * 1024 * 10,
-    },
-  });
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    if (["image/jpeg", "image/jpg", "image/png"].includes(file.mimetype))
+      cb(null, true);
+    else cb(new Error("해당 파일 형식을 지원하지 않습니다."), false);
+  },
+  limits: {
+    fileSize: 1024 * 1024 * 10,
+  },
+});
 
-  app.post("/api/upload", upload.single("file"), (req, res) => {
-    console.log("file", req.file);
-    res.status(200).json(req.file);
-  });
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  console.log("file", req.file);
+  res.status(200).json(req.file);
+});
 
-  app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
-
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 // REVIEW MODIFY ----------------------------------------------
 app.post("/review/modify", (req, res) => {
@@ -364,10 +376,9 @@ app.post("/review/modify", (req, res) => {
   });
 });
 
-
 // REVIEW DELETE ----------------------------------------------
 app.post("/review/delete", (req, res) => {
-  console.log('삭제!!!', req.body.params.idx);
+  console.log("삭제!!!", req.body.params.idx);
   var idx = req.body.params.idx;
 
   const sqlQuery = "DELETE FROM TB_REVIEW WHERE REVIEW_IDX=?;";
@@ -376,74 +387,68 @@ app.post("/review/delete", (req, res) => {
   });
 });
 
-
 // REVIEW SEARCH ----------------------------------------------
-app.post('/review/search', (req, res) => {
-    // console.log('검색어 option 확인!!', req.body.optionValue);
-    // console.log('검색어 search 확인!!', req.body.searchValue);
-    var search_opt = req.body.optionValue;
-    var search_val = req.body.searchValue;
+app.post("/review/search", (req, res) => {
+  // console.log('검색어 option 확인!!', req.body.optionValue);
+  // console.log('검색어 search 확인!!', req.body.searchValue);
+  var search_opt = req.body.optionValue;
+  var search_val = req.body.searchValue;
 
-    var sqlQuery = `SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX =  U.USER_IDX && CONCAT(${search_opt}) REGEXP ? ORDER BY R.REVIEW_IDX DESC;`;
+  var sqlQuery = `SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX =  U.USER_IDX && CONCAT(${search_opt}) REGEXP ? ORDER BY R.REVIEW_IDX DESC;`;
 
-    db.query(sqlQuery, [search_val], (err, result) => {
-        res.send(result);
-    });
+  db.query(sqlQuery, [search_val], (err, result) => {
+    res.send(result);
+  });
 });
-
 
 // REVIEW COMMENT LIST ----------------------------------------------
-app.post('/review/comment', (req, res) => {
-    var idx = req.body.params.idx;
+app.post("/review/comment", (req, res) => {
+  var idx = req.body.params.idx;
 
-    const sqlQuery = "SELECT C.*, R.REVIEW_IDX, U.USER_NICK FROM TB_COMMENT C, TB_REVIEW R, TB_USER U WHERE C.REVIEW_IDX = R.REVIEW_IDX && C.USER_IDX = U.USER_IDX && C.REVIEW_IDX=?;";
-    db.query(sqlQuery, [idx], (err, result) => {
-        res.send(result);
-    });
+  const sqlQuery =
+    "SELECT C.*, R.REVIEW_IDX, U.USER_NICK FROM TB_COMMENT C, TB_REVIEW R, TB_USER U WHERE C.REVIEW_IDX = R.REVIEW_IDX && C.USER_IDX = U.USER_IDX && C.REVIEW_IDX=?;";
+  db.query(sqlQuery, [idx], (err, result) => {
+    res.send(result);
+  });
 });
-
 
 // REVIEW COMMENT INSERT ----------------------------------------------
-app.post('/review/comment/insert', (req, res) => {
-    var idx = req.body.params.idx;
-    var comment = req.body.comment;
-    var user = req.body.user;
+app.post("/review/comment/insert", (req, res) => {
+  var idx = req.body.params.idx;
+  var comment = req.body.comment;
+  var user = req.body.user;
 
-    const sqlQuery = "INSERT INTO TB_COMMENT (REVIEW_IDX, COMMENT_TXT, USER_IDX) VALUES (?,?,?);";
-    db.query(sqlQuery, [idx, comment, user], (err, result) => {
-        res.send(result);
-    });
+  const sqlQuery =
+    "INSERT INTO TB_COMMENT (REVIEW_IDX, COMMENT_TXT, USER_IDX) VALUES (?,?,?);";
+  db.query(sqlQuery, [idx, comment, user], (err, result) => {
+    res.send(result);
+  });
 });
 
-
 // REVIEW COMMENT DELETE ----------------------------------------------
-app.post('/review/comment/delete', (req, res) => {
-    // console.log('댓글 삭제 idx,', req.body.comment_idx);
-    var review_idx = req.body.params.idx;
-    var comment_idx = req.body.comment_idx;
-    var user = req.body.user;
+app.post("/review/comment/delete", (req, res) => {
+  // console.log('댓글 삭제 idx,', req.body.comment_idx);
+  var review_idx = req.body.params.idx;
+  var comment_idx = req.body.comment_idx;
+  var user = req.body.user;
 
-    const sqlQuery = "DELETE FROM TB_COMMENT WHERE REVIEW_IDX=? && COMMENT_IDX=? && USER_IDX=?";
-    db.query(sqlQuery, [review_idx, comment_idx, user], (err, result) => {
-        res.send("댓글 삭제 완");
-    })
+  const sqlQuery =
+    "DELETE FROM TB_COMMENT WHERE REVIEW_IDX=? && COMMENT_IDX=? && USER_IDX=?";
+  db.query(sqlQuery, [review_idx, comment_idx, user], (err, result) => {
+    res.send("댓글 삭제 완");
+  });
 });
 
 // REVIEW COMMENT COUNT ----------------------------------------------
-app.post('/review/comment/cnt', (req, res) => {
-    var idx = req.body.params.idx;
+app.post("/review/comment/cnt", (req, res) => {
+  var idx = req.body.params.idx;
 
-    const sqlQuery = "UPDATE TB_REVIEW SET COMMENT_CNT=(SELECT COUNT(*) AS CNT FROM TB_COMMENT WHERE REVIEW_IDX=?) WHERE REVIEW_IDX=?;";
-    db.query(sqlQuery, [idx, idx], (err, result) => {
-        res.send(result);
-    })
+  const sqlQuery =
+    "UPDATE TB_REVIEW SET COMMENT_CNT=(SELECT COUNT(*) AS CNT FROM TB_COMMENT WHERE REVIEW_IDX=?) WHERE REVIEW_IDX=?;";
+  db.query(sqlQuery, [idx, idx], (err, result) => {
+    res.send(result);
+  });
 });
-
-
-
-
-
-
 
 /* ------------- 여기서부터 일정 관리 관련 ------------- 220817 선우 */
 
@@ -495,29 +500,6 @@ app.post("/searchbykakao", (req, res) => {
 
 /* ------------ 카카오 마커 송출 -------------- 220826 선우 */
 app.use("/rainbow_marker", express.static("rainbow_marker"));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`);

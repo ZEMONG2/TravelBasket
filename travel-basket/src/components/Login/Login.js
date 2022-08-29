@@ -71,7 +71,7 @@ const Login = () => {
           //아이디 비밀번호 잘못 입력할 경우 input value 초기화
           idRef.current.value = '';
           pwRef.current.value = '';
-
+          alert('아이디 또는 비밀번호가 틀립니다.');
           // 로그인 실패시 다시 로그인 페이지로
           navigate('/login');
         }
