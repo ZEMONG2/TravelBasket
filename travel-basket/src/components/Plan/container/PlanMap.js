@@ -9,6 +9,7 @@ const PlanMap = ({ markerlist, pointsList }) => {
   // const lng = 126.9809696;
   const [style, setStyle] = useState({
     color: '#000',
+    fontSize: '13px',
   });
 
   return (
@@ -63,7 +64,7 @@ const PlanMap = ({ markerlist, pointsList }) => {
                   >
                     <div key={'div' + idx2} style={style}>
                       <a key={'a' + idx2} href={val2.place_url}>
-                        {val2.place_name}
+                        {val.day + ')' + val2.place_name}
                       </a>
                     </div>
                   </MapMarker>
