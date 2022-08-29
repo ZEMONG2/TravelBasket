@@ -35,14 +35,14 @@ app.use(cors(corsOptions));
 
 // 디비 서버 port번호는 default 3306
 const db = mysql.createPool({
-  // host: "210.114.22.116",
-  // user: "js_team_5",
-  // password: "tb123456",
-  // database: "js_team_5",
-  host: "localhost",
-  user: "root",
-  password: "123456",
-  database: "travel_test",
+  host: "210.114.22.116",
+  user: "js_team_5",
+  password: "tb123456",
+  database: "js_team_5",
+  // host: "localhost",
+  // user: "root",
+  // password: "123456",
+  // database: "travel_test",
   multipleStatements: true, //220826 선우 여러 쿼리를 동시에 전송하기 위한 설정
   // charset: "utf8mb4",
 });

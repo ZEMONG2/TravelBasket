@@ -42,7 +42,6 @@ const PlanMaker = () => {
     if (location.state !== null) {
       //console.log(location.state);
       const schedule = location.state.data.schedule;
-      const point = location.state.data.points;
       const dList = location.state.data.dayList;
       //console.log(schedule, point, dList);
 
@@ -69,19 +68,15 @@ const PlanMaker = () => {
       setPlan({ plan: schedule.SCHEDULE_TOGETHER, selected: type_arr });
       setTrans({ trans: schedule.SCHEDULE_VEHICLE, selected: trans_arr });
       setDayList(dList);
-      // for (let i = 0; i < point.length; i++) {
-      //   pointsArr.push(utill.getMapsLatLng(point[i].La, point[i].Ma));
-      // }
+      //initPoint = utill.getMapsLatLng(point[0].La, point[0].Ma);
 
-      // console.log(pointsArr[0]);
-      // // pointsArr = parr;
-      // var parr = [];
-      // console.log([...parr, ...pointsArr]);
-      // const timeout = setTimeout(
-      //   () => setPoints([...points, ...pointsArr]),
-      //   1000,
-      // );
-      // return () => clearTimeout(timeout);
+      pointsArr = []; //전역변수
+      const point = location.state.data.points;
+      for (let i = 0; i < point.length; i++) {
+        var p = utill.getMapsLatLng(point[i].Ma, point[i].La);
+        pointsArr.push(p);
+      }
+      setPoints(pointsArr);
     }
   }, []);
   const title = ''; //제목
@@ -275,8 +270,12 @@ const PlanMaker = () => {
       daysArr.push(planperdays);
     }
     isMaking = false; //날짜를 재설정하면 일정 제작 여부도 초기화
-    setPoints([initPoint]); //날짜가 선택되거나 기간을 재선택하면 저장된 좌표를 초기화
-    pointsArr = []; //날짜가 선택되거나 기간을 재선택하면 저장된 좌표초기화2
+
+    if (location.state !== null) {
+      setPoints([initPoint]); //날짜가 선택되거나 기간을 재선택하면 저장된 좌표를 초기화
+      pointsArr = []; //날짜가 선택되거나 기간을 재선택하면 저장된 좌표초기화2
+    }
+
     setDayList(daysArr); //일정 갯수를 state에 반영
     handleCalendar(e); //캘린더 visibility on/off
   };

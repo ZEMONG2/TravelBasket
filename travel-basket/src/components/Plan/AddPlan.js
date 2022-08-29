@@ -200,7 +200,7 @@ const AddPlan = forwardRef(
             ) : (
               <p>장바구니에 저장된 장소가 없어요!</p>
             )
-          ) : (
+          ) : searchedData.length > 0 ? (
             searchedData.map((val, idx) => (
               <SearchedItem
                 isSearched={true}
@@ -211,6 +211,8 @@ const AddPlan = forwardRef(
                 saveItem={saveItem}
               />
             ))
+          ) : (
+            <p>검색결과가 없습니다!</p>
           )}
           <div className="updownSpace"></div>
           {searchLabel !== '나의 장바구니' ? (

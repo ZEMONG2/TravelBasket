@@ -96,7 +96,7 @@ planModule.updatePlan = function (req, res, db) {
                               PLAN_MEMO = '${data.PLAN_MEMO}'
                               WHERE PLAN_IDX = ${data.PLAN_IDX};`;
       else {
-        insert_query += `INSERT INTO tb_plan(     
+        insert_query += `INSERT INTO TB_PLAN(     
           SCHEDULE_IDX,      PLAN_DAYS,      P_CATE_IDX,      
           PLAN_TITLE,      PLAN_MEMO,      PLAN_LAT,      
           PLAN_LNG,      PLAN_LINK,      PLAN_POINT_NAME,     
@@ -125,6 +125,7 @@ planModule.updatePlan = function (req, res, db) {
 
   //넘겨받은 db 객체 프로퍼티로 작업 수행
   db.query(sqlQuery, (err, result) => {
+    console.log(result);
     if (err) return res.send("fail");
     else return res.send("success");
   });
@@ -153,7 +154,7 @@ planModule.uploadPlan = function (req, res, db) {
     );`;
   //console.log(schedule_query);
   console.log("plan ==> ", plan);
-  var plan_query = `INSERT INTO tb_plan(     
+  var plan_query = `INSERT INTO TB_PLAN(     
         SCHEDULE_IDX,      PLAN_DAYS,      P_CATE_IDX,      
         PLAN_TITLE,      PLAN_MEMO,      PLAN_LAT,      
         PLAN_LNG,      PLAN_LINK,      PLAN_POINT_NAME,     
@@ -184,12 +185,14 @@ planModule.uploadPlan = function (req, res, db) {
       planqueryarr.push(sub_sql);
     }
   }
+  console.log(sqlQuery, planqueryarr);
   sqlQuery += planqueryarr.join(",") + ";";
   console.log(sqlQuery);
   //장바구니에 저장된 리스트를 가져오는 테이블
 
   //넘겨받은 db 객체 프로퍼티로 작업 수행
   db.query(sqlQuery, (err, result) => {
+    console.log(result);
     if (err) return res.send("fail");
     else return res.send("success");
   });
