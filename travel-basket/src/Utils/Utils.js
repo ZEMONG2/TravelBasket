@@ -83,6 +83,7 @@ export var getMyPlan2 = (data) => {
   //console.log('data : ', data);
   data = JSON.parse(data);
   returnVal.user_nick = data[0].USER_NICK;
+  returnVal.user_id = data[0].USER_ID;
   returnVal.write_date = changeTime(data[0].SCHEDULE_DATE);
   schedule = {
     SCHEDULE_TITLE: data[0].SCHEDULE_TITLE,

@@ -21,6 +21,7 @@ const MyPlan = () => {
   const trip_type = ['나혼자', '친구', '연인', '가족', '반려동물']; //여행타입
   const plan_or_trans = ['타입', '교통'];
   const [article, setArticle] = useState({
+    user_id: '',
     user_nick: '',
     //write_date: '',
     schedule: {
@@ -105,25 +106,29 @@ const MyPlan = () => {
   return (
     <div className="myPlanBody">
       <div className="myPlanBtnWrap">
-        <Link
-          to={'/makeplan'}
-          state={{
-            mode: 'upate',
-            data: article,
-            schedule_idx: location.state.schedule_idx,
-          }}
-        >
-          <button className="btnMyplan" id="updateMyplan">
-            수정
-          </button>
-        </Link>
-        <button
-          className="btnMyplan"
-          id="deleteThisPlan"
-          onClick={deleteThisPlan}
-        >
-          삭제
-        </button>
+        {window.sessionStorage.getItem('USER_ID') === article.user_id && (
+          <>
+            <Link
+              to={'/makeplan'}
+              state={{
+                mode: 'upate',
+                data: article,
+                schedule_idx: location.state.schedule_idx,
+              }}
+            >
+              <button className="btnMyplan" id="updateMyplan">
+                수정
+              </button>
+            </Link>
+            <button
+              className="btnMyplan"
+              id="deleteThisPlan"
+              onClick={deleteThisPlan}
+            >
+              삭제
+            </button>
+          </>
+        )}
       </div>
       <div className="myPlanTitle">
         <p id="planTitle">{article.schedule.SCHEDULE_TITLE}</p>

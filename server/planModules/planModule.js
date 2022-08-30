@@ -56,7 +56,8 @@ planModule.getMyPlan = function (req, res, db) {
   FROM TB_PLAN AS A
   INNER JOIN TB_SCHEDULE AS B ON A.SCHEDULE_IDX = B.SCHEDULE_IDX
   INNER JOIN TB_USER AS C ON B.USER_IDX = C.USER_IDX
-  WHERE C.USER_ID = '${user_id}' AND B.SCHEDULE_IDX = ${schedule_idx};`;
+  WHERE C.USER_ID = '${user_id}' AND B.SCHEDULE_IDX = ${schedule_idx}
+  ORDER BY A.PLAN_DAYS ASC;`;
   console.log(sqlQuery);
   db.query(sqlQuery, (err, result) => {
     res.json(result);

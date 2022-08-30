@@ -235,6 +235,13 @@ const PlanMaker = () => {
   const selectDate = (e) => {
     //날짜를 선택하여 선택 버튼을 누르면 실행되는 함수.
 
+    if (location.state !== null) {
+      //220830 선우 수정중에 날짜 변경하면 나타나는 알림창
+      isUpdatedCal = true;
+      alert('날짜는 수정하실 수 없습니다!!');
+      return;
+    }
+
     if (daytxt !== '일정을 선택하세요') {
       if (
         !window.confirm(
@@ -243,10 +250,6 @@ const PlanMaker = () => {
       ) {
         return;
       }
-    }
-
-    if (location.state !== null && isUpdatedCal === false) {
-      isUpdatedCal = true;
     }
 
     var totalDayStr =
