@@ -64,11 +64,14 @@ const MyPlan = () => {
     viewData: [{ day: '1일차', data: [] }],
   });
   useEffect(() => {
+    const user_id = location.state.user_id
+      ? location.state.user_id
+      : window.sessionStorage.getItem('USER_ID');
     fetch('http://localhost:8000/getMyPlan', {
       method: 'post',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        user_id: window.sessionStorage.getItem('USER_ID'),
+        user_id: user_id,
         schedule_idx: location.state.schedule_idx,
       }),
     })
@@ -106,7 +109,7 @@ const MyPlan = () => {
   return (
     <div className="myPlanBody">
       <div className="myPlanBtnWrap">
-        {window.sessionStorage.getItem('USER_ID') === article.user_id && (
+        {window.sessionStorage.getItem('USER_ID') === article.user_id ? (
           <>
             <Link
               to={'/makeplan'}
@@ -128,6 +131,8 @@ const MyPlan = () => {
               삭제
             </button>
           </>
+        ) : (
+          <button>좋아요</button>
         )}
       </div>
       <div className="myPlanTitle">
@@ -163,7 +168,7 @@ const MyPlan = () => {
         </div>
         <div className="clear" />
       </div>
-      <table className="typeTable">
+      {/* <table className="typeTable">
         <tbody>
           <tr>
             <td>타입</td>
@@ -206,7 +211,7 @@ const MyPlan = () => {
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> */}
 
       <div className="myMap">
         <PlanMapForMyPlan

@@ -309,6 +309,18 @@ app.post("/schedule/count", (req, res) => {
 // app.get("/thumbnail/:filename", (req, res) => {
 //   scheduleModule.sendThumbnail(req, res);
 // });
+
+//220830 선우 일정 공유 게시판
+
+//일정 리스트 추출
+app.post("/schedule/boardlist", (req, res) => {
+  scheduleModule.searchAllSchedule(req, res, db);
+});
+//일정 리스트 페이징
+app.post("/schedule/boardcount", (req, res) => {
+  scheduleModule.countAllSchedule(req, res, db);
+});
+
 //220823 선우 - 클라이언트에 썸네일 접근 허가 => 이방식이 더 좋음
 app.use("/thumbnail", express.static("thumbnail"));
 

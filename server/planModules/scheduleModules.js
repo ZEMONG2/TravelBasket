@@ -75,4 +75,55 @@ scheduleModules.countMySchedule = function (req, res, db) {
   return;
 };
 
+scheduleModules.countAllSchedule = function (req, res, db) {
+  const SCHEDULE_PLACE = req.body.schedule_place; //사용자 아이디
+  const SCHEDULE_TOGETHER = req.body.schedule_together;
+  const SCHEDULE_VEHICLE = req.body.schedule_vehicle;
+  //const id = "ksw3108";
+
+  //user테이블과 조인해서 user id를 기준으로 테이블 조회를 실행하는 쿼리
+  //페이징을 위한 등록된 모든 일정 갯수 추출
+  var sqlQuery = `SELECT COUNT(*) AS COUNT FROM TB_SCHEDULE AS A
+                        INNER JOIN TB_USER AS B
+                        ON A.USER_IDX = B.USER_IDX 
+                        WHERE SCHEDULE_OX = 'O' `;
+  var subquery = ` `;
+  if (SCHEDULE_PLACE !== "-1") subquery += ` AND SCHEDULE_PLACE = ${SCHEDULE_PLACE} `;
+  if (SCHEDULE_TOGETHER.length >= 2) subquery += ` AND SCHEDULE_TOGETHER = ${SCHEDULE_TOGETHER}`;
+  if (SCHEDULE_VEHICLE.length >= 2) subquery += ` AND SCHEDULE_VEHICLE = ${SCHEDULE_VEHICLE}`;
+  console.log(sqlQuery + subquery + ";");
+  //넘겨받은 db 객체 프로퍼티로 작업 수행
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+};
+
+//일정 페이징 처리된 리스트를 추출
+scheduleModules.searchAllSchedule = function (req, res, db) {
+  var page_num = parseInt(req.body.page_num);
+  var page_size = parseInt(req.body.page_size);
+  const start_limit = (page_num - 1) * page_size;
+  const SCHEDULE_PLACE = req.body.schedule_place; //사용자 아이디
+  const SCHEDULE_TOGETHER = req.body.schedule_together;
+  const SCHEDULE_VEHICLE = req.body.schedule_vehicle;
+
+  var sqlQuery = `SELECT A.SCHEDULE_IDX, A.SCHEDULE_TITLE, A.SCHEDULE_PLAN, A.SCHEDULE_PLACE,
+                    A.SCHEDULE_DAY, A.SCHEDULE_LIKE, A.SCHEDULE_LOOK, B.USER_ID, B.USER_NICK 
+                     FROM TB_SCHEDULE AS A
+                        INNER JOIN TB_USER AS B
+                        ON A.USER_IDX = B.USER_IDX
+                    WHERE SCHEDULE_OX = 'O'`;
+
+  var subquery = ` `;
+  if (SCHEDULE_PLACE !== "-1") subquery += ` AND SCHEDULE_PLACE = ${SCHEDULE_PLACE} `;
+  if (SCHEDULE_TOGETHER.length >= 2) subquery += ` AND SCHEDULE_TOGETHER = ${SCHEDULE_TOGETHER}`;
+  if (SCHEDULE_VEHICLE.length >= 2) subquery += ` AND SCHEDULE_VEHICLE = ${SCHEDULE_VEHICLE}`;
+
+  subquery += ` ORDER BY A.SCHEDULE_IDX DESC LIMIT ?,?;`;
+  console.log(sqlQuery + subquery);
+  db.query(sqlQuery, [start_limit, page_size], (err, result) => {
+    res.send(result);
+  });
+};
+
 module.exports = scheduleModules;
