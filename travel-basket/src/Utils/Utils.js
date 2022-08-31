@@ -448,6 +448,7 @@ function makePlanUploadData(data) {
         PLAN_POINT_NAME: area[j].place_name,
         PLAN_ADDR: area[j].address_name,
         PLAN_ADDR_ROAD: area[j].road_address_name,
+        IS_DELITING: memo[j].isDeleting,
       };
       planByDay.push(planInfo);
     }
@@ -486,7 +487,7 @@ export async function uploadPlan2DB(data) {
     })
     .then((res) => {
       ({ data } = res);
-
+      console.log(data);
       if (data === 'success') alert('저장완료되었습니다!');
       else alert('저장에 실패했습니다! 다시 시도해주세요!');
     })

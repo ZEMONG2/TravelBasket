@@ -555,12 +555,18 @@ const PlanMaker = () => {
   const uploadPlan = (e) => {
     //여기서 일정 디비에 업로드
 
-    var dayarr = utill.getDatesStartToLast(startDate, endDate).join(',');
-
+    console.log(titleRef.current.value, daytxt);
+    if (titleRef.current.value === '') {
+      alert('제목을 입력해주세요!');
+      return;
+    }
     if (daytxt === '일정을 선택하세요') {
       alert('일정을 만들어주세요!');
       return;
     }
+
+    var dayarr = utill.getDatesStartToLast(startDate, endDate).join(',');
+
     const mergedData = {
       schedule_idx: location.state !== null ? location.state.schedule_idx : -1,
       title: titleRef.current.value, //제목
@@ -581,7 +587,7 @@ const PlanMaker = () => {
       //신규등록
       utill.uploadPlan2DB(mergedData);
     }
-
+    window.location.href = './schedule';
     //e.preventDefault();
   };
   return (
@@ -645,7 +651,7 @@ const PlanMaker = () => {
 
       <div className="pageTitle">일정 만들기</div>
       <div className="updownSpace"></div>
-      <form>
+      <div>
         <table className="selectTable">
           <tbody>
             <tr>
@@ -772,7 +778,7 @@ const PlanMaker = () => {
           </button>
         </div>
         <div className="updownSpace"></div>
-      </form>
+      </div>
     </div>
   );
 };
