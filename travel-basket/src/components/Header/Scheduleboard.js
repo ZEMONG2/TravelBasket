@@ -6,7 +6,7 @@ import axios from 'axios';
 import './ScheduleBoard.css';
 import '../Header/header_css/Scheduleboard.scss';
 var page_num = 1; //현재 보고있는 페이지
-const page_size = 4; //한 페이지에 보여줄 데이터 갯수
+const page_size = 6; //한 페이지에 보여줄 데이터 갯수
 var page_count = 1; //최종 페이지 갯수
 var article_count = 0; //총 등록된 일정 갯수
 
@@ -28,7 +28,8 @@ const Scheduleboard = () => {
     trans: [],
     selected: [false, false, false, false, false],
   });
-
+  var plan4Search = [];
+  var trans4Search = [];
   const transport = ['도보', '자전거', '오토바이', '대중교통', '자동차']; //교통수단
   const trip_type = ['나혼자', '친구', '연인', '가족', '반려동물']; //여행타입
   const plan_or_trans = ['타입', '교통'];
@@ -69,11 +70,13 @@ const Scheduleboard = () => {
   }, []);
   async function getList() {
     //일정 가져오기, 일정 페이징
+    var plan = plan4Search.join('|');
+    var trans = trans4Search.join('|');
     await axios
       .post('http://localhost:8000/schedule/boardcount', {
         schedule_place: cityRef.current.value,
-        schedule_together: planArr.plan.join(','),
-        schedule_vehicle: planArr.plan.join(','),
+        schedule_together: plan,
+        schedule_vehicle: trans,
       })
       .then((res) => {
         const { data } = res;
@@ -105,8 +108,8 @@ const Scheduleboard = () => {
         page_size: page_size,
         article_count: article_count,
         schedule_place: cityRef.current.value,
-        schedule_together: planArr.plan.join(','),
-        schedule_vehicle: planArr.plan.join(','),
+        schedule_together: plan,
+        schedule_vehicle: trans,
       })
       .then((res) => {
         const { data } = res;
@@ -185,11 +188,13 @@ const Scheduleboard = () => {
 
     //state를 업데이트
     if (type === plan_or_trans[0]) {
+      plan4Search = valArr;
       setPlan({
         plan: valArr,
         selected: selectedArr,
       });
     } else {
+      trans4Search = valArr;
       setTrans({
         trans: valArr,
         selected: selectedArr,
@@ -209,7 +214,7 @@ const Scheduleboard = () => {
             type="text"
             placeholder="지역을 입력하세요"
           ></input> */}
-          <select id="searchArea" ref={cityRef} onChange={() => {}}>
+          <select id="searchArea" ref={cityRef} onChange={getList}>
             <option value={-1}>지역을 선택하세요</option>
             {area.map((_area, idx) => (
               <option key={idx} value={idx}>
@@ -260,9 +265,6 @@ const Scheduleboard = () => {
         )}
       </div>
 
-      <div className="updownSpace"></div>
-
-      <div className="updownSpace"></div>
       <div className="scheduleListWrap">
         <PageButton type="mover" id="move2left" onClick={movePage}>
           &lt;

@@ -255,7 +255,7 @@ export var getMyPlan2 = (data) => {
   returnVal.points = points;
   returnVal.viewData = myPlanViewer;
 
-  console.log('returnVal => ', returnVal);
+  //console.log('returnVal => ', returnVal);
   return returnVal;
 };
 

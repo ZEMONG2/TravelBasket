@@ -350,6 +350,19 @@ app.post("/deletePlan", (req, res) => {
   plan.deletePlan(req, res, db);
 });
 
+//220831 선우 조회수 카운팅
+app.post("/schedule/counter", (req, res) => {
+  scheduleModule.scheduleViewCounter(req, res, db);
+});
+//220831 선우 좋아요 체크
+app.post("/schedule/likecheck", (req, res) => {
+  scheduleModule.scheduleLikeChecker(req, res, db);
+});
+//220831 선우 좋아요 여부 가져오기
+app.post("/schedule/getlike", (req, res) => {
+  scheduleModule.getScheduleLike(req, res, db);
+});
+
 /* ------------- 네이버 지역 검색 api ------------- 220822 선우 */
 let naverapi = require("./webApi/NaverApiModule");
 app.post("/searchbynaver", (req, res) => {

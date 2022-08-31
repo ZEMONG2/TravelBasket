@@ -26,6 +26,7 @@ const ScheduleArticle = ({ data, idx }) => {
             to={'/myplan'}
             state={{
               schedule_idx: data.SCHEDULE_IDX,
+              user_id: data.USER_ID,
             }}
           >
             {/* 서버에 섬네일 경로를 요청해서 받아옴 */}
@@ -40,6 +41,7 @@ const ScheduleArticle = ({ data, idx }) => {
             to={'/myplan'}
             state={{
               schedule_idx: data.SCHEDULE_IDX,
+              user_id: data.USER_ID,
             }}
           >
             <p className="dayLabel">{dayLabel}</p>

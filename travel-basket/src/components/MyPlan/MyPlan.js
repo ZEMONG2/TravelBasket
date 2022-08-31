@@ -16,6 +16,7 @@ const MyPlan = () => {
   //   const select = selecterRef.current.value;
   //   setPoint(article.points[select]);
   // };
+  const [isLike, setIsLike] = useState(false);
 
   const transport = ['도보', '자전거', '오토바이', '대중교통', '자동차']; //교통수단
   const trip_type = ['나혼자', '친구', '연인', '가족', '반려동물']; //여행타입
@@ -67,6 +68,13 @@ const MyPlan = () => {
     const user_id = location.state.user_id
       ? location.state.user_id
       : window.sessionStorage.getItem('USER_ID');
+    if (
+      window.sessionStorage.getItem('USER_ID') !== location.state.user_id &&
+      location.state.user_id !== undefined
+    ) {
+      countView();
+    }
+
     fetch('http://localhost:8000/getMyPlan', {
       method: 'post',
       headers: { 'content-type': 'application/json' },
@@ -86,6 +94,20 @@ const MyPlan = () => {
       });
   }, []);
 
+  const countView = async () => {
+    await axios
+      .post('http://localhost:8000/schedule/counter', {
+        schedule_idx: location.state.schedule_idx,
+      })
+      .then((res) => {
+        const { data } = res;
+        //console.log(data);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
   const deleteThisPlan = async () => {
     await axios
       .post('http://localhost:8000/deletePlan', {
@@ -104,6 +126,52 @@ const MyPlan = () => {
         console.error(e);
       });
     return;
+  };
+  const handleLike = async () => {
+    await axios
+      .post('http://localhost:8000/schedule/likecheck', {
+        schedule_idx: location.state.schedule_idx,
+        user_id: window.sessionStorage.getItem('USER_ID'),
+        user_idx: window.sessionStorage.getItem('USER_IDX'),
+      })
+      .then((res) => {
+        const { data } = res;
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+    isLikeOrNot();
+  };
+  const isLikeOrNot = async () => {
+    await axios
+      .post('http://localhost:8000/schedule/getlike', {
+        schedule_idx: location.state.schedule_idx,
+        user_id: window.sessionStorage.getItem('USER_ID'),
+      })
+      .then((res) => {
+        const { data } = res;
+        console.log('isLikeOrnot => ', data);
+        if (data.length > 0) {
+          if (data.LIKE_OX === 'O') setIsLike(false);
+          else setIsLike(true);
+        }
+
+        console.log(isLike);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+    console.log(isLike);
+  };
+
+  const LikeButton = (props) => {
+    const { isLikeorNot, handleLike, ...other } = props; //전달받은 프로퍼티를 변수화하여 사용(사용되지 않는 프로퍼티는 other로 처리)
+    console.log(isLikeorNot);
+    return (
+      <button className="btnLike" onClick={handleLike} {...other}>
+        {isLikeorNot ? '좋아요' : '좋아요 취소'}
+      </button>
+    );
   };
 
   return (
@@ -132,7 +200,7 @@ const MyPlan = () => {
             </button>
           </>
         ) : (
-          <button>좋아요</button>
+          <LikeButton isLikeorNot={isLike} handleLike={handleLike} />
         )}
       </div>
       <div className="myPlanTitle">

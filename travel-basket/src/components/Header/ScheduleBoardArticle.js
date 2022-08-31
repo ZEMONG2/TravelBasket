@@ -40,7 +40,8 @@ const ScheduleBoardArticle = ({ idx, data }) => {
           </Link>
 
           <div className="sc_board_etc">
-            ❤️{10} 👁️‍🗨️{0} <span className="whendidIMaid">몇일전</span>
+            ❤️{data.SCHEDULE_LIKE} 👁️‍🗨️{data.SCHEDULE_LOOK}{' '}
+            <span className="whendidIMaid">몇일전</span>
           </div>
         </div>
       </div>

@@ -39,7 +39,7 @@ planModule.deletePlan = function (req, res, db) {
 
   //장바구니에 저장된 리스트를 가져오는 테이블
   const sqlQuery = `DELETE FROM TB_SCHEDULE WHERE SCHEDULE_IDX = ${schedule_idx}`;
-  console.log(sqlQuery);
+  // console.log(sqlQuery);
   //넘겨받은 db 객체 프로퍼티로 작업 수행
   db.query(sqlQuery, (err, result) => {
     if (err) return res.send("fail");
@@ -58,7 +58,7 @@ planModule.getMyPlan = function (req, res, db) {
   INNER JOIN TB_USER AS C ON B.USER_IDX = C.USER_IDX
   WHERE C.USER_ID = '${user_id}' AND B.SCHEDULE_IDX = ${schedule_idx}
   ORDER BY A.PLAN_DAYS ASC;`;
-  console.log(sqlQuery);
+  //console.log(sqlQuery);
   db.query(sqlQuery, (err, result) => {
     res.json(result);
   });
@@ -70,8 +70,8 @@ planModule.updatePlan = function (req, res, db) {
   const plan = JSON.parse(req.body.plan);
 
   //const id = "ksw3108";
-  console.log("schedule ==> ", schedule);
-  console.log("plan ==> ", plan);
+  //console.log("schedule ==> ", schedule);
+  //console.log("plan ==> ", plan);
 
   var update_query = `UPDATE TB_SCHEDULE SET
                     SCHEDULE_TITLE = '${schedule.data.SCHEDULE_TITLE}',
@@ -119,14 +119,14 @@ planModule.updatePlan = function (req, res, db) {
     }
   }
 
-  console.log(plan.data);
+  //console.log(plan.data);
   var sqlQuery = update_query + update_plan_query + insert_query;
 
-  console.log(sqlQuery);
+  //console.log(sqlQuery);
 
   //넘겨받은 db 객체 프로퍼티로 작업 수행
   db.query(sqlQuery, (err, result) => {
-    console.log(result);
+    //console.log(result);
     if (err) return res.send("fail");
     else return res.send("success");
   });
@@ -154,7 +154,7 @@ planModule.uploadPlan = function (req, res, db) {
     '${schedule.data.SCHEDULE_TOGETHER}'
     );`;
   //console.log(schedule_query);
-  console.log("plan ==> ", plan);
+  //console.log("plan ==> ", plan);
   var plan_query = `INSERT INTO TB_PLAN(     
         SCHEDULE_IDX,      PLAN_DAYS,      P_CATE_IDX,      
         PLAN_TITLE,      PLAN_MEMO,      PLAN_LAT,      
@@ -166,7 +166,7 @@ planModule.uploadPlan = function (req, res, db) {
     const planbydays = plan.data[i];
     for (let j = 0; j < planbydays.length; j++) {
       const data = planbydays[j];
-      console.log(`${i + 1}일차 => `, data);
+      //console.log(`${i + 1}일차 => `, data);
 
       const sub_sql = `(LAST_INSERT_ID(),
       '${data.PLAN_DAYS}',
@@ -181,19 +181,19 @@ planModule.uploadPlan = function (req, res, db) {
       '${data.PLAN_ADDR_ROAD}',
       '${data.PLAN_SHOP_CATE}')
       `;
-      console.log(sub_sql);
+      //console.log(sub_sql);
       planqueryarr.push(sub_sql);
     }
   }
-  console.log(sqlQuery, planqueryarr);
+  // console.log(sqlQuery, planqueryarr);
   sqlQuery += planqueryarr.join(",") + ";";
-  console.log("query ==>", sqlQuery);
+  //console.log("query ==>", sqlQuery);
   //장바구니에 저장된 리스트를 가져오는 테이블
 
   //넘겨받은 db 객체 프로퍼티로 작업 수행
   db.query(sqlQuery, (err, result) => {
-    console.log("result ==> ", result);
-    console.log("err ==> ", err);
+    //console.log("result ==> ", result);
+    //console.log("err ==> ", err);
     if (err) return res.send("fail");
     else return res.send("success");
   });
