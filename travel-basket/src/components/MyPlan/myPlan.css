@@ -115,3 +115,8 @@ border-top:0.8px solid #a0a0a0;
     margin:10px 0 10px 0;
 
 }
+.btnLike{/*220831 좋아요/좋아요 취소 버튼*/
+    width:100px;
+    height:30px;   
+    margin: 10px 10px 0 0; 
+}
