@@ -13,7 +13,7 @@ const ScheduleBoardArticle = ({ idx, data }) => {
       var timeInt = parseInt(timeArr[i]);
       if (i === 0 && timeInt > 0) {
         if (timeInt > 24) {
-          setTime(Math.floor(timeInt / 24) + '시간 전');
+          setTime(Math.floor(timeInt / 24) + '일 전');
         } else {
           setTime(timeInt + '시간 전');
         }

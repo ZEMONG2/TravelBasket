@@ -114,7 +114,7 @@ scheduleModules.searchAllSchedule = function (req, res, db) {
                     DATE_FORMAT(A.SCHEDULE_DATE, '%Y-%m-%d %T') AS SCHEDULE_DATE,
                     TIMEDIFF(NOW(), A.SCHEDULE_DATE) AS DATE_DIFF          
                      FROM TB_SCHEDULE AS A
-                        INNER JOIN TB_USER AS B
+                        LEFT JOIN TB_USER AS B
                         ON A.USER_IDX = B.USER_IDX
                     WHERE SCHEDULE_OX = 'O'`;
 
@@ -124,7 +124,7 @@ scheduleModules.searchAllSchedule = function (req, res, db) {
   if (SCHEDULE_TOGETHER.length >= 2) subquery += ` AND A.SCHEDULE_TOGETHER REGEXP '${SCHEDULE_TOGETHER}'`;
   if (SCHEDULE_VEHICLE.length >= 2) subquery += ` AND A.SCHEDULE_VEHICLE REGEXP '${SCHEDULE_VEHICLE}'`;
 
-  subquery += ` ORDER BY A.SCHEDULE_IDX DESC LIMIT ?,?;`;
+  subquery += ` ORDER BY A.SCHEDULE_DATE DESC LIMIT ?,?;`;
   //console.log(sqlQuery + subquery, page_num, page_size);
 
   console.log("list => ", sqlQuery + subquery);
