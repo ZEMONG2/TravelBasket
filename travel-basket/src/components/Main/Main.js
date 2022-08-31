@@ -30,7 +30,7 @@ const Main = () => {
     slidesToScroll: 1, // 슬라이드 넘기는 아이템 개수
     vertical: false, // 스크롤 가로세로 모드 온오프
     autoplay: true, // 자동 재생
-    autoplaySpeed: 5000, // 자동 재생 속도
+    autoplaySpeed: 4000, // 자동 재생 속도
     centerMode: true,
     centerPadding: '0px', // 0px = 슬라이드 끝쪽 이미지 안잘림
     // cssEase: "linear",
@@ -215,7 +215,7 @@ const Main = () => {
         </Slider>
       </div>
 
-      <div className="move_btn">
+      <div className="move_btn1">
         <button onClick={back}>
           <IoIosArrowDropleft className="left_btn" />
         </button>
@@ -244,7 +244,7 @@ const Main = () => {
           </select>
         )}
 
-        <div className="serch_none">
+        <div className="search_none">
           {query.length === 0 && (
             <div>
               <div className="tab_all">
@@ -257,21 +257,21 @@ const Main = () => {
                 </a>
                 <Tabs renderActiveTabContentOnly={true}>
                   <ul className="tab_list">
-                    <li className="tab">
+                    <li className="Main_tab">
                       <TabLink to="tab1" default>
                         #서울
                       </TabLink>
                     </li>
-                    <li className="tab">
+                    <li className="Main_tab">
                       <TabLink to="tab2">#경기·인천</TabLink>
                     </li>
-                    <li className="tab">
+                    <li className="Main_tab">
                       <TabLink to="tab3">#충청·대전·강원</TabLink>
                     </li>
-                    <li className="tab">
+                    <li className="Main_tab">
                       <TabLink to="tab4">#광주·대구</TabLink>
                     </li>
-                    <li className="tab">
+                    <li className="Main_tab">
                       <TabLink to="tab5">#부산·경상·제주</TabLink>
                     </li>
                   </ul>

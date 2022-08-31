@@ -15,25 +15,78 @@
   box-sizing: border-box;
   border: none;
   background-color: rgb(250, 250, 250);
+  font-family: GmarketSansLight;
+  resize: none;
 }
 
-.comment-nick {
-  color: blue;
+.textLimit {
+  font-size: 12px;
 }
 
 .btn-wrap2 {
   display: flex;
   justify-content: end;
-  flex-direction: row-reverse;
+  // flex-direction: row-reverse;
+}
+
+// 댓글 리스트
+.comment-nick {
+  color: blue;
+  position: relative;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.ft_writer {
+  font-size: 12px;
+  margin: 0 5px;
+  color: black;
+  opacity: 0.6;
+}
+
+.comment-text {
+  margin: 10px 0;
+}
+
+.comment-date {
+  font-size: 12px;
 }
 
 .comment_list {
-  padding: 5px;
   width: 500px;
   // border: solid 1px lightgray;
+  padding: 10px 0;
+  border-bottom: solid 1px lightgray;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
   box-sizing: border-box;
   cursor: pointer;
+}
+
+.btn-wrap2 button {
+  padding: 5px;
+  margin: 5px;
+}
+
+.C-btn-wrap {
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+
+.C-btn-wrap button {
+  margin: 0 10px;
+  background: none;
+  font-family: GmarketSansLight;
+}
+
+.comment_area_edit {
+  width: 490px;
+  height: 100px;
+  box-sizing: border-box;
+  border: none;
+  background-color: rgb(250, 250, 250);
+  font-family: GmarketSansLight;
+  resize: none;
 }

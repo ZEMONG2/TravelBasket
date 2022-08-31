@@ -1,0 +1,124 @@
+.myPlanTitle h2 {
+  margin-bottom: 5px;
+}
+
+.halfGrid {
+  text-align: right;
+  width: 500px;
+  font-size: 14px;
+  margin: 20px auto;
+}
+.typeTable {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.typeTable td:first-child {
+  width: 50px;
+  text-align: left;
+}
+
+// 타입 교통 버튼 정렬 위해서
+.t_2 {
+  width: 400px;
+}
+
+.myMap {
+  width: 500px;
+  height: 360px;
+  overflow: hidden;
+  margin: 10px auto;
+}
+
+// 수정삭제
+.btnMyplan {
+  text-align: center;
+  border: none;
+  border-radius: 2px 2px;
+  background-color: lightgray;
+  padding: 1%;
+  margin: 1%;
+  width: 70px;
+  cursor: pointer;
+}
+
+.myPlanBtnWrap {
+  text-align: center;
+}
+
+.daillyMemoMain {
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.AccordionContent {
+  padding: 10px;
+}
+
+.dailyBody {
+  padding: 5px 10px;
+}
+
+.dailyCateText {
+  height: 50%;
+  width: 70px;
+  float: left;
+  margin-bottom: 20px;
+  color: darkblue;
+}
+
+.placeName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  // float: left;
+}
+
+.dailyMemoDetail {
+  border-bottom: 0.8px solid #a0a0a0;
+  padding: 5px;
+  font-size: 14px;
+  color: #777;
+}
+
+//========================================================
+// .dailyHeader {
+//   padding: 5px;
+//   background-color: lightgrey;
+// }
+
+// .dailyicon {
+//   width: 20px;
+//   height: 20px;
+//   float: left;
+//   margin: 0 5px;
+// }
+
+// .dailyCate {
+//   width: 100px;
+//   float: left;
+// }
+
+// .dailyMemoWrap {
+//   /* 메모 전체 그리드 */
+//   width: 70%;
+//   float: left;
+// }
+
+// .dailyMemoMain {
+//   /* 메모 메인 설명 그리드 */
+//   width: 100%;
+//   height: 50px;
+//   font-size: 17px;
+//   line-height: 50px;
+// }
+
+// .dailyMemoBtn {
+//   /* 메모 상세보기 버튼 */
+//   float: right;
+//   cursor: pointer;
+//   width: 60px;
+//   height: 30px;
+//   margin-top: 10px;
+// }

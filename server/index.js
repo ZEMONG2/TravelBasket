@@ -1,7 +1,7 @@
 const express = require("express");
 const mysql = require("mysql");
 const bodyParser = require("body-parser"); //요청정보 처리를 위함
-
+const nodeMailer = require("nodemailer"); // 이메일 발송
 // 교차 출처 리소스 공유 ( Cross-Origin Resource Sharing, CORS)
 const cors = require("cors"); // 교차허용
 /*
@@ -43,7 +43,7 @@ const db = mysql.createPool({
   // user: "root",
   // password: "123456",
   // database: "travel_test",
-  // multipleStatements: true, //220826 선우 여러 쿼리를 동시에 전송하기 위한 설정
+  multipleStatements: true, //220826 선우 여러 쿼리를 동시에 전송하기 위한 설정
   // charset: "utf8mb4",
 });
 
@@ -188,19 +188,58 @@ app.post("/basket/insert", (req, res) => {
 });
 
 //===========================
+// BASKET LINK CHECK
+//===========================
+app.post("/basket/linkCheck", (req, res) => {
+  console.log("/basket", req.body);
+  var link = req.body.link;
+  var user = req.body.user;
+  console.log("link Check req Data  ==>", link, user);
+  const sqlQuery =
+    "SELECT count(*) AS CNT FROM TB_SEARCH WHERE SEARCH_LINK = ? && USER_IDX = ?;";
+  db.query(sqlQuery, [link, user], (err, result) => {
+    res.send(result);
+  });
+});
+//===========================
 // BASKET LIST
 //===========================
 app.post("/basket/select", (req, res) => {
   console.log("장바구니 받기", req.body);
-
-  var user = req.body.user_idx;
-
-  const sqlQuery = "SELECT * FROM TB_SEARCH WHERE USER_IDX=?;";
-  db.query(sqlQuery, [user], (err, result) => {
+  var user = req.body.idx;
+  const sqlQuery = "SELECT * FROM TB_SEARCH WHERE SEARCH_IDX=?;";
+  db.query(sqlQuery, user, (err, result) => {
     res.send(result);
   });
 });
-
+//===========================
+// BASKET CATEGORY SELECT
+//===========================
+app.post("/basket/select/category", (req, res) => {
+  console.log("장바구니 받기", req.body);
+  var user = req.body.user_idx;
+  var category = req.body.basketCategory;
+  const sqlQuery =
+    "SELECT * FROM TB_SEARCH WHERE USER_IDX=? && SEARCH_CATEGORY = ?;";
+  db.query(sqlQuery, [user, category], (err, result) => {
+    res.send(result);
+  });
+});
+//===========================
+// BASKET UPDATE
+//===========================
+app.post("/basket/update", (req, res) => {
+  console.log("장바구니 받기", req.body);
+  var idx = req.body.idx;
+  var cate = req.body.cate;
+  var txt = req.body.txt;
+  var title = req.body.title;
+  const sqlQuery =
+    "UPDATE TB_SEARCH SET SEARCH_CATEGORY=?, SEARCH_TXT=?, SEARCH_TITLE=? WHERE SEARCH_IDX=?;";
+  db.query(sqlQuery, [cate, txt, title, idx], (err, result) => {
+    res.send(result);
+  });
+});
 //===========================
 // BASKET LIST DELETE
 //===========================
@@ -215,40 +254,50 @@ app.post("/basket/delete", (req, res) => {
   });
 });
 
-// ◽ 게시판 DB (박지형)
 //===========================================================
-// REVIEW & LIKE & COMMENT
+// 후기 게시판
 //===========================================================
 
 // REVIEW LIST ----------------------------------------------
-app.post("/review", (req, res) => {
-  // console.log('리스트!', req.body.page, req.body.page_size, req.body.article_cnt);
-  // 페이징 추가
-  var page = req.body.page;
-  var page_size = req.body.page_size;
-  const start_limit = (page - 1) * page_size;
-
+app.get("/review", (req, res) => {
   const sqlQuery =
-    "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX ORDER BY REVIEW_IDX DESC LIMIT ?,?;";
+    "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX ORDER BY REVIEW_IDX DESC;";
 
-  db.query(sqlQuery, [start_limit, page_size], (err, result) => {
-    res.send(result);
-  });
-});
-
-// 리뷰 게시판 전체 글 개수 카운트
-app.get("/review/cnt", (req, res) => {
-  const sqlQuery = "SELECT count(*) AS CNT FROM TB_REVIEW;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
   });
 });
 
 // 전체 글 가져가기
-app.get("/review/all", (req, res) => {
-  const sqlQuery =
-    "SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX ORDER BY REVIEW_IDX DESC;";
+app.post("/review/orderBy/all", (req, res) => {
+  const order = req.body.order;
+  const sqlQuery = `SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX = U.USER_IDX ORDER BY ${order} DESC;`;
   db.query(sqlQuery, (err, result) => {
+    res.send(result);
+  });
+});
+
+// REVIEW SEARCH ----------------------------------------------
+app.post("/review/search", (req, res) => {
+  var searchData = req.body.searchData;
+  var optionData = req.body.optionData;
+
+  var sqlQuery = `SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX =  U.USER_IDX && CONCAT(${optionData}) REGEXP ? ORDER BY R.REVIEW_IDX DESC;`;
+
+  db.query(sqlQuery, [searchData], (err, result) => {
+    res.send(result);
+  });
+});
+
+// REVIEW SEARCH ORDERBY----------------------------------------------
+app.post("/review/orderBy/search", (req, res) => {
+  var order = req.body.order;
+  var searchData = req.body.searchData;
+  var optionData = req.body.optionData;
+
+  var sqlQuery = `SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX =  U.USER_IDX && CONCAT(${optionData}) REGEXP ? ORDER BY R.${order} DESC;`;
+
+  db.query(sqlQuery, [searchData], (err, result) => {
     res.send(result);
   });
 });
@@ -403,36 +452,6 @@ app.post("/review/delete", (req, res) => {
   });
 });
 
-// REVIEW SEARCH ----------------------------------------------
-app.post("/review/search", (req, res) => {
-  // console.log('검색어 option 확인!!', req.body.optionValue);
-  // console.log('검색어 search 확인!!', req.body.searchValue);
-  var page_num = req.body.page_num;
-  var page_size = req.body.page_size;
-  const start_limit = (page_num - 1) * page_size;
-
-  var search_opt = req.body.optionValue;
-  var search_val = req.body.searchValue;
-
-  var sqlQuery = `SELECT R.*, U.USER_NICK FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX =  U.USER_IDX && CONCAT(${search_opt}) REGEXP ? ORDER BY R.REVIEW_IDX DESC LIMIT ?,?;`;
-
-  db.query(sqlQuery, [search_val, start_limit, page_size], (err, result) => {
-    res.send(result);
-  });
-});
-// REVIEW SEARCH COUNT ----------------------------------------------
-app.post("/review/search/cnt", (req, res) => {
-  console.log("검색어 option 확인!!", req.body.optionValue);
-  console.log("검색어 search 확인!!", req.body.searchValue);
-
-  var search_opt = req.body.optionValue;
-  var search_val = req.body.searchValue;
-
-  const sqlQuery = `SELECT count(*) AS CNT FROM TB_REVIEW R, TB_USER U WHERE R.USER_IDX =  U.USER_IDX && CONCAT(${search_opt}) REGEXP ?;`;
-  db.query(sqlQuery, [search_val], (err, result) => {
-    res.send(result);
-  });
-});
 // REVIEW COMMENT LIST ----------------------------------------------
 app.post("/review/comment", (req, res) => {
   var idx = req.body.params.idx;
@@ -482,6 +501,57 @@ app.post("/review/comment/cnt", (req, res) => {
   });
 });
 
+// REVIEW COMMENT UPDATE ----------------------------------------------
+app.post("/review/comment/update", (req, res) => {
+  var comment = req.body.comment;
+  var commentIdx = req.body.commentIdx;
+
+  // "UPDATE TB_REVIEW SET REVIEW_TITLE=?, REVIEW_TXT=? WHERE REVIEW_IDX=?;"
+  const sqlQuery = "UPDATE TB_COMMENT SET COMMENT_TXT=? WHERE COMMENT_IDX=?;";
+  db.query(sqlQuery, [comment, commentIdx], (err, result) => {
+    res.send("댓글 수정 완");
+  });
+});
+
+//===========================================================
+// 후기 보관함
+//===========================================================
+
+app.post("/storage/review", (req, res) => {
+  var user = req.body.sessionIdx;
+
+  const sqlQuery =
+    "SELECT * FROM TB_REVIEW WHERE USER_IDX=? ORDER BY REVIEW_IDX DESC;";
+  db.query(sqlQuery, [user], (err, result) => {
+    res.send(result);
+  });
+});
+
+// 후기 보관함 정렬
+app.post("/storage/review/orderBy", (req, res) => {
+  var user = req.body.sessionIdx;
+  const order = req.body.order;
+
+  const sqlQuery = `SELECT * FROM TB_REVIEW WHERE USER_IDX=? ORDER BY ${order} DESC, REVIEW_IDX DESC;`;
+  db.query(sqlQuery, [user], (err, result) => {
+    res.send(result);
+  });
+});
+
+//===========================================================
+// 좋아요 보관함
+//===========================================================
+
+app.post("/storage/like", (req, res) => {
+  var user = req.body.sessionIdx;
+
+  const sqlQuery =
+    "SELECT R.*, L.REVIEW_IDX, U.USER_NICK FROM TB_REVIEW R, TB_REVIEW_LIKE L, TB_USER U WHERE R.REVIEW_IDX=L.REVIEW_IDX && R.USER_IDX=U.USER_IDX && L.LIKE_OX='O' && L.USER_IDX=? ORDER BY L.REVIEW_IDX DESC;";
+  db.query(sqlQuery, [user], (err, result) => {
+    res.send(result);
+  });
+});
+
 /* ------------- 여기서부터 일정 관리 관련 ------------- 220817 선우 */
 
 //일정 관리 모듈 객체를 생성
@@ -502,6 +572,18 @@ app.post("/schedule/count", (req, res) => {
 // app.get("/thumbnail/:filename", (req, res) => {
 //   scheduleModule.sendThumbnail(req, res);
 // });
+
+//220830 선우 일정 공유 게시판
+
+//일정 리스트 추출
+app.post("/schedule/boardlist", (req, res) => {
+  scheduleModule.searchAllSchedule(req, res, db);
+});
+//일정 리스트 페이징
+app.post("/schedule/boardcount", (req, res) => {
+  scheduleModule.countAllSchedule(req, res, db);
+});
+
 //220823 선우 - 클라이언트에 썸네일 접근 허가 => 이방식이 더 좋음
 app.use("/thumbnail", express.static("thumbnail"));
 
@@ -531,6 +613,19 @@ app.post("/deletePlan", (req, res) => {
   plan.deletePlan(req, res, db);
 });
 
+//220831 선우 조회수 카운팅
+app.post("/schedule/counter", (req, res) => {
+  scheduleModule.scheduleViewCounter(req, res, db);
+});
+//220831 선우 좋아요 체크
+app.post("/schedule/likecheck", (req, res) => {
+  scheduleModule.scheduleLikeChecker(req, res, db);
+});
+//220831 선우 좋아요 여부 가져오기
+app.post("/schedule/getlike", (req, res) => {
+  scheduleModule.getScheduleLike(req, res, db);
+});
+
 /* ------------- 네이버 지역 검색 api ------------- 220822 선우 */
 let naverapi = require("./webApi/NaverApiModule");
 app.post("/searchbynaver", (req, res) => {
@@ -544,6 +639,96 @@ app.post("/searchbykakao", (req, res) => {
 
 /* ------------ 카카오 마커 송출 -------------- 220826 선우 */
 app.use("/rainbow_marker", express.static("rainbow_marker"));
+
+// 비밀번호 찾기=====================================================================
+
+app.post("/forgot/pw", (req, res) => {
+  console.log("/forgot/pw =>", req.body);
+  var nick = req.body.nick;
+  var id = req.body.id;
+
+  const sqlQuery = "SELECT * FROM TB_USER WHERE USER_NICK=? && USER_ID=?;";
+  db.query(sqlQuery, [nick, id], (err, result) => {
+    // 목록 조회 기능 이기 때문에 요청을 처리한후 응답을 해주어야 한다.
+    // 응답은 요청의 결과를 담고있는 result를 보낸다
+    var res_data = {};
+
+    if (result[0]) {
+      // 조회되는 데이터가 있는 경우 (메일 전송)
+      const title = "비밀번호 조회 인증에 대한 6자리 숫자입니다.";
+      const contents = () => {
+        let number = "";
+        let random = 0;
+
+        for (let i = 0; i < 6; i++) {
+          random = Math.trunc(Math.random() * (9 - 0) + 0);
+          number += random;
+        }
+        res_data["secret"] = number;
+        return "인증 칸에 아래의 숫자를 입력해주세요. \n" + number;
+      };
+
+      console.log("dddd====", result[0].USER_ID);
+      const mailOption = mailOpt(result[0].USER_ID, title, contents());
+      sendMail(mailOption);
+
+      res.send(res_data);
+    } else {
+      // 조회되지 않을 경우 false 리턴
+      res.send(false);
+    }
+  });
+});
+
+// 메일 발송 서비스에 대한 환경 설정
+const mailPoster = nodeMailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "forgothelper@gmail.com",
+    pass: "dcfpdavqcfncbagk",
+  },
+});
+// 메일을 받을 유저 설정
+const mailOpt = (user_data, title, contents) => {
+  console.log("rrrr====", user_data);
+  const mailOptions = {
+    from: "forgothelper@gmail.com",
+    to: user_data,
+    subject: title,
+    text: contents,
+  };
+
+  return mailOptions;
+};
+
+// 메일 전송
+const sendMail = (mailOption) => {
+  mailPoster.sendMail(mailOption, function (error, info) {
+    if (error) {
+      console.log("에러 " + error);
+    } else {
+      console.log("전송 완료 " + info.response);
+    }
+  });
+};
+
+// 비밀번호 변경
+app.post("/forgot/pwChange", (req, res) => {
+  console.log("forgot/pwChange =>", req.body);
+
+  var id = req.body.emailData;
+  var pw = req.body.newPw1;
+
+  console.log("id =>", id);
+  console.log("pw =>", pw);
+
+  const sqlQuery = "UPDATE TB_USER SET USER_PW=? WHERE USER_ID=?;";
+  db.query(sqlQuery, [pw, id], (err, result) => {
+    res.send("비밀번호 수정 성공");
+  });
+});
+
+// ===============================================================================
 
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`);

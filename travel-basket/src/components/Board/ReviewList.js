@@ -18,218 +18,113 @@ const ReviewList = () => {
     reviewList: [],
   });
 
-  // 검색 게시물 사용 변수
-  const [searchlist, setSearchlist] = useState({
-    searchList: [],
-  });
-
-  // 전체 게시물  사용변수
-  const [alllist, setAlllist] = useState({
-    allList: [],
-  });
-  const [searchCK, setSearchCK] = useState(false);
-
-  const [articleCnt, setArticleCnt] = useState(0);
+  const [articleCnt, setArticleCnt] = useState(10);
   const [page, setPage] = useState(1);
-
-  var pageCk = 1;
-  var page_num = 1;
-  const page_size = 10;
-  var page_cnt = 1;
-  var article_cnt = 0;
 
   const optionRef = useRef();
   const searchRef = useRef();
 
-  const dateRef = useRef();
-  const countRef = useRef();
-  const likeRef = useRef();
-
-  //총 게시물 수 출력
-  // var all_cnt = alllist.allList.length;
-
-  // 검색 게시물 수 출력
-  var search_cnt = searchlist.searchList.length;
-  console.log('검색개수체크', search_cnt);
+  const handlePage = (pageCking) => {
+    setPage(pageCking);
+  };
 
   // 글쓰기 이동
   const write = () => {
     navigate('/review/write');
   };
 
-  // ==============================================
-  // 게시물 리스트 & 페이징
-  // ==============================================
-  const handlePage = (pageCking) => {
-    setPage(pageCking);
-    pageCk = pageCking;
-    getList();
-    // console.log('handlePage=>', page);
-    if (searchlist.searchList.length === 0 && alllist.allList.length !== 0) {
-      getList();
-    } else if (searchlist.searchList.length !== 0) {
-      ReviewSearch();
-      //   valueCompare();
-    }
-  };
-
+  // 게시물 불러오기
   const getList = () => {
     axios
-      .get('http://localhost:8000/review/cnt', {})
+      .get('http://localhost:8000/review', {})
       .then((res) => {
         const { data } = res;
-        article_cnt = data[0].CNT;
-        page_cnt = Math.ceil(article_cnt / page_size);
-        console.log('총 게시물 개수 =>', (article_cnt = data[0].CNT));
-        setArticleCnt(article_cnt);
-      })
-      .then(() => {
-        axios
-          .post('http://localhost:8000/review', {
-            page: pageCk,
-            page_size: page_size,
-            article_cnt: article_cnt,
-          })
-          .then((res) => {
-            // console.log('게시물 페이징?', res);
-            const { data } = res;
-            setReviewlist({
-              reviewList: data,
-            });
-          })
-          .catch((e) => {
-            console.error(e);
-          });
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  };
-
-  // ==============================================
-  // 게시물 검색 기능
-  // ==============================================
-  const ReviewSearch = () => {
-    console.log(optionRef.current.value);
-    var optionValue = optionRef.current.value;
-    var searchValue = searchRef.current.value;
-
-    axios
-      .post('http://localhost:8000/review/search/cnt', {
-        optionValue,
-        searchValue,
-      })
-      .then((res) => {
-        // console.log('검색어 결과 출력 =>', res);
-
-        const { data } = res;
-        search_cnt = data[0].CNT; // 총갯수
-        console.log('검색 카운트 ', search_cnt);
-        page_cnt = Math.ceil(article_cnt / page_size);
-
-        setArticleCnt(search_cnt);
-        console.log('articleCnt', articleCnt);
-
-        axios
-          .post('http://localhost:8000/review/search', {
-            page_num: pageCk,
-            page_size: page_size,
-            search_cnt: search_cnt,
-            optionValue,
-            searchValue,
-          })
-          .then((res) => {
-            if (pageCk === 1) {
-              setPage(1);
-              console.log('체크체크체크');
-            }
-            // console.log('검색어 결과 출력 =>', res);
-            console.log('articleCnt2', articleCnt);
-
-            if (res.data !== 0) {
-              setSearchlist({
-                ...searchlist,
-                searchList: res.data,
-              });
-            } else {
-              alert('검색 결과가 없습니다.');
-            }
-          });
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  };
-  // 검색 ENTER
-  const onKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      ReviewSearch();
-    }
-  };
-
-  // ==============================================
-  // 게시물 정렬
-  // ==============================================
-  const valueSort = (e) => {
-    axios
-      .get('http://localhost:8000/review/all')
-      .then((res) => {
-        console.log('valueSort => ', res.data);
-        setAlllist({
-          ...reviewlist,
-          reviewList: res.data,
+        setReviewlist({
+          reviewList: data,
         });
       })
       .catch((e) => {
-        console.err(e);
+        console.error(e);
       });
   };
 
-  const valueCompare = (e) => {
-    var sortAllData = reviewlist.reviewList.sort().reverse();
-    var sortSearchData = searchlist.searchList.sort().reverse();
-
-    if (dateRef.current.contains(e.target)) {
-      setAlllist({
-        ...alllist,
-        allList: sortAllData.sort(compare('REVIEW_IDX')).reverse(),
-      });
-
-      setSearchlist({
-        ...searchlist,
-        searchList: sortSearchData.sort(compare('REVIEW_IDX')).reverse(),
-      });
-    } else if (countRef.current.contains(e.target)) {
-      console.log('조회수 정렬 =>', alllist.allList);
-
-      setAlllist({
-        ...alllist,
-        allList: sortAllData.sort(compare('REVIEW_CNT')).reverse(),
-      });
-
-      setSearchlist({
-        ...searchlist,
-        searchList: sortSearchData.sort(compare('REVIEW_CNT')).reverse(),
-      });
-    } else if (likeRef.current.contains(e.target)) {
-      console.log('좋아요 정렬 =>', alllist.allList);
-
-      setAlllist({
-        ...alllist,
-        allList: sortAllData.sort(compare('REVIEW_LIKE')).reverse(),
-      });
-
-      setSearchlist({
-        ...searchlist,
-        searchList: sortSearchData.sort(compare('REVIEW_LIKE')).reverse(),
-      });
+  // 검색
+  const getSearchList = (e) => {
+    if (searchRef.current.value == '') {
+      alert('검색어를 입력해주세요.');
+    } else {
+      axios
+        .post('http://localhost:8000/review/search', {
+          searchData: searchRef.current.value,
+          optionData: optionRef.current.value,
+        })
+        .then((res) => {
+          const { data } = res;
+          setReviewlist({
+            reviewList: data,
+          });
+          setPage(1);
+        })
+        .catch((e) => {
+          console.error(e);
+        });
     }
   };
 
-  // 정렬 조건을 위한 비교 함수
-  function compare(key) {
-    return (a, b) => (a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0);
-  }
+  // 검색 여부 판단
+  const checkData = (e) => {
+    const order = e.target.id;
+    if (searchRef.current.value == '') {
+      getListOrderBy(order);
+    } else {
+      getSearchListOrderBy(order);
+    }
+  };
+
+  // 검색어 無 정렬
+  const getListOrderBy = (order) => {
+    axios
+      .post('http://localhost:8000/review/orderBy/all', {
+        order: order,
+      })
+      .then((res) => {
+        const { data } = res;
+        setReviewlist({
+          reviewList: data,
+        });
+        setPage(1);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  // 검색어 有 정렬
+  const getSearchListOrderBy = (order) => {
+    axios
+      .post('http://localhost:8000/review/orderBy/search', {
+        order: order,
+        sortSearchData: searchRef.current.value,
+        optionData: optionRef.current.value,
+      })
+      .then((res) => {
+        const { data } = res;
+        setReviewlist({
+          reviewList: data,
+        });
+        setPage(1);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  // 검색 ENTER
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      getSearchList();
+    }
+  };
 
   // 등록된 게시물이 없을때
   if (reviewlist.reviewList.length === 0) {
@@ -260,31 +155,29 @@ const ReviewList = () => {
             <option value="USER_NICK">작성자</option>
           </select>
           <input
+            className="reviewSearch"
             type="text"
             name="reviewSearch"
             ref={searchRef}
             placeholder="후기 검색"
             onKeyPress={onKeyPress}
           />
-          <button onClick={ReviewSearch}>search</button>
+          <button className="reviewSearch_btn" onClick={getSearchList}>
+            검색
+          </button>
         </div>
 
-        {/* 글쓰기 버튼 */}
-        <button className="btn-write" onClick={write}>
-          글쓰기
-        </button>
-
         {/* 게시물 정렬 */}
-        <div className="sortList">
-          <ul>
-            <li onClick={valueCompare} ref={dateRef}>
-              최신순
+        <div>
+          <ul className="sortList">
+            <li onClick={checkData} id="REVIEW_IDX">
+              &nbsp;최신순
             </li>
-            <li onClick={valueCompare} ref={countRef}>
-              조회수
+            <li onClick={checkData} id="REVIEW_CNT">
+              &nbsp;| 조회수
             </li>
-            <li onClick={valueCompare} ref={likeRef}>
-              좋아요수
+            <li onClick={checkData} id="REVIEW_LIKE">
+              &nbsp;| 좋아요수
             </li>
           </ul>
         </div>
@@ -296,21 +189,27 @@ const ReviewList = () => {
         </div> */}
         {/* 게시물 리스트 */}
         <div className="Review">
-          {searchlist.searchList.length === 0
-            ? reviewlist.reviewList.map((article) => {
-                return <ReviewArticle article={article} />;
-              })
-            : searchlist.searchList.map((article) => {
-                return <ReviewArticle article={article} />;
-              })}
+          {reviewlist.reviewList
+            .slice(
+              articleCnt * (page - 1),
+              articleCnt * (page - 1) + articleCnt,
+            )
+            .map((article) => {
+              return <ReviewArticle article={article} />;
+            })}
         </div>
+
+        {/* 글쓰기 버튼 */}
+        <button className="btn-write" onClick={write}>
+          글쓰기
+        </button>
 
         {/* 페이징 */}
         <div className="Paging">
           <Pagination
             activePage={page}
-            itemCountPerPage={10}
-            totalItemsCount={articleCnt}
+            itemCountPerPage={articleCnt}
+            totalItemsCount={reviewlist.reviewList.length}
             firstPageText={'<<'}
             prevPageText={'<'}
             nextPageText={'>'}

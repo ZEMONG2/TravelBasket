@@ -1,0 +1,53 @@
+.Review_count {
+  text-align: right;
+  margin: 0 90px;
+  margin-bottom: 15px;
+}
+
+.storageTable {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 650px;
+  font-size: 14px;
+}
+
+.storageTable th {
+  border-top: 2px solid lightgrey;
+  border-bottom: 2px solid lightgrey;
+  background-color: #e6edf5;
+  color: #6a95bd;
+  box-sizing: border-box;
+  padding: 0 10px;
+  height: 40px;
+}
+
+.storageTable th:nth-child(2) {
+  width: 300px;
+}
+
+.storageTable td {
+  border-bottom: 1px solid lightgrey;
+  box-sizing: border-box;
+  padding: 0 10px;
+  height: 40px;
+}
+
+.storageTable td:nth-child(2) {
+  text-align: left;
+  padding-left: 30px;
+  cursor: pointer;
+}
+
+.storageTable tr:last-child > td {
+  border-bottom: 1px solid lightgrey;
+  height: 40px;
+}
+
+.storageTable tr:nth-child(odd) {
+  background-color: none;
+}
+
+.storageTable tr:nth-child(even) {
+  background-color: #f7f8fc;
+}

@@ -39,7 +39,7 @@ const PlanContainer = ({
       <div className="planByDay idx">
         {/* idx에 나중에 n일차를 표기하는 숫자가 들어옴 */}
         <div className="labelDiv">
-          <label className="dayText">{data.day}</label>
+          <label className="day_Text">{data.day}</label>
         </div>
         <div className="buttonDiv">
           <div className="addDay" onClick={openPopup}>

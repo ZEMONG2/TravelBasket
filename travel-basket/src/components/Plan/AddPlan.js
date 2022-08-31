@@ -1,9 +1,9 @@
 import { useState, useRef, forwardRef, useImperativeHandle } from 'react';
 import axios from 'axios';
 import SearchedItem from './container/SearchedItem';
-
+import './plan_css/addPlan.scss';
 import * as utill from '../../Utils/Utils';
-import './css/addPlan.css';
+// import './css/addPlan.css';
 // =======
 // // import './css/addPlan.css';
 // import './plan_css/addPlan.scss';
@@ -158,8 +158,7 @@ const AddPlan = forwardRef(
     };
 
     return (
-      <div className="container_center">
-        <div className="updownSpace"></div>
+      <div>
         <div className="searchHeader">
           <div className="searcherWrap">
             <button id="goback" onClick={closePopup}>
@@ -177,11 +176,10 @@ const AddPlan = forwardRef(
             </button>
           </div>
         </div>
-        <div className="updownSpace"></div>
         <div className="searchLabel">
           <div id="searchlabeldiv">{searchLabel}</div>
         </div>
-        <div className="updownSpace"></div>
+        <br />
         {/* <div className="searchList " ref={itemList}> */}
         <div
           className={isSearching ? 'searchList' : 'searchList displayNone'}
@@ -212,7 +210,6 @@ const AddPlan = forwardRef(
               />
             ))
           )}
-          <div className="updownSpace"></div>
           {searchLabel !== '나의 장바구니' ? (
             <div>
               <div className="showMeMore">
@@ -220,7 +217,6 @@ const AddPlan = forwardRef(
                   더보기
                 </button>
               </div>
-              <div className="updownSpace"></div>
             </div>
           ) : (
             ''

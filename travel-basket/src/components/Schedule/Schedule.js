@@ -102,18 +102,21 @@ function Schedule() {
 
   return (
     <div className="bodywrap">
-      <div className="updownSpace" />
-      <div className="pageTitle"> 내 일정 보관함</div>
-      <div className="updownSpace" />
+      <div className="pageTitle">
+        <h1>내 일정 보관함</h1>
+      </div>
+
       {/* 일정 리스트 */}
-      <ScheduleList
-        handlePage={handlePage} //페이지 핸들링 함수
-        isActivate={isActivate} //페이지 이동 버튼의 css활성화/비활성화에 사용되는 state
-        setActive={setActive} //페이지 이동 버튼의 css활성화/비활성화에 사용되는 state
-        pageArr={pageArr} // 페이지 버튼 구현에 사용되는 페이지 배열 state
-        handlelist={getList} //일정 리스트 추출 및 일정 페이징 처리 함수
-        scheduleList={scheduleList} //추출된 일정 리스트
-      />
+      <div className="scheduleList">
+        <ScheduleList
+          handlePage={handlePage} //페이지 핸들링 함수
+          isActivate={isActivate} //페이지 이동 버튼의 css활성화/비활성화에 사용되는 state
+          setActive={setActive} //페이지 이동 버튼의 css활성화/비활성화에 사용되는 state
+          pageArr={pageArr} // 페이지 버튼 구현에 사용되는 페이지 배열 state
+          handlelist={getList} //일정 리스트 추출 및 일정 페이징 처리 함수
+          scheduleList={scheduleList} //추출된 일정 리스트
+        />
+      </div>
     </div>
   );
   //return;

@@ -9,17 +9,17 @@ const PlanMap = ({ markerlist, pointsList }) => {
   // const lng = 126.9809696;
   const [style, setStyle] = useState({
     color: '#000',
+    fontSize: '13px',
   });
 
   return (
     <Map
       center={{ lat: pointsList[0].getLat(), lng: pointsList[0].getLng() }}
       level={7} //맵의 확대 기본값
-      style={{ width: '100%', height: '360px' }}
+      style={{ width: '100%', height: '400px' }}
       onTileLoaded={(map) => {
         //지도 이동이벤트 발생하면 마커들이 다 보이게 중앙정렬
 
-        console.log('this is map!! : ', pointsList, pointsList.length);
         if (map.getLevel() !== 7) {
           return;
         } else {
@@ -59,19 +59,12 @@ const PlanMap = ({ markerlist, pointsList }) => {
                           width: 33,
                           height: 42,
                         },
-                        // options: {
-                        //   offset: {
-                        //     //마커 이미지 옵션, 마커의 좌표와 일치시킬 이미지안에서의 좌표 설정
-                        //     x: 15,
-                        //     y: 40,
-                        //   },
-                        // },
                       }
                     }
                   >
                     <div key={'div' + idx2} style={style}>
                       <a key={'a' + idx2} href={val2.place_url}>
-                        {val2.place_name}
+                        {val.day + ')' + val2.place_name}
                       </a>
                     </div>
                   </MapMarker>

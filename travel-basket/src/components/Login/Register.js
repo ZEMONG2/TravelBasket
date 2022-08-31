@@ -49,11 +49,23 @@ const Register = () => {
       }
     });
   };
+
+  // 이메일 정규표현식 확인
+  const emailCheck = (emailData) => {
+    var REGEXP =
+      /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]$/i;
+    return REGEXP.test(emailData);
+  };
+
   //  버튼 클릭시 실행 함수
   const handleRegister = () => {
     // 아이디 입력 확인
-    if (idRef.current.value === '' || idRef.current.value === undefined) {
-      alert('아이디를 입력하세요!!!');
+    if (
+      idRef.current.value === '' ||
+      idRef.current.value === undefined ||
+      !emailCheck(idRef.current.value)
+    ) {
+      alert('올바른 아이디를 입력하세요(이메일 형식)!!!');
       idRef.current.focus();
       return false;
     }
@@ -124,7 +136,7 @@ const Register = () => {
           defaultValue=""
           ref={idRef}
           onChange={idChange}
-          placeholder="아이디를 입력하세요"
+          placeholder="아이디를 입력하세요(이메일형식)"
         />
         <br />
         <input

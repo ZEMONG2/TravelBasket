@@ -35,7 +35,7 @@ const SearchedItem = ({
                 ? searchedData.place_name
                 : cartData.CART_NAME}
             </span>
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp;
           </a>
           <span className="itemCategory">
             {/* {isSearched === true ? searchedData.category : ''} */}
@@ -44,7 +44,7 @@ const SearchedItem = ({
               : ''}
           </span>
           <br />
-          <br />
+          {/* <br /> */}
           <span className="itemRoadAddr">
             {/* {isSearched === true
               ? searchedData.roadAddress
@@ -61,7 +61,6 @@ const SearchedItem = ({
               ? searchedData.address_name
               : cartData.CART_ADDR}
           </span>
-          <br />
         </div>
         {isSearched === '메모장모드' ? (
           <></>

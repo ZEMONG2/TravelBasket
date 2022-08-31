@@ -31,7 +31,11 @@ const ScheduleArticle = ({ data, idx }) => {
             {/* 서버에 섬네일 경로를 요청해서 받아옴 */}
             {/* <img src={'http://localhost:8000' + data.THUMBNAIL} alt="" /> */}
             {/* <img src={require('../../img/서울_남산.jpg')} alt="" /> */}
-            <img src={utill.thumbnailSrc()[data.SCHEDULE_PLACE]} alt="" />
+            <img
+              className="plan_image"
+              src={utill.thumbnailSrc()[data.SCHEDULE_PLACE]}
+              alt=""
+            />
           </Link>
         </div>
         <div className="scheduleDate">

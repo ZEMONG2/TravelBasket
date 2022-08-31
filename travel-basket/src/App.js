@@ -5,6 +5,9 @@ import ReviewList from '../src/components/Board/ReviewList';
 import ReviewModify from '../src/components/Board/ReviewModify';
 import ReviewView from '../src/components/Board/ReviewView';
 import ReviewWrite from '../src/components/Board/ReviewWrite';
+/* Storage */
+import ReviewStorage from '../src/components/Board/ReviewStorage';
+import LikeStorage from '../src/components/Board/LikeStorage';
 
 /* Header */
 import Header from '../src/components/Header/Header';
@@ -91,6 +94,9 @@ const App = () => {
           <Route path="/review/modify/:idx" element={<ReviewModify />} />
           <Route path="/review/view/:idx" element={<ReviewView />} />
           <Route path="/review/write" element={<ReviewWrite />} />
+          {/* 후기 & 좋아요 보관함 */}
+          <Route path="/storage/review" element={<ReviewStorage />} />
+          <Route path="/storage/like" element={<LikeStorage />} />
 
           {/* 장바구니 */}
           <Route path="/basket" element={<Basket />} />

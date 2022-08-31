@@ -75,9 +75,9 @@
   // background-color: rgba(128, 128, 128, 0.3);
 }
 
-
 .move_btn {
   height: 0;
+  display: none;
 }
 
 .carousel .slick-dots li button:before {
@@ -87,12 +87,12 @@
   width: 10px;
   height: 10px;
   border-radius: 10px;
-  content: "";
+  content: '';
   text-align: center;
   opacity: 0.2;
   background-color: #333;
   transform: translate(-50%, -50%);
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .carousel .slick-dots li.slick-active button:before,
@@ -101,7 +101,7 @@
 }
 
 .carousel .slick-dots {
-  bottom: 20px
+  bottom: 20px;
 }
 
 // 모바일에서는 hover 놉!
@@ -130,7 +130,6 @@
 // .card:hover li:nth-child(4) a {
 //   transition-delay: 0.4s;
 // }
-
 
 /*********************************/
 /*  검색창 & 글                  */
@@ -163,7 +162,8 @@
   padding: 5px;
   display: inline-flex;
   position: absolute;
-  left: 70%
+  left: 70%;
+  font-family: GmarketSansMedium;
 }
 
 // 검색 결과 리스트 출력
@@ -178,7 +178,8 @@
 
 .tab_all {
   width: 600px;
-  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .tab_title {
@@ -188,13 +189,14 @@
   cursor: pointer;
 }
 
-.tab>.tab-link-active {
+.Main_tab > .tab-link-active {
   opacity: 1;
 }
 
-.tab>button {
+.Main_tab > button {
   background: none !important;
   font-size: 15px !important;
+  border: none;
   color: navy;
   opacity: 0.6;
   padding: 0 10px 0 0;
@@ -220,7 +222,11 @@
   padding: 10px 20px;
 }
 
-.tab_content table>tr>td:first-child {
+.tab_content td {
+  padding: 10px;
+}
+
+.tab_content table > tr > td:first-child {
   width: 70px !important;
   font-weight: bold;
 }
@@ -243,7 +249,7 @@ ul.pagination li {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
   border-radius: 5px 5px 5px 5px;
 }
 

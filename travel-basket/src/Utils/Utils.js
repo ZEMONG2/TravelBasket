@@ -83,6 +83,7 @@ export var getMyPlan2 = (data) => {
   //console.log('data : ', data);
   data = JSON.parse(data);
   returnVal.user_nick = data[0].USER_NICK;
+  returnVal.user_id = data[0].USER_ID;//220830 선우 - 일정 수정시에 수정은 본인만 할수있도록 체크
   returnVal.write_date = changeTime(data[0].SCHEDULE_DATE);
   schedule = {
     SCHEDULE_TITLE: data[0].SCHEDULE_TITLE,
@@ -485,6 +486,7 @@ export async function uploadPlan2DB(data) {
     })
     .then((res) => {
       ({ data } = res);
+
       if (data === 'success') alert('저장완료되었습니다!');
       else alert('저장에 실패했습니다! 다시 시도해주세요!');
     })

@@ -65,9 +65,17 @@ const Header = () => {
   };
 
   // 후기 보관함 이동
+  const reviewStorage = () => {
+    handleToggleOption2();
+    navigate('/storage/review');
+  };
 
   // 좋아요 보관함 이동
   // ㄴ> 일정 좋아요, 후기 좋아요 누른거 보관...?
+  const likeStorage = () => {
+    handleToggleOption2();
+    navigate('/storage/like');
+  };
 
   // 회원정보 수정 이동
   const modifyInfo = () => {
@@ -89,7 +97,7 @@ const Header = () => {
   const handleToggleOption = () => setMenu((prev) => !prev);
 
   const handleClickOutSide = (e) => {
-    console.log(menuRef.current.contains(e.target));
+    console.log('메뉴 => ', menuRef.current.contains(e.target));
     if (
       menu &&
       !menuRef.current.contains(e.target) &&
@@ -130,81 +138,88 @@ const Header = () => {
     };
   });
 
+  // /* 블라인드 활성화 */
+  const blindRef = useRef(null);
+  const [blind, setBlind] = useState(false);
+
   return (
-    <div className="header">
-      <div className="item">
-        {/* 메뉴 버튼*/}
-        <button
-          ref={menuBtnRef}
-          className="Menu"
-          onClick={() =>
-            // 메뉴버튼 로그인시 이용가능
-            window.sessionStorage.length === 0
-              ? alert('로그인후 이용해주세요')
-              : handleToggleOption()
-          }
-        >
-          <FiMenu className="icon" />
-        </button>
-        {/* 로고 */}
-        <img
-          className="logo"
-          alt="NEXT TRAVEL"
-          src={logo}
-          onClick={() =>
-            pathname == '/' ? window.location.reload() : navigate('/')
-          }
-          // onClick={main}
-        />
-        {/* 로그인 버튼*/}
-        <button
-          ref={loginBtnRef}
-          className="Login"
-          onClick={() => {
-            console.log(window.sessionStorage.length);
-            window.sessionStorage.length === 0
-              ? navigate('/login')
-              : handleToggleOption2();
-          }}
-        >
-          {/* 로그인 여부에 따른 이모티콘 변경 */}
-          <div>
-            {window.sessionStorage.getItem('USER_NICK') ? (
-              <FiSmile className="icon" />
-            ) : (
-              <FiMeh className="icon" />
-            )}
-          </div>
-        </button>
+    <>
+      <div className="header">
+        <div className="item">
+          {/* 메뉴 버튼*/}
+          <button
+            ref={menuBtnRef}
+            className="Menu"
+            onClick={() =>
+              // 메뉴버튼 로그인시 이용가능
+              window.sessionStorage.length === 0
+                ? alert('로그인후 이용해주세요')
+                : handleToggleOption()
+            }
+          >
+            <FiMenu className="icon" />
+          </button>
+          {/* 로고 */}
+          <img
+            className="logo"
+            alt="NEXT TRAVEL"
+            src={logo}
+            onClick={() =>
+              pathname == '/' ? window.location.reload() : navigate('/')
+            }
+            // onClick={main}
+          />
+          {/* 로그인 버튼*/}
+          <button
+            ref={loginBtnRef}
+            className="Login"
+            onClick={() => {
+              console.log(window.sessionStorage.length);
+              window.sessionStorage.length === 0
+                ? navigate('/login')
+                : handleToggleOption2();
+            }}
+          >
+            {/* 로그인 여부에 따른 이모티콘 변경 */}
+            <div>
+              {window.sessionStorage.getItem('USER_NICK') ? (
+                <FiSmile className="icon" />
+              ) : (
+                <FiMeh className="icon" />
+              )}
+            </div>
+          </button>
+        </div>
+        {/* 메뉴 리스트 */}
+        <div ref={menuRef} className="menuWrap">
+          <ul className={menu ? 'show-menu' : 'hide-menu'}>
+            <li onClick={makeplan}>일정 만들기</li>
+            <hr />
+            <li onClick={board}>후기 게시판</li>
+            <li onClick={schedule_board}>일정 공유 게시판</li>
+            <img className="logo_v" alt="NEXT TRAVEL" src={logo_v} />
+          </ul>
+        </div>
+        {/* 로그인 리스트 */}
+        <div ref={loginRef} className="loginWrap">
+          <ul className={login ? 'show-login ' : 'hide-login '}>
+            {/* 로그인시 닉네임 */}
+            <li>{window.sessionStorage.getItem('USER_NICK')}</li>
+            <br />
+            <li onClick={basket}>장바구니</li>
+            <li onClick={schedule}>내 일정 보관함</li>
+            <li onClick={reviewStorage}>후기 보관함</li>
+            <li onClick={likeStorage}>좋아요 보관함</li>
+            <hr />
+            <li onClick={modifyInfo}>회원정보 수정</li>
+            <li className="Logout" onClick={logout}>
+              로그아웃
+            </li>
+          </ul>
+        </div>
       </div>
-      {/* 메뉴 리스트 */}
-      <div ref={menuRef} className="menuWrap">
-        <ul className={menu ? 'show-menu' : 'hide-menu'}>
-          <li onClick={makeplan}>일정 만들기</li>
-          <hr />
-          <li onClick={board}>후기 게시판</li>
-          <li onClick={schedule_board}>일정 공유 게시판</li>
-          <img className="logo_v" alt="NEXT TRAVEL" src={logo_v} />
-        </ul>
-      </div>
-      {/* 로그인 리스트 */}
-      <div ref={loginRef} className="loginWrap">
-        <ul className={login ? 'show-login' : 'hide-login'}>
-          {/* 로그인시 닉네임 */}
-          <li>{window.sessionStorage.getItem('USER_NICK')}</li>
-          <br />
-          <li onClick={basket}>장바구니</li>
-          <li onClick={schedule}>내 일정 보관함</li>
-          <li>후기 보관함</li>
-          <li>좋아요 보관함</li>
-          <hr />
-          <li onClick={modifyInfo}>회원정보 수정</li>
-          <li className="Logout" onClick={logout}>
-            로그아웃
-          </li>
-        </ul>
-      </div>
-    </div>
+      <div className={menu || login ? 'show-blind' : 'hide-blind'}></div>
+    </>
   );
 };
 

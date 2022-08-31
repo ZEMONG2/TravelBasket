@@ -63,6 +63,7 @@ const MainItem = (props) => {
     console.log('category===>', categoryRef.current.value);
     console.log('name===>', irumRef.current.value);
     console.log('memo===>', memoRef.current.value);
+
     //카테고리 입력 확인
     if (
       categoryRef.current.value === '' ||
@@ -89,7 +90,7 @@ const MainItem = (props) => {
     axios
       .post('http://localhost:8000/basket/insert', {
         link: searchUrl,
-        categoly: categoryRef.current.value,
+        category: categoryRef.current.value,
         irum: irumRef.current.value,
         memo: memoRef.current.value,
         user: window.sessionStorage.getItem('USER_IDX'),
@@ -127,7 +128,12 @@ const MainItem = (props) => {
           className="cart_btn"
           value={props.url}
           disabled={itemsave}
-          onClick={cartSendData}
+          onClick={() =>
+            window.sessionStorage.length === 0
+              ? alert('로그인후 이용해주세요') &
+                window.location.replace('/login')
+              : cartSendData()
+          }
         >
           장바구니
         </button>
@@ -138,7 +144,7 @@ const MainItem = (props) => {
           <MainItemDialog closeModal={() => setItemSave(!itemsave)}>
             <div className="Basket_modal">
               <div>
-                <h2>장바구니</h2>
+                <h3 className="h3_basket">장바구니</h3>
               </div>
 
               <div>

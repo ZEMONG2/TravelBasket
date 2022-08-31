@@ -74,6 +74,7 @@ const ScheduleList = ({
 
       <div className="updownSpace clear" />
       <div className="scheduleListWrap">
+        <button className="btn">&lt;&lt;</button>
         <PageButton type="mover" id="move2left" onClick={movePage}>
           &lt;
         </PageButton>
@@ -94,6 +95,7 @@ const ScheduleList = ({
         <PageButton type="mover" id="move2right" onClick={movePage}>
           &gt;
         </PageButton>
+        <button className="btn">&gt;&gt;</button>
       </div>
     </>
   );

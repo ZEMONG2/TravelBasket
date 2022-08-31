@@ -10,6 +10,7 @@ const PlanMapForMyPlan = ({ markerlist, pointsList }) => {
   const [info, setInfo] = useState();
   const [style, setStyle] = useState({
     color: '#000',
+    fontSize: '13px',
   });
 
   return (
@@ -70,7 +71,10 @@ const PlanMapForMyPlan = ({ markerlist, pointsList }) => {
               >
                 {info && info.place_name === val2.place_name && (
                   <div className="tests" style={style}>
-                    <a href={val2.place_url}>{val2.place_name}</a>
+                    <a href={val2.place_url}>
+                      {' '}
+                      {val.day + ')' + val2.place_name}
+                    </a>
                   </div>
                 )}
               </MapMarker>

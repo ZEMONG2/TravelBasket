@@ -32,3 +32,53 @@
   justify-content: center;
   align-items: center;
 }
+
+// // 선우님 추가===========================================================
+.schedulearticlebody {
+  width: 70%;
+  height: 900px;
+  margin: 0 auto;
+}
+.scheduleBoard {
+  width: 240px;
+  height: 300px;
+  float: left;
+  padding: 0 10px 0 10px;
+}
+.scheduleBoardImg {
+  width: 240px;
+}
+.sc_board_title {
+  font-size: 14px;
+  text-align: left;
+}
+.sc_board_nick {
+  font-size: 12px;
+  text-align: left;
+}
+.sc_board_etc {
+  font-size: 12px;
+  text-align: left;
+}
+.whendidIMaid {
+  float: right;
+}
+#searchArea {
+  display: inline-flex;
+  padding: 10px;
+  margin: 1.5%;
+  width: 390px;
+  border: solid 1px lightgray;
+}
+// .active {
+//   background-color: #0066cc !important;
+//   color: white;
+// }
+.scheduleBtnDiv {
+  text-align: center;
+}
+.showmemore {
+  width: 150px;
+  height: 30px;
+  font-size: 18px;
+}

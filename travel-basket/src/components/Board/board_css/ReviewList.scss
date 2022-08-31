@@ -4,21 +4,58 @@
   overflow: hidden;
 }
 
+.title {
+  display: inline-block;
+  padding: 1%;
+}
+
+.BoardSearch {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.BoardOption {
+  width: 80px;
+  height: 40px;
+  padding: 5px;
+  box-sizing: border-box;
+  border: solid 1px lightgray;
+  font-family: GmarketSansMedium;
+}
+
 .btn-write {
   text-align: center;
-  // display: inline-flex;
   border: none;
   border-radius: 2px 2px;
   background-color: lightgray;
   padding: 1%;
-  margin: 1%;
   width: 70px;
-  left: 80%;
+  right: 50px;
+  float: right;
   position: relative;
   cursor: pointer;
 }
 
-.title {
-  display: inline-block;
-  padding: 1%;
+.reviewSearch {
+  width: 320px;
+  height: 40px;
+  padding: 5px;
+  box-sizing: border-box;
+  border: solid 1px lightgray;
+}
+
+.reviewSearch_btn {
+  width: 55px;
+  height: 40px;
+  margin-left: -1px;
+  border: solid 1px lightgray;
+}
+
+.sortList {
+  display: flex;
+  width: 700px;
+  justify-content: right;
+  margin: 10px;
 }

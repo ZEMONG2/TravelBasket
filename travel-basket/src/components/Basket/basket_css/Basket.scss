@@ -9,7 +9,13 @@
 .b_icon {
   height: 50px;
   width: 50px;
-  padding: 10%;
+  padding: 0 30px;
+  // opacity: 0.6;
+  justify-content: space-between;
+}
+
+.b_icon:focus {
+  opacity: 1;
 }
 
 /*********************************/
@@ -23,66 +29,76 @@
   height: 50px;
 }
 
-.basketlistCount {
-  margin: 2% 5%;
-  padding: 5px;
-  display: inline-flex;
+.basket_name {
+  text-align: center;
+}
+
+.basket_tab_all {
   position: relative;
-  left: 70%;
+  transform: translateX(-50%);
+  left: 50%;
+  display: inline-block;
+  margin: 20px 0;
 }
 
-.basket_tab_all .basket_Tabs {
+.basket_tab_list {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  width: 500px;
 }
 
-.basket_tab_list li .b_icon {
-  display: inline;
-  margin: 10px 0;
-}
-
-.basket_tab {
-  width: 50px;
+.basket_tab button {
+  border: none;
 }
 
 .basket_tab_content {
   text-align: left;
-  background-color: #f9f9f9;
-  min-height: 400px;
-  width: 400px;
-  height: 700px;
+  background-color: #f5f7f8;
+  min-height: 500px;
+  width: 500px;
+  height: 600px;
   padding: 10px 20px;
-  margin: 0 30px;
+  box-sizing: border-box;
 }
 
-.basket_tab>.tab-link-active {
-  opacity: 1;
-}
-
-.basket_tab>button {
+.basket_tab > button {
   background: none !important;
   color: navy;
   opacity: 0.6;
 }
 
-.list_title {
-  font-weight: bold;
+.basket_list {
+  width: 300px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.basket_li_title {
   cursor: pointer;
 }
 
+.basket_li_content {
+  font-size: 14px;
+  color: #777;
+  cursor: context-menu;
+}
 
 .basket_edit {
   border: none;
-  padding: 7px 10px;
-  margin: 5px;
   border-radius: 2px;
-  cursor: pointer;
+  padding: 5px;
+  margin: 5px;
+  background-color: lightgray;
 }
 
 .basket_delete {
   border: none;
-  padding: 7px 10px;
-  margin: 5px;
   border-radius: 2px;
-  cursor: pointer;
+  padding: 5px;
+  margin: 5px;
+  background-color: lightgray;
+}
+
+.btn_wrap {
+  display: flex;
 }

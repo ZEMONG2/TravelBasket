@@ -1,23 +1,63 @@
 .addMemoWrap {
-  position: fixed;
-  width: 400px;
-  border: 1px solid #000;
-
+  position: absolute;
+  width: 100%;
   height: 50vh;
-  /* top:50%;
-  left:0%; */
   bottom: 0;
-  background: rgb(250, 250, 250);
+  background: rgb(243, 243, 243);
   z-index: 250;
-  /* visibility: hidden; 
-  opacity: 0; */
+  padding-top: 30px;
 }
 
 .memobtn {
   width: 150px;
-  height: 50px;
+  height: 30px;
   font-weight: bold;
-  font-size: 20;
-  border: 1px solid black;
+  background-color: lightgray;
   cursor: pointer;
+  margin: 0 10px 0 10px;
+}
+
+.memoWrapper {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.memoDiv {
+  margin: 10px 0 10px 0;
+  padding-left: 10px;
+}
+
+.memoInput {
+  width: 460px;
+}
+
+.memoPlace {
+  font-family: GmarketSansMedium;
+  box-sizing: border-box;
+  padding: 5px;
+  height: 40px;
+}
+
+.memoArea {
+  height: 120px;
+  resize: none;
+  box-sizing: border-box;
+  font-family: GmarketSansLight;
+  padding: 10px;
+}
+
+.memoBtnWrap {
+  text-align: center;
+}
+
+.saveMemo {
+  background: #0066cc;
+  color: white;
+}
+
+.cancelMemo {
+}
+
+.hidden {
+  display: none;
 }

@@ -53,7 +53,6 @@
   margin-right: 10px;
   padding: 1%;
   width: 200px;
-
 }
 
 .cart_btn {
@@ -72,10 +71,11 @@
 .basket_Category {
   display: block;
   padding: 5px;
-  margin: 10px;
+  margin: 10px auto;
   width: 270px;
   border-radius: 5px;
   border: 1px solid gray;
+  box-sizing: border-box;
   // position: relative; 이거 있으면 장바구니 버튼 안가려짐
   font-family: 'GmarketSansMedium';
   color: gray;
@@ -84,7 +84,7 @@
 .basketTitle {
   display: block;
   padding: 5px;
-  margin: 10px;
+  margin: 10px auto;
   width: 270px;
   border-radius: 5px;
   border: 1px solid gray;
@@ -95,7 +95,7 @@
 .basketMemo {
   display: block;
   padding: 5px;
-  margin: 10px;
+  margin: 10px auto;
   width: 270px;
   border-radius: 5px;
   border: 1px solid gray;
@@ -107,6 +107,10 @@
   border: none;
   padding: 7px 10px;
   margin: 5px;
-  border-radius: 2px;
+  border-radius: 5px;
   cursor: pointer;
+}
+
+.h3_basket {
+  margin: 15px;
 }

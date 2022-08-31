@@ -2,7 +2,8 @@ import { useRef, useState, useEffect } from 'react';
 
 import SearchedItem from './container/SearchedItem';
 import * as utill from '../../Utils/Utils.js';
-import './css/addMemo.css';
+import './plan_css/addMemo.scss';
+
 const AddMemo = ({
   handleMemoPopup,
   selectedItem,
@@ -83,10 +84,10 @@ const AddMemo = ({
           defaultValue={'default'}
         >
           <option value="default">카테고리를 선택해주세요</option>
-          <option value={1}>관광지</option>
-          <option value={2}>숙박</option>
-          <option value={3}>맛집</option>
-          <option value={4}>카페</option>
+          <option value={1}>숙소</option>
+          <option value={2}>카페</option>
+          <option value={3}>식당</option>
+          <option value={4}>관광</option>
           <option value={5}>기타</option>
           {/* {cate.map((val, idx) => (
             <option key={idx} value={val.P_CATE_IDX}>
@@ -95,7 +96,7 @@ const AddMemo = ({
           ))} */}
         </select>
       </div>
-      <div className="memoDiv">
+      <div className="memoDiv hidden">
         <input
           className="memoTitle memoInput"
           ref={textRef}

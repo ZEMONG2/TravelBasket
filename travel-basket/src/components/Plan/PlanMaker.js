@@ -35,6 +35,8 @@ var pointsArr = []; //실제로 저장될 맵 가운데 정렬용 좌표 리스�
 var isMaking = false; //제작중 여부
 var selectedAreaBefore = 0; //기본으로는 선택된 지역(서울)
 var initPoint = utill.cityPoints[0]; //초기화용 좌표 세팅값(초기값은 서울)
+var isUpdatedCal = false;
+var isUpdatedCal2 = false;
 
 const PlanMaker = () => {
   const location = useLocation();
@@ -42,7 +44,6 @@ const PlanMaker = () => {
     if (location.state !== null) {
       //console.log(location.state);
       const schedule = location.state.data.schedule;
-      const point = location.state.data.points;
       const dList = location.state.data.dayList;
       //console.log(schedule, point, dList);
 
@@ -69,19 +70,15 @@ const PlanMaker = () => {
       setPlan({ plan: schedule.SCHEDULE_TOGETHER, selected: type_arr });
       setTrans({ trans: schedule.SCHEDULE_VEHICLE, selected: trans_arr });
       setDayList(dList);
-      // for (let i = 0; i < point.length; i++) {
-      //   pointsArr.push(utill.getMapsLatLng(point[i].La, point[i].Ma));
-      // }
+      //initPoint = utill.getMapsLatLng(point[0].La, point[0].Ma);
 
-      // console.log(pointsArr[0]);
-      // // pointsArr = parr;
-      // var parr = [];
-      // console.log([...parr, ...pointsArr]);
-      // const timeout = setTimeout(
-      //   () => setPoints([...points, ...pointsArr]),
-      //   1000,
-      // );
-      // return () => clearTimeout(timeout);
+      pointsArr = []; //전역변수
+      const point = location.state.data.points;
+      for (let i = 0; i < point.length; i++) {
+        var p = utill.getMapsLatLng(point[i].Ma, point[i].La);
+        pointsArr.push(p);
+      }
+      setPoints(pointsArr);
     }
   }, []);
   const title = ''; //제목
@@ -127,7 +124,7 @@ const PlanMaker = () => {
       memo: [], //여기가 메모부
     },
   ]); //일정(n박 m일)
-  const [daytxt, setDayText] = useState('일정을 선택하세요'); //일정(몇월 몇일부터 몇월 몇일 몇박 몇일을 표기해주는 state)
+  const [daytxt, setDayText] = useState('📅 일정을 선택하세요'); //일정(몇월 몇일부터 몇월 몇일 몇박 몇일을 표기해주는 state)
   const [planArr, setPlan] = useState({
     //선택된 여행 타입을 저장하는 객체(selected는 선택 버튼의 활성화/비활성화를 담당)
     plan: [],
@@ -165,7 +162,7 @@ const PlanMaker = () => {
     //날짜초기화는 일단 스킵
     setStartDate(new Date());
     setEndDate(null);
-    setDayText('일정을 선택하세요');
+    setDayText('📅 일정을 선택하세요');
 
     //여행타입 초기화
     setPlan({
@@ -239,6 +236,13 @@ const PlanMaker = () => {
     //날짜를 선택하여 선택 버튼을 누르면 실행되는 함수.
 
     if (location.state !== null) {
+      //220830 선우 수정중에 날짜 변경하면 나타나는 알림창
+      isUpdatedCal = true;
+      alert('날짜는 수정하실 수 없습니다!!');
+      return;
+    }
+
+    if (daytxt !== '📅 일정을 선택하세요') {
       if (
         !window.confirm(
           '날짜를 새로 선택하면 기존에 저장된 일정은 사라집니다. 그래도 계속하시겠습니까?',
@@ -261,9 +265,9 @@ const PlanMaker = () => {
     var daysArr = []; //일정 검색 및 추가 컨테이너를 활성화하기 위한 배열
 
     for (let i = 0; i < nFullDay; i++) {
-      var daytxt = `${i + 1}일차`;
+      var txt = `${i + 1}일차`;
       var planperdays = utill.emptyPlan();
-      planperdays.day = daytxt;
+      planperdays.day = txt;
       // var planperdays = {
       //   noEditted: true,
       //   day: `${i + 1}일차`,
@@ -275,8 +279,33 @@ const PlanMaker = () => {
       daysArr.push(planperdays);
     }
     isMaking = false; //날짜를 재설정하면 일정 제작 여부도 초기화
-    setPoints([initPoint]); //날짜가 선택되거나 기간을 재선택하면 저장된 좌표를 초기화
-    pointsArr = []; //날짜가 선택되거나 기간을 재선택하면 저장된 좌표초기화2
+
+    if (location.state !== null && isUpdatedCal2 === false) {
+      //지역 초기화
+      //제목 초기화
+      titleRef.current.value = '';
+      //지역 초기화
+      selectedAreaBefore = 0;
+      cityRef.current.value = selectedAreaBefore;
+
+      //여행타입 초기화
+      setPlan({
+        plan: [],
+        selected: [false, false, false, false, false],
+      });
+      //이동수단 초기화
+      setTrans({
+        //선택된 이동수단을 저장하는 객체(selected는 선택 버튼의 활성화/비활성화를 담당)
+        trans: [],
+        selected: [false, false, false, false, false],
+      });
+      //공개여부는 기본적으로 O
+      setOX('O');
+      setPoints([initPoint]); //날짜가 선택되거나 기간을 재선택하면 저장된 좌표를 초기화
+      pointsArr = []; //날짜가 선택되거나 기간을 재선택하면 저장된 좌표초기화2
+      isUpdatedCal2 = true;
+    }
+
     setDayList(daysArr); //일정 갯수를 state에 반영
     handleCalendar(e); //캘린더 visibility on/off
   };
@@ -614,15 +643,21 @@ const PlanMaker = () => {
         </div>
       </div>
 
-      <div className="pageTitle">일정 만들기</div>
-      <div className="updownSpace"></div>
+      <div className="pageTitle">
+        <h1>일정 만들기</h1>
+      </div>
       <form>
         <table className="selectTable">
           <tbody>
             <tr>
               <td className="t_label">제목</td>
               <td className="t_component">
-                <input ref={titleRef} type="text" id="title" />
+                <input
+                  ref={titleRef}
+                  type="text"
+                  id="title"
+                  placeholder="예_2박 3일 제주도"
+                />
               </td>
             </tr>
             <tr>
@@ -647,7 +682,7 @@ const PlanMaker = () => {
                     </label>
                   </div>
                   <div className="buttonDiv">
-                    <button id="calendar">+</button>
+                    {/* <button id="calendar">+</button> */}
                   </div>
                 </div>
               </td>
@@ -696,7 +731,7 @@ const PlanMaker = () => {
                   checked={isopen === 'O'}
                   onChange={setRadioValue}
                 />
-                <label htmlFor="O">공개</label>
+                <label htmlFor="O">&nbsp; 공개</label>
                 &nbsp;&nbsp;&nbsp;
                 <input
                   type="radio"
@@ -706,19 +741,17 @@ const PlanMaker = () => {
                   checked={isopen === 'X'}
                   onChange={setRadioValue}
                 />
-                <label htmlFor="X">비공개</label>
+                <label htmlFor="X">&nbsp; 비공개</label>
               </td>
             </tr>
           </tbody>
         </table>
-        <div className="updownSpace"></div>
         <div className="map center_con">
           {/* 카카오 지도 */}
           <PlanMap markerlist={dayList} pointsList={points}></PlanMap>
           {/* <NaverPlanMap></NaverPlanMap> */}
         </div>
 
-        <div className="updownSpace"></div>
         <div className="planByDaysWrap center_con">
           {/* 일정 목록 컨테이너(n박 n일에 맞춰서 생성됨) */}
           {dayList.map((val, idx) => (
@@ -734,7 +767,6 @@ const PlanMaker = () => {
             />
           ))}
         </div>
-        <div className="updownSpace"></div>
         <div className="btnWrap center_con">
           {/* <button type="submit" onClick={upload}> */}
           <button onClick={uploadPlan}>등록</button>
@@ -742,7 +774,6 @@ const PlanMaker = () => {
             초기화
           </button>
         </div>
-        <div className="updownSpace"></div>
       </form>
     </div>
   );
