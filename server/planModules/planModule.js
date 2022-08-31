@@ -172,6 +172,7 @@ planModule.uploadPlan = function (req, res, db) {
   var planqueryarr = [];
   for (let i = 0; i < plan.data.length; i++) {
     const planbydays = plan.data[i];
+    console.log("data =>", planbydays);
     for (let j = 0; j < planbydays.length; j++) {
       const data = planbydays[j];
       //console.log(`${i + 1}일차 => `, data);
@@ -193,7 +194,7 @@ planModule.uploadPlan = function (req, res, db) {
       planqueryarr.push(sub_sql);
     }
   }
-  // console.log(sqlQuery, planqueryarr);
+  console.log(sqlQuery, planqueryarr);
   sqlQuery += planqueryarr.join(",") + ";";
   //console.log("query ==>", sqlQuery);
   //장바구니에 저장된 리스트를 가져오는 테이블

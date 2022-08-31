@@ -4,11 +4,10 @@ import React from 'react';
 import '../Header/header_css/Header.scss';
 import logo from '../../img/NEXTRAVEL_b.png';
 import logo_v from '../../img/NEXTRAVEL_v.png';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   // 로그아웃시 세션 초기화
   const logout = () => {
@@ -46,6 +45,8 @@ const Header = () => {
   const schedule_board = () => {
     handleToggleOption();
     navigate('/schedule_board');
+    //window.location.href = '/schedule_board';
+    //window.location.replace('/schedule_board');
   };
 
   // ==================================

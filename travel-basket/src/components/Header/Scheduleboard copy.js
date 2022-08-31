@@ -7,17 +7,13 @@ import axios from 'axios';
 import './ScheduleBoard.css';
 import '../Header/header_css/Scheduleboard.scss';
 var page_num = 1; //현재 보고있는 페이지
+const page_size = 6; //한 페이지에 보여줄 데이터 갯수
+var page_count = 1; //최종 페이지 갯수
+var article_count = 0; //총 등록된 일정 갯수
 
 const login_id = window.sessionStorage.getItem('USER_ID');
 const Scheduleboard = () => {
   const location = useLocation();
-
-  const page_size = 6; //한 페이지에 보여줄 데이터 갯수
-  var page_count = 1; //최종 페이지 갯수
-  var article_count = 0; //총 등록된 일정 갯수
-  //const [page, setPage] = useState(1);
-  var page = 1;
-
   const [pageArr, setPageArr] = useState([]); //총 페이지 배열
   const [isActivate, setActive] = useState([]); //버튼의 active/unactive 여부를 저장하는 state
   const [scheduleList, setScheduleList] = useState({
@@ -68,7 +64,6 @@ const Scheduleboard = () => {
       //그 외에는 클릭한 페이지 컨테이너의 id(페이지 번호)를 반영
       page_num = parseInt(e.target.id);
     }
-    page = page_num;
     //리스트를 갱신
     getList();
   };
@@ -93,10 +88,9 @@ const Scheduleboard = () => {
         var page_activate = [];
         var page_li = [];
         //여기까지 수업시간에 진행한 페이징과 동일
-
         for (let i = 1; i <= page_count; i++) {
           page_li.push(i); //총 페이지 리스트 배열에 페이지 번호 삽입
-          if (i === page) {
+          if (i === page_num) {
             //현재 페이지 번호 컨테이너에 색상 입히는 작업
             //page_activate[i] 가 true이면 className에 'activate' 를 추가하여 해당 태그에 추가 css 부여
             page_activate.push(true);

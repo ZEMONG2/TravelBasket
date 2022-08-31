@@ -565,6 +565,14 @@ const PlanMaker = () => {
       return;
     }
 
+    for (let i = 0; i < dayList.length; i++) {
+      const data = dayList[i].area;
+      if (data.length === 0) {
+        alert('일정이 입력되어있지 않습니다! 일차별 일정을 각각 입력해주세요!');
+        return;
+      }
+    }
+
     var dayarr = utill.getDatesStartToLast(startDate, endDate).join(',');
 
     const mergedData = {
@@ -579,7 +587,8 @@ const PlanMaker = () => {
       useridx: window.sessionStorage.getItem('USER_IDX'), //회원번호
       finalPlan: dayList,
     };
-    //console.log(mergedData);
+    console.log(mergedData);
+
     if (location.state !== null) {
       //수정
       utill.updatePlan2DB(mergedData);
@@ -588,7 +597,7 @@ const PlanMaker = () => {
       utill.uploadPlan2DB(mergedData);
     }
     window.location.href = './schedule';
-    //e.preventDefault();
+    e.preventDefault();
   };
   return (
     <div className="planerWrap">

@@ -9,12 +9,12 @@ import axios from 'axios';
 import ScheduleList from './ScheduleList';
 
 //화살표를 활용한 페이지 이동때문에 global로 배치
-var page_num = 1; //현재 보고있는 페이지
-const page_size = 6; //한 페이지에 보여줄 데이터 갯수
-var page_count = 1; //최종 페이지 갯수
-var article_count = 0; //총 등록된 일정 갯수
-
 function Schedule() {
+  var page_num = 1; //현재 보고있는 페이지
+  const page_size = 6; //한 페이지에 보여줄 데이터 갯수
+  var page_count = 1; //최종 페이지 갯수
+  var article_count = 0; //총 등록된 일정 갯수
+
   const [pageArr, setPageArr] = useState([]); //총 페이지 배열
   const [isActivate, setActive] = useState([]); //버튼의 active/unactive 여부를 저장하는 state
   const [scheduleList, setScheduleList] = useState({
