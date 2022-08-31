@@ -70,10 +70,10 @@ planModule.updatePlan = function (req, res, db) {
   const plan = JSON.parse(req.body.plan);
 
   //const id = "ksw3108";
-  for (let i = 0; i < plan.data.length; i++) {
-    const planbydays = plan.data[i];
-    console.log("plan =>", planbydays);
-  }
+  // for (let i = 0; i < plan.data.length; i++) {
+  //   const planbydays = plan.data[i];
+  //   console.log("plan =>", planbydays);
+  // }
 
   var update_query = `UPDATE TB_SCHEDULE SET
                     SCHEDULE_TITLE = '${schedule.data.SCHEDULE_TITLE}',

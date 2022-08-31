@@ -487,7 +487,7 @@ export async function uploadPlan2DB(data) {
     })
     .then((res) => {
       ({ data } = res);
-      console.log(data);
+      //console.log(data);
       if (data === 'success') alert('저장완료되었습니다!');
       else alert('저장에 실패했습니다! 다시 시도해주세요!');
     })
