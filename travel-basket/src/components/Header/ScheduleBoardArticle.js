@@ -1,6 +1,32 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import * as utill from '../../Utils/Utils';
 const ScheduleBoardArticle = ({ idx, data }) => {
+  const [time, setTime] = useState('');
+  useEffect(() => {
+    // var diffDate = new Date() - new Date(Date.parse(data.SCHEDULE_DATE));
+
+    // console.log(Math.abs(diffDate / (1000 * 60 * 60 * 24)));
+    var timeArr = data.DATE_DIFF.split(':');
+    console.log();
+    for (let i = 0; i < timeArr.length; i++) {
+      var timeInt = parseInt(timeArr[i]);
+      if (i === 0 && timeInt > 0) {
+        if (timeInt > 24) {
+          setTime(Math.floor(timeInt / 24) + '시간 전');
+        } else {
+          setTime(timeInt + '시간 전');
+        }
+        break;
+      } else if (i === 1 && timeInt > 0) {
+        setTime(timeInt + '분 전');
+        break;
+      } else if (i === 2 && timeInt > 0) {
+        setTime(timeInt + '초 전');
+        break;
+      }
+    }
+  });
   return (
     <>
       <div className={`scheduleBoard ${idx}`}>
@@ -41,7 +67,7 @@ const ScheduleBoardArticle = ({ idx, data }) => {
 
           <div className="sc_board_etc">
             ❤️{data.SCHEDULE_LIKE} 👁️‍🗨️{data.SCHEDULE_LOOK}{' '}
-            <span className="whendidIMaid">몇일전</span>
+            <span className="whendidIMaid">{time}</span>
           </div>
         </div>
       </div>

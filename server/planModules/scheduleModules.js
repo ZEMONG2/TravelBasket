@@ -110,7 +110,9 @@ scheduleModules.searchAllSchedule = function (req, res, db) {
   const SCHEDULE_VEHICLE = req.body.schedule_vehicle;
 
   var sqlQuery = `SELECT A.SCHEDULE_IDX, A.SCHEDULE_TITLE, A.SCHEDULE_PLAN, A.SCHEDULE_PLACE,
-                    A.SCHEDULE_DAY, A.SCHEDULE_LIKE, A.SCHEDULE_LOOK, B.USER_ID, B.USER_NICK 
+                    A.SCHEDULE_DAY, A.SCHEDULE_LIKE, A.SCHEDULE_LOOK, B.USER_ID, B.USER_NICK, 
+                    DATE_FORMAT(A.SCHEDULE_DATE, '%Y-%m-%d %T') AS SCHEDULE_DATE,
+                    TIMEDIFF(NOW(), A.SCHEDULE_DATE) AS DATE_DIFF          
                      FROM TB_SCHEDULE AS A
                         INNER JOIN TB_USER AS B
                         ON A.USER_IDX = B.USER_IDX

@@ -16,7 +16,7 @@ const MyPlan = () => {
   //   const select = selecterRef.current.value;
   //   setPoint(article.points[select]);
   // };
-  const [isLike, setIsLike] = useState(false);
+  const [isLike, setIsLike] = useState(true);
 
   const transport = ['도보', '자전거', '오토바이', '대중교통', '자동차']; //교통수단
   const trip_type = ['나혼자', '친구', '연인', '가족', '반려동물']; //여행타입
@@ -92,6 +92,7 @@ const MyPlan = () => {
       .then((jsonStr) => {
         setArticle(utill.getMyPlan2(jsonStr));
       });
+    isLikeOrNot();
   }, []);
 
   const countView = async () => {
@@ -143,6 +144,7 @@ const MyPlan = () => {
     isLikeOrNot();
   };
   const isLikeOrNot = async () => {
+    var checking = false;
     await axios
       .post('http://localhost:8000/schedule/getlike', {
         schedule_idx: location.state.schedule_idx,
@@ -151,17 +153,20 @@ const MyPlan = () => {
       .then((res) => {
         const { data } = res;
         console.log('isLikeOrnot => ', data);
-        if (data.length > 0) {
-          if (data.LIKE_OX === 'O') setIsLike(false);
-          else setIsLike(true);
-        }
 
-        console.log(isLike);
+        if (data.length > 0) {
+          if (data[0].LIKE_OX === 'O') setIsLike(checking);
+          else {
+            checking = true;
+            setIsLike(checking);
+          }
+        }
+        console.log(checking);
       })
       .catch((e) => {
         console.error(e);
       });
-    console.log(isLike);
+    console.log(checking);
   };
 
   const LikeButton = (props) => {
