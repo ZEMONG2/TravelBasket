@@ -491,7 +491,7 @@ const PlanMaker = () => {
       setArr.push(base);
     }
     //console.log('!!!!!!!!!!!!!!!!!', pointsArr);
-    //console.log(setArr);
+    console.log(setArr);
     const lat = parseFloat(placeData.y);
     const lng = parseFloat(placeData.x);
     if (
