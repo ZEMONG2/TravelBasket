@@ -189,56 +189,53 @@ const Basket = () => {
         ))}
          */}
         <div className="basket_tab_all">
-          {/* <Tabs renderActiveTabContentOnly={true} className="basket_Tabs"> */}
-          <ul className="basket_tab_list">
-            <li
-              className="basket_tab basket_name"
-              id="hotel"
-              onClick={categoryChange}
-            >
-              {/* <TabLink
-                  to="basket_tab"
-                  default> */}
-              숙소
-              <MdLocalHotel className="b_icon active" />
-              {/* </TabLink> */}
-            </li>
-            <li
-              className="basket_tab basket_name"
-              id="cafe"
-              onClick={categoryChange}
-            >
-              {/* <TabLink to="basket_tab"> */}
-              카페
-              <MdLocalCafe className="b_icon" />
-              {/* </TabLink> */}
-            </li>
-            <li
-              className="basket_tab basket_name"
-              id="dining"
-              onClick={categoryChange}
-            >
-              {/* <TabLink to="basket_tab"> */}
-              식당
-              <MdLocalDining className="b_icon" />
-              {/* </TabLink> */}
-            </li>
-            <li
-              className="basket_tab basket_name"
-              id="activity"
-              onClick={categoryChange}
-            >
-              {/* <TabLink to="basket_tab"> */}
-              관광
-              <MdLocalActivity className="b_icon" />
-              {/* </TabLink> */}
-            </li>
-          </ul>
+          <Tabs renderActiveTabContentOnly={true} className="basket_Tabs">
+            <ul className="basket_tab_list">
+              <li
+                className="basket_tab basket_name"
+                id="hotel"
+                onClick={categoryChange}
+              >
+                <TabLink to="basket_tab1" default>
+                  숙소
+                  <MdLocalHotel className="b_icon active" />
+                </TabLink>
+              </li>
+              <li
+                className="basket_tab basket_name"
+                id="cafe"
+                onClick={categoryChange}
+              >
+                <TabLink to="basket_tab2">
+                  카페
+                  <MdLocalCafe className="b_icon" />
+                </TabLink>
+              </li>
+              <li
+                className="basket_tab basket_name"
+                id="dining"
+                onClick={categoryChange}
+              >
+                <TabLink to="basket_tab3">
+                  식당
+                  <MdLocalDining className="b_icon" />
+                </TabLink>
+              </li>
+              <li
+                className="basket_tab basket_name"
+                id="activity"
+                onClick={categoryChange}
+              >
+                <TabLink to="basket_tab4">
+                  관광
+                  <MdLocalActivity className="b_icon" />
+                </TabLink>
+              </li>
+            </ul>
 
-          <div className="basket_tab_content">
-            {/* <TabContent for="basket_tab1"> */}
-            {searchData
-              ? searchData
+            <div className="basket_tab_content">
+              <TabContent for="basket_tab1">
+                {searchData
                   .slice(
                     categoryList * (categoryPage - 1),
                     categoryList * (categoryPage - 1) + categoryList,
@@ -276,21 +273,173 @@ const Basket = () => {
                       </div>
                       <hr />
                     </div>
-                  ))
-              : ''}
-            <Pagination
-              activePage={categoryPage}
-              itemsCountPerPage={categoryList}
-              totalItemsCount={searchData.length}
-              prevPageText={'<'}
-              nextPageText={'>'}
-              firstPageText={'<<'}
-              lastPageText={'>>'}
-              onChange={CategoryPageChange}
-            />
-            {/* </TabContent> */}
-          </div>
-          {/* </Tabs> */}
+                  ))}
+                <Pagination
+                  activePage={categoryPage}
+                  itemsCountPerPage={categoryList}
+                  totalItemsCount={searchData.length}
+                  prevPageText={'<'}
+                  nextPageText={'>'}
+                  firstPageText={'<<'}
+                  lastPageText={'>>'}
+                  onChange={CategoryPageChange}
+                />
+              </TabContent>
+              <TabContent for="basket_tab2">
+                {searchData
+                  .slice(
+                    categoryList * (categoryPage - 1),
+                    categoryList * (categoryPage - 1) + categoryList,
+                  )
+                  .map((SEARCH_IDX) => (
+                    <div key={SEARCH_IDX.id}>
+                      <ul className="basket_list">
+                        <li
+                          className="basket_li_title"
+                          onClick={() => {
+                            window.open(SEARCH_IDX.SEARCH_LINK, '_blank');
+                          }}
+                        >
+                          {SEARCH_IDX.SEARCH_TITLE}
+                        </li>
+                        <li className="basket_li_content">
+                          메모 : {SEARCH_IDX.SEARCH_TXT}
+                        </li>
+                      </ul>
+                      <div className="btn_wrap">
+                        <button
+                          id={SEARCH_IDX.SEARCH_IDX}
+                          className="basket_edit"
+                          onClick={basketDataedit}
+                        >
+                          수정
+                        </button>
+                        <button
+                          id={SEARCH_IDX.SEARCH_IDX}
+                          className="basket_delete"
+                          onClick={BasketDelete}
+                        >
+                          삭제
+                        </button>
+                      </div>
+                      <hr />
+                    </div>
+                  ))}
+                <Pagination
+                  activePage={categoryPage}
+                  itemsCountPerPage={categoryList}
+                  totalItemsCount={searchData.length}
+                  prevPageText={'<'}
+                  nextPageText={'>'}
+                  firstPageText={'<<'}
+                  lastPageText={'>>'}
+                  onChange={CategoryPageChange}
+                />
+              </TabContent>
+              <TabContent for="basket_tab3">
+                {searchData
+                  .slice(
+                    categoryList * (categoryPage - 1),
+                    categoryList * (categoryPage - 1) + categoryList,
+                  )
+                  .map((SEARCH_IDX) => (
+                    <div key={SEARCH_IDX.id}>
+                      <ul className="basket_list">
+                        <li
+                          className="basket_li_title"
+                          onClick={() => {
+                            window.open(SEARCH_IDX.SEARCH_LINK, '_blank');
+                          }}
+                        >
+                          {SEARCH_IDX.SEARCH_TITLE}
+                        </li>
+                        <li className="basket_li_content">
+                          메모 : {SEARCH_IDX.SEARCH_TXT}
+                        </li>
+                      </ul>
+                      <div className="btn_wrap">
+                        <button
+                          id={SEARCH_IDX.SEARCH_IDX}
+                          className="basket_edit"
+                          onClick={basketDataedit}
+                        >
+                          수정
+                        </button>
+                        <button
+                          id={SEARCH_IDX.SEARCH_IDX}
+                          className="basket_delete"
+                          onClick={BasketDelete}
+                        >
+                          삭제
+                        </button>
+                      </div>
+                      <hr />
+                    </div>
+                  ))}
+                <Pagination
+                  activePage={categoryPage}
+                  itemsCountPerPage={categoryList}
+                  totalItemsCount={searchData.length}
+                  prevPageText={'<'}
+                  nextPageText={'>'}
+                  firstPageText={'<<'}
+                  lastPageText={'>>'}
+                  onChange={CategoryPageChange}
+                />
+              </TabContent>
+              <TabContent for="basket_tab4">
+                {searchData
+                  .slice(
+                    categoryList * (categoryPage - 1),
+                    categoryList * (categoryPage - 1) + categoryList,
+                  )
+                  .map((SEARCH_IDX) => (
+                    <div key={SEARCH_IDX.id}>
+                      <ul className="basket_list">
+                        <li
+                          className="basket_li_title"
+                          onClick={() => {
+                            window.open(SEARCH_IDX.SEARCH_LINK, '_blank');
+                          }}
+                        >
+                          {SEARCH_IDX.SEARCH_TITLE}
+                        </li>
+                        <li className="basket_li_content">
+                          메모 : {SEARCH_IDX.SEARCH_TXT}
+                        </li>
+                      </ul>
+                      <div className="btn_wrap">
+                        <button
+                          id={SEARCH_IDX.SEARCH_IDX}
+                          className="basket_edit"
+                          onClick={basketDataedit}
+                        >
+                          수정
+                        </button>
+                        <button
+                          id={SEARCH_IDX.SEARCH_IDX}
+                          className="basket_delete"
+                          onClick={BasketDelete}
+                        >
+                          삭제
+                        </button>
+                      </div>
+                      <hr />
+                    </div>
+                  ))}
+                <Pagination
+                  activePage={categoryPage}
+                  itemsCountPerPage={categoryList}
+                  totalItemsCount={searchData.length}
+                  prevPageText={'<'}
+                  nextPageText={'>'}
+                  firstPageText={'<<'}
+                  lastPageText={'>>'}
+                  onChange={CategoryPageChange}
+                />
+              </TabContent>
+            </div>
+          </Tabs>
         </div>
         <div className="Model">
           {basketitem && (

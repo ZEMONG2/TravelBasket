@@ -67,6 +67,10 @@
   opacity: 0.6;
 }
 
+.basket_tab > .tab-link-active {
+  opacity: 1;
+}
+
 .basket_list {
   width: 300px;
   padding: 5px;
@@ -103,6 +107,6 @@
   display: flex;
 }
 
-.b_icon:active {
-  color: blue;
-}
+// .b_icon:active {
+//   color: blue;
+// }
