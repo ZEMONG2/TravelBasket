@@ -556,6 +556,7 @@ app.post("/storage/review/orderBy", (req, res) => {
 // 좋아요 보관함
 //===========================================================
 
+// 후기 게시판 좋아요 보관
 app.post("/storage/like", (req, res) => {
   var user = req.body.sessionIdx;
 
@@ -565,6 +566,17 @@ app.post("/storage/like", (req, res) => {
     res.send(result);
   });
 });
+
+// 일정 게시판 좋아요 보관
+app.post("/storage/like/schedule", (req, res) => {
+  var user = req.body.sessionIdx;
+
+  const sqlQuery = "SELECT S.*, SL.SCHEDULE_IDX, U.USER_NICK, U.USER_ID FROM TB_SCHEDULE S, TB_SCHEDULE_LIKE SL, TB_USER U WHERE S.SCHEDULE_IDX=SL.SCHEDULE_IDX && S.USER_IDX=U.USER_IDX && SL.LIKE_OX='O' && SL.USER_IDX=? ORDER BY SL.SCHEDULE_IDX DESC;";
+  db.query(sqlQuery, [user], (err, result) => {
+    res.send(result);
+  })
+});
+
 
 /* ------------- 여기서부터 일정 관리 관련 ------------- 220817 선우 */
 
