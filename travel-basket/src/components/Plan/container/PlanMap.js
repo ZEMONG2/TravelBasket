@@ -10,6 +10,7 @@ const PlanMap = ({ markerlist, pointsList }) => {
   const [style, setStyle] = useState({
     color: '#000',
     fontSize: '13px',
+    textAlign: 'center',
   });
 
   return (

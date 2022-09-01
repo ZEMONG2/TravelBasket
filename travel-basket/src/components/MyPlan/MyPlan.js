@@ -19,7 +19,7 @@ const MyPlan = () => {
   //   const select = selecterRef.current.value;
   //   setPoint(article.points[select]);
   // };
-  const [isLike, setIsLike] = useState(false);
+  const [isLike, setIsLike] = useState(true);
 
   const transport = ['도보', '자전거', '오토바이', '대중교통', '자동차']; //교통수단
   const trip_type = ['나혼자', '친구', '연인', '가족', '반려동물']; //여행타입
@@ -95,6 +95,7 @@ const MyPlan = () => {
       .then((jsonStr) => {
         setArticle(utill.getMyPlan2(jsonStr));
       });
+    isLikeOrNot();
   }, []);
 
   const countView = async () => {
@@ -176,6 +177,7 @@ const MyPlan = () => {
     console.log(isLikeorNot);
     return (
       <button className="btnLike" onClick={handleLike} {...other}>
+        {/* {isLikeorNot ? '좋아요' : '좋아요 취소'} */}
         {isLikeorNot ? '🤍' : '❤️'}
       </button>
     );

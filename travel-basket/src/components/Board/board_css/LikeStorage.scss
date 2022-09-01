@@ -39,7 +39,7 @@
   cursor: pointer;
 }
 
-.LikeTable tr:last-child>td {
+.LikeTable tr:last-child > td {
   border-bottom: 1px solid lightgrey;
   height: 40px;
 }
@@ -52,8 +52,7 @@
   background-color: #ecf0f7;
 }
 
-
-// 좋아요 보관함 탭메뉴 
+// 좋아요 보관함 탭메뉴
 .storageSort {
   width: 100%;
   margin: 40px auto 0;

@@ -571,12 +571,12 @@ app.post("/storage/like", (req, res) => {
 app.post("/storage/like/schedule", (req, res) => {
   var user = req.body.sessionIdx;
 
-  const sqlQuery = "SELECT S.*, SL.SCHEDULE_IDX, U.USER_NICK, U.USER_ID FROM TB_SCHEDULE S, TB_SCHEDULE_LIKE SL, TB_USER U WHERE S.SCHEDULE_IDX=SL.SCHEDULE_IDX && S.USER_IDX=U.USER_IDX && SL.LIKE_OX='O' && SL.USER_IDX=? ORDER BY SL.SCHEDULE_IDX DESC;";
+  const sqlQuery =
+    "SELECT S.*, SL.SCHEDULE_IDX, U.USER_NICK, U.USER_ID FROM TB_SCHEDULE S, TB_SCHEDULE_LIKE SL, TB_USER U WHERE S.SCHEDULE_IDX=SL.SCHEDULE_IDX && S.USER_IDX=U.USER_IDX && SL.LIKE_OX='O' && SL.USER_IDX=? ORDER BY SL.SCHEDULE_IDX DESC;";
   db.query(sqlQuery, [user], (err, result) => {
     res.send(result);
-  })
+  });
 });
-
 
 /* ------------- 여기서부터 일정 관리 관련 ------------- 220817 선우 */
 
