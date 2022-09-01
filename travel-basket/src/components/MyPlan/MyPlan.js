@@ -176,7 +176,7 @@ const MyPlan = () => {
     console.log(isLikeorNot);
     return (
       <button className="btnLike" onClick={handleLike} {...other}>
-        {isLikeorNot ? '❤️' : '🤍'}
+        {isLikeorNot ? '🤍' : '❤️'}
       </button>
     );
   };
