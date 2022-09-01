@@ -1,7 +1,10 @@
 /* 페이징 하단으로 떨어뜨리기 위해 넣어놨어요😉 */
 .Review {
   width: 100%;
+  max-width: 500px;
   overflow: hidden;
+  margin: 0 auto;
+  padding-bottom: 20px;
 }
 
 .title {
@@ -16,46 +19,56 @@
   margin: 20px 0;
 }
 
-.BoardOption {
-  width: 80px;
-  height: 40px;
-  padding: 5px;
-  box-sizing: border-box;
-  border: solid 1px lightgray;
-  font-family: GmarketSansMedium;
+.btn-write-wrap {
+  position: relative;
+  margin: 0 auto;
+  width: 500px;
 }
-
 .btn-write {
   text-align: center;
   border: none;
   border-radius: 2px 2px;
   background-color: lightgray;
-  padding: 1%;
+  padding: 5px;
+  margin: 10;
   width: 70px;
-  right: 50px;
+  right: 10px;
   float: right;
   position: relative;
   cursor: pointer;
 }
 
-.reviewSearch {
-  width: 320px;
+.BoardOption {
+  width: 80px;
   height: 40px;
   padding: 5px;
+  margin-right: -1px;
+  box-sizing: border-box;
+  border: solid 1px lightgray;
+  font-family: GmarketSansMedium;
+}
+.reviewSearch {
+  width: 330px;
+  height: 40px;
+  padding: 10px;
   box-sizing: border-box;
   border: solid 1px lightgray;
 }
 
 .reviewSearch_btn {
-  width: 55px;
+  width: 60px;
   height: 40px;
   margin-left: -1px;
   border: solid 1px lightgray;
+  box-sizing: border-box;
 }
 
 .sortList {
   display: flex;
-  width: 700px;
+  width: 500px;
+  margin: 0 auto;
   justify-content: right;
-  margin: 10px;
+  position: relative;
+  right: 2.5%;
+  font-size: 14px;
 }

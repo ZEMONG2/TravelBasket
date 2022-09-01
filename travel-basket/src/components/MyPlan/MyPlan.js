@@ -1,15 +1,17 @@
 import { useEffect, useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import * as utill from '../../Utils/Utils';
 import PlanMapForMyPlan from '../Plan/container/PlanMapForMyPlan';
 import MyDailyPlan from './MyDailyPlan';
 import TypeContainer from '../Plan/container/TypeContainer';
+import { IoIosArrowDropleft } from 'react-icons/io';
 // import './myPlan.css';
 import './MyPlan.scss';
 
 const MyPlan = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const [point, setPoint] = useState([]);
   //const selecterRef = useRef();
@@ -174,16 +176,26 @@ const MyPlan = () => {
     console.log(isLikeorNot);
     return (
       <button className="btnLike" onClick={handleLike} {...other}>
-        {isLikeorNot ? '좋아요' : '좋아요 취소'}
+        {isLikeorNot ? '❤️' : '🤍'}
       </button>
     );
   };
 
+  // 뒤로 이동
+  const back = () => {
+    navigate(-1);
+  };
   return (
     <div className="myPlanBody">
+      <p>
+        <IoIosArrowDropleft onClick={back} className="back" />
+      </p>
       <div>
         <div className="myPlanTitle">
-          <h2 id="planTitle">{article.schedule.SCHEDULE_TITLE}</h2>
+          <h2 id="planTitle">
+            {article.schedule.SCHEDULE_TITLE}
+            <LikeButton isLikeorNot={isLike} handleLike={handleLike} />
+          </h2>
           <p id="planRange">
             ―&nbsp;
             {article.schedule.SCHEDULE_DAY[0] +
@@ -272,31 +284,32 @@ const MyPlan = () => {
         <MyDailyPlan viewData={article.viewData} />
       </div>
       <div className="myPlanBtnWrap">
-        {window.sessionStorage.getItem('USER_ID') === article.user_id ? (
-          <>
-            <Link
-              to={'/makeplan'}
-              state={{
-                mode: 'upate',
-                data: article,
-                schedule_idx: location.state.schedule_idx,
-              }}
-            >
-              <button className="btnMyplan" id="updateMyplan">
-                수정
+        {
+          window.sessionStorage.getItem('USER_ID') === article.user_id ? (
+            <>
+              <Link
+                to={'/makeplan'}
+                state={{
+                  mode: 'upate',
+                  data: article,
+                  schedule_idx: location.state.schedule_idx,
+                }}
+              >
+                <button className="btnMyplan" id="updateMyplan">
+                  수정
+                </button>
+              </Link>
+              <button
+                className="btnMyplan"
+                id="deleteThisPlan"
+                onClick={deleteThisPlan}
+              >
+                삭제
               </button>
-            </Link>
-            <button
-              className="btnMyplan"
-              id="deleteThisPlan"
-              onClick={deleteThisPlan}
-            >
-              삭제
-            </button>
-          </>
-        ) : (
-          <LikeButton isLikeorNot={isLike} handleLike={handleLike} />
-        )}
+            </>
+          ) : null
+          // <LikeButton isLikeorNot={isLike} handleLike={handleLike} />
+        }
       </div>
     </div>
   );

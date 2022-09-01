@@ -1,53 +1,94 @@
 .companion {
   display: inline-flex;
-  margin: 1%;
+  justify-content: space-between;
+  margin: 1% auto;
+  width: 430px;
 }
 
 .transport {
   display: inline-flex;
-  margin: 1%;
+  justify-content: space-between;
+  margin: 1% auto;
+  width: 430px;
 }
 
 .search {
   display: inline-flex;
   padding: 10px;
-  margin: 1.5%;
+  margin: 1%;
   width: 370px;
   border: solid 1px lightgray;
 }
 
 .board_btn {
+  // border: none;
+  // border-radius: 2px 2px;
+  // // background-color: lightgray;
+  // padding: 10px;
+  // margin: 1%;
+  // width: 80px;
+  // position: relative;
+  // cursor: pointer;
+  // margin: 5px 2px;
+  text-align: center;
   border: none;
+  box-sizing: border-box;
   border-radius: 2px 2px;
-  background-color: lightgray;
-  padding: 10px;
-  margin: 1%;
-  width: 80px;
-  position: relative;
+  background-color: rgb(230, 230, 230);
+  width: 75px;
+  height: 35px;
   cursor: pointer;
 }
 
 .to {
+  width: 500px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
-// // 선우님 추가===========================================================
-.schedulearticlebody {
-  width: 70%;
-  height: 900px;
-  margin: 0 auto;
-}
-.scheduleBoard {
-  width: 240px;
-  height: 300px;
-  float: left;
-  padding: 0 10px 0 10px;
+.to p {
+  width: 70px;
+  text-align: left;
 }
 .scheduleBoardImg {
-  width: 240px;
+  width: 230px;
+  height: 160px;
 }
+
+#searchArea {
+  display: inline-flex;
+  width: 430px;
+  padding: 10px;
+  margin: 1% auto;
+  border: solid 1px lightgray;
+  position: relative;
+  box-sizing: border-box;
+  font-family: GmarketSansMedium;
+  font-size: 14px;
+}
+
+.schedulearticlebody {
+  width: 500px;
+  height: 800px;
+  margin: 3% auto;
+  box-sizing: border-box;
+}
+
+.scheduleBoard {
+  width: 230px;
+  height: 230px;
+  float: left;
+  box-sizing: border-box;
+  margin: 2%;
+  background-color: #f9f9f9;
+}
+
+// // 선우님 추가===========================================================
+
+// .scheduleBoardImg {
+//   width: 240px;
+// }
 .sc_board_title {
   font-size: 14px;
   text-align: left;
@@ -63,13 +104,7 @@
 .whendidIMaid {
   float: right;
 }
-#searchArea {
-  display: inline-flex;
-  padding: 10px;
-  margin: 1.5%;
-  width: 390px;
-  border: solid 1px lightgray;
-}
+
 // .active {
 //   background-color: #0066cc !important;
 //   color: white;

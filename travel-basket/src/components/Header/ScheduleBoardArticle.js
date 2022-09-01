@@ -62,8 +62,8 @@ const ScheduleBoardArticle = ({ idx, data }) => {
             }}
           >
             <div className="sc_board_title">{data.SCHEDULE_TITLE}</div>
-
-            <div className="sc_board_nick">{data.USER_IDX}</div>
+            <div className="sc_board_nick">{data.USER_NICK}</div>
+            {/* <div className="sc_board_nick">{data.USER_IDX}</div> */}
           </Link>
 
           <div className="sc_board_etc">

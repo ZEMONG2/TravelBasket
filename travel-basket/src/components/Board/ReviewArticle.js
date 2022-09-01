@@ -14,7 +14,7 @@ const ReviewArticle = ({ article }) => {
     backgroundRepeat: 'no-repeat', // 배경 이미지 반복X
     backgroundImage: `url(${url})`,
     width: '100%',
-    height: '240px',
+    height: '180px',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   };
@@ -45,7 +45,7 @@ const ReviewArticle = ({ article }) => {
           <div className="ReviewThumb" style={thumbImg}></div>
         )}
         <div className="ReviewTxt">
-          <h3>{article.REVIEW_TITLE}</h3>
+          <p>{article.REVIEW_TITLE}</p>
           {/* <p>{article.REVIEW_TXT}</p> */}
           {/* <p dangerouslySetInnerHTML={{ __html: article.REVIEW_TXT }}></p> */}
           <ul className="ul">

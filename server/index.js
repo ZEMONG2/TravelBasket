@@ -201,6 +201,20 @@ app.post("/basket/linkCheck", (req, res) => {
     res.send(result);
   });
 });
+
+//===========================
+// BASKET START LIST
+//===========================
+app.post("/basket/select/start", (req, res) => {
+  console.log("장바구니 받기 테스트", req.body);
+  var user = req.body.user_idx;
+  const sqlQuery = "SELECT * FROM TB_SEARCH WHERE USER_IDX=?;";
+  db.query(sqlQuery, user, (err, result) => {
+    console.log("yyy==", result);
+    res.send(result);
+  });
+});
+
 //===========================
 // BASKET LIST
 //===========================

@@ -1,7 +1,7 @@
 #title {
   margin: 5px 0;
   padding: 12px;
-  width: 400px;
+  width: 450px;
   border: solid 1px lightgray;
   position: relative;
   left: 50%;
@@ -13,7 +13,7 @@
 #area {
   margin: 5px 0;
   padding: 12px;
-  width: 400px;
+  width: 450px;
   border: solid 1px lightgray;
   position: relative;
   left: 50%;
@@ -27,7 +27,7 @@
 .dayText {
   margin: 5px 0;
   padding: 12px;
-  width: 400px;
+  width: 450px;
   height: 42.8px;
   line-height: 20px;
   border: solid 1px lightgray;
@@ -55,7 +55,7 @@
 
 /* 달력을 감싸주는 랩 태그 */
 .calWraper {
-  width: 400px;
+  width: 450px;
   height: 283px;
   border: 0.8px solid #aaa;
   border-radius: 5px;
@@ -91,7 +91,7 @@
 }
 
 .react-datepicker__month-container {
-  width: 400px;
+  width: 45s0px;
 }
 
 .react-datepicker__current-month {
@@ -154,9 +154,15 @@
   box-sizing: border-box;
   border-radius: 2px 2px;
   background-color: rgb(230, 230, 230);
-  width: 75px;
+  width: 85px;
   height: 35px;
   cursor: pointer;
+}
+
+.typeBtn.activate {
+  background: #0066cc;
+  color: white;
+  font-weight: bold;
 }
 
 // 제목~공유 가운데 정렮
@@ -185,7 +191,7 @@
 
 // 지도
 .map {
-  width: 450px;
+  width: 500px;
   height: 350px;
   overflow: hidden;
   margin-left: auto;
@@ -194,11 +200,15 @@
   margin-bottom: 10px;
 }
 
+#react-kakao-maps-sdk-map-container {
+}
+
 // 일차
 .planByDay {
-  margin: 10px 0;
+  margin: 0 auto;
+
   padding: 12px;
-  width: 450px;
+  width: 500px;
   height: 42.8px;
   line-height: 20px;
   background: rgb(230, 230, 230);
@@ -268,9 +278,8 @@
 }
 
 .planByDaysWrap {
-  width: 450px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 500px;
+  margin: 0 auto;
 }
 
 /* 등록한 아이템을 감싸는 태그 */

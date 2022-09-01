@@ -208,7 +208,7 @@ const Scheduleboard = () => {
       <div>
         <h1>일정 공유 게시판</h1>
         <div className="to">
-          <h3>지역 검색</h3>
+          <p>지역 검색</p>
           {/* <input
             className="search"
             type="text"
@@ -224,7 +224,7 @@ const Scheduleboard = () => {
           </select>
         </div>
         <div className="to">
-          <h3>동행 타입</h3>
+          <p>동행 타입</p>
           <div className="companion">
             {trip_type.map((val, idx) => (
               <TypeButtnContainer
@@ -239,7 +239,7 @@ const Scheduleboard = () => {
           </div>
         </div>
         <div className="to">
-          <h3>교통 수단</h3>
+          <p>교통 수단</p>
           <div className="transport">
             {transport.map((val, idx) => (
               <TypeButtnContainer
@@ -254,7 +254,6 @@ const Scheduleboard = () => {
           </div>
         </div>
       </div>
-      <div className="updownSpace"></div>
       <div className="schedulearticlebody">
         {scheduleList.list.length > 0 ? (
           scheduleList.list.map((schedule, idx) => (
@@ -266,6 +265,7 @@ const Scheduleboard = () => {
       </div>
 
       <div className="scheduleListWrap">
+        <button className="btn">&lt;&lt;</button>
         <PageButton type="mover" id="move2left" onClick={movePage}>
           &lt;
         </PageButton>
@@ -286,6 +286,7 @@ const Scheduleboard = () => {
         <PageButton type="mover" id="move2right" onClick={movePage}>
           &gt;
         </PageButton>
+        <button className="btn">&gt;&gt;</button>
       </div>
     </>
   );

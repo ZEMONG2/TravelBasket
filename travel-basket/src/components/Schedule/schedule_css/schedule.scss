@@ -4,15 +4,16 @@
 }
 
 .scheduleList {
-  margin: 35px;
+  margin: 0 auto;
+  width: 500px;
 }
 
 /* 일정 리스트 아이템 랩 */
 .mySchedule {
-  width: 200px;
+  width: 230px;
   height: 250px;
   float: left;
-  margin: 15px;
+  margin: 10px;
   border: 1px solid black;
   box-shadow: 5px 5px 5px rgb(226 226 226);
   box-sizing: border-box;
@@ -20,7 +21,8 @@
 }
 /* 일정 타이틀 텍스트 */
 .scheduleLabel {
-  font-size: 13px;
+  width: 200px;
+  // font-size: 14px;
 }
 
 /* 이미지 랩*/
@@ -32,7 +34,7 @@
 
 /* 이미지 표현을 위한 임시 css */
 .plan_image {
-  width: 170px;
+  width: 200px;
   height: 170px;
   padding: 10px;
 }
@@ -40,8 +42,9 @@
 /* 일정의 날짜(일정기간) */
 .scheduleDate {
   text-align: center;
-  // height:29.2px;
-  // line-height: 29.2px;
+  width: 230px;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 /* 일정 리스트 전체를 감싸주는 태그 */
 // .scheduleWrap{
@@ -51,6 +54,8 @@
 
 /* 페이징 버튼 */
 .scheduleListWrap {
+  width: 500px;
+  margin: 0 auto;
   text-align: center;
 }
 
@@ -80,7 +85,9 @@
 
 /* 일정 리스트 하단 제목의 몇일부터 몇일 텍스트 */
 .dayLabel {
-  font-size: 11px;
+  font-size: 12px;
+  width: 200px;
+  padding: 3px;
 }
 
 /* html, body, main { */

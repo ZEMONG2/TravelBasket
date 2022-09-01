@@ -22,14 +22,12 @@ const Basket = () => {
 
   // DB
   const basketdata = () => {
-    const basketCategory = 'hotel';
     axios
-      .post('http://localhost:8000/basket/select/category', {
+      .post('http://localhost:8000/basket/select/start', {
         user_idx,
-        basketCategory,
       })
       .then((res) => {
-        console.log('res =>', res);
+        console.log('처음불러오기 =>', res);
 
         const { data } = res;
         if (res.data.length > 0) {
@@ -58,6 +56,10 @@ const Basket = () => {
         const { data } = res;
         if (res.data.length > 0) {
           setSearchData(data);
+        } else {
+          setSearchData(data);
+          alert('선택한 카테고리에 데이터가 없습니다.');
+          basketdata();
         }
         setCategoryPage(1);
       })
@@ -198,7 +200,7 @@ const Basket = () => {
                   to="basket_tab"
                   default> */}
               숙소
-              <MdLocalHotel className="b_icon" />
+              <MdLocalHotel className="b_icon active" />
               {/* </TabLink> */}
             </li>
             <li

@@ -140,17 +140,33 @@ const Forgot = () => {
       {!infoCk ? (
         <div>
           <div>
-            <h5> 닉네임 </h5>
-            <input type="text" ref={nickRef} />
+            <h1>비밀번호 찾기</h1>
+            <p className="pw_search"> 닉네임 </p>
+            <input
+              class="nick"
+              type="text"
+              ref={nickRef}
+              placeholder="닉네임을 입력해주세요"
+            />
           </div>
 
           <div>
-            <h5> 이메일 </h5>
-            <input type="email" ref={emailRef} />
+            <p className="pw_search"> 이메일 </p>
+            <input
+              class="id"
+              type="email"
+              ref={emailRef}
+              placeholder="인증받을 이메일을 입력해주세요"
+            />
           </div>
 
           <div>
-            <input type="button" value="조회하기" onClick={_searchPassword} />
+            <input
+              className="sign_up"
+              type="button"
+              value="조회하기"
+              onClick={_searchPassword}
+            />
           </div>
         </div>
       ) : !changePw ? (

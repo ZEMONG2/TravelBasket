@@ -70,8 +70,10 @@ planModule.updatePlan = function (req, res, db) {
   const plan = JSON.parse(req.body.plan);
 
   //const id = "ksw3108";
-  //console.log("schedule ==> ", schedule);
-  //console.log("plan ==> ", plan);
+  // for (let i = 0; i < plan.data.length; i++) {
+  //   const planbydays = plan.data[i];
+  //   console.log("plan =>", planbydays);
+  // }
 
   var update_query = `UPDATE TB_SCHEDULE SET
                     SCHEDULE_TITLE = '${schedule.data.SCHEDULE_TITLE}',
@@ -90,13 +92,19 @@ planModule.updatePlan = function (req, res, db) {
     for (let j = 0; j < planbydays.length; j++) {
       const data = planbydays[j];
 
-      if (data.PLAN_IDX !== -1)
-        update_plan_query += `UPDATE TB_PLAN SET
-                              P_CATE_IDX =  ${data.P_CATE_IDX},
-                              PLAN_TITLE = '${data.PLAN_TITLE}',
-                              PLAN_MEMO = '${data.PLAN_MEMO}'
-                              WHERE PLAN_IDX = ${data.PLAN_IDX};`;
-      else {
+      if (data.PLAN_IDX !== -1) {
+        //수정
+
+        if (data.IS_DELITING) {
+          update_plan_query += `DELETE FROM TB_PLAN WHERE PLAN_IDX=${data.PLAN_IDX};`;
+        } else {
+          update_plan_query += `UPDATE TB_PLAN SET
+          P_CATE_IDX =  ${data.P_CATE_IDX},
+          PLAN_TITLE = '${data.PLAN_TITLE}',
+          PLAN_MEMO = '${data.PLAN_MEMO}'
+          WHERE PLAN_IDX = ${data.PLAN_IDX};`;
+        }
+      } else {
         insert_query += `INSERT INTO TB_PLAN(     
           SCHEDULE_IDX,      PLAN_DAYS,      P_CATE_IDX,      
           PLAN_TITLE,      PLAN_MEMO,      PLAN_LAT,      

@@ -124,7 +124,7 @@ const PlanMaker = () => {
       memo: [], //여기가 메모부
     },
   ]); //일정(n박 m일)
-  const [daytxt, setDayText] = useState('📅 일정을 선택하세요'); //일정(몇월 몇일부터 몇월 몇일 몇박 몇일을 표기해주는 state)
+  const [daytxt, setDayText] = useState('일정을 선택하세요'); //일정(몇월 몇일부터 몇월 몇일 몇박 몇일을 표기해주는 state)
   const [planArr, setPlan] = useState({
     //선택된 여행 타입을 저장하는 객체(selected는 선택 버튼의 활성화/비활성화를 담당)
     plan: [],
@@ -162,7 +162,7 @@ const PlanMaker = () => {
     //날짜초기화는 일단 스킵
     setStartDate(new Date());
     setEndDate(null);
-    setDayText('📅 일정을 선택하세요');
+    setDayText('일정을 선택하세요');
 
     //여행타입 초기화
     setPlan({
@@ -242,7 +242,7 @@ const PlanMaker = () => {
       return;
     }
 
-    if (daytxt !== '📅 일정을 선택하세요') {
+    if (daytxt !== '일정을 선택하세요') {
       if (
         !window.confirm(
           '날짜를 새로 선택하면 기존에 저장된 일정은 사라집니다. 그래도 계속하시겠습니까?',
@@ -265,7 +265,7 @@ const PlanMaker = () => {
     var daysArr = []; //일정 검색 및 추가 컨테이너를 활성화하기 위한 배열
 
     for (let i = 0; i < nFullDay; i++) {
-      var txt = `${i + 1}일차`;
+      var txt = `${i + 1}일차 `;
       var planperdays = utill.emptyPlan();
       planperdays.day = txt;
       // var planperdays = {
@@ -554,13 +554,23 @@ const PlanMaker = () => {
 
   const uploadPlan = (e) => {
     //여기서 일정 디비에 업로드
-
-    var dayarr = utill.getDatesStartToLast(startDate, endDate).join(',');
-
+    console.log(titleRef.current.value, daytxt);
+    if (titleRef.current.value === '') {
+      alert('제목을 입력해주세요!');
+      return;
+    }
     if (daytxt === '일정을 선택하세요') {
       alert('일정을 만들어주세요!');
       return;
     }
+    for (let i = 0; i < dayList.length; i++) {
+      const data = dayList[i].area;
+      if (data.length === 0) {
+        alert('일정이 입력되어있지 않습니다! 일차별 일정을 각각 입력해주세요!');
+        return;
+      }
+    }
+    var dayarr = utill.getDatesStartToLast(startDate, endDate).join(',');
     const mergedData = {
       schedule_idx: location.state !== null ? location.state.schedule_idx : -1,
       title: titleRef.current.value, //제목
@@ -573,7 +583,7 @@ const PlanMaker = () => {
       useridx: window.sessionStorage.getItem('USER_IDX'), //회원번호
       finalPlan: dayList,
     };
-    //console.log(mergedData);
+    console.log(mergedData);
     if (location.state !== null) {
       //수정
       utill.updatePlan2DB(mergedData);
@@ -581,8 +591,8 @@ const PlanMaker = () => {
       //신규등록
       utill.uploadPlan2DB(mergedData);
     }
-
-    //e.preventDefault();
+    window.location.href = './schedule';
+    e.preventDefault();
   };
   return (
     <div className="planerWrap">
@@ -646,7 +656,7 @@ const PlanMaker = () => {
       <div className="pageTitle">
         <h1>일정 만들기</h1>
       </div>
-      <form>
+      <div>
         <table className="selectTable">
           <tbody>
             <tr>
@@ -774,7 +784,7 @@ const PlanMaker = () => {
             초기화
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

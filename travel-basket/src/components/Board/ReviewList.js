@@ -200,10 +200,11 @@ const ReviewList = () => {
         </div>
 
         {/* 글쓰기 버튼 */}
-        <button className="btn-write" onClick={write}>
-          글쓰기
-        </button>
-
+        <div className="btn-write-wrap">
+          <button className="btn-write" onClick={write}>
+            글쓰기
+          </button>
+        </div>
         {/* 페이징 */}
         <div className="Paging">
           <Pagination

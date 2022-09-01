@@ -89,7 +89,7 @@
   width: 320px;
   border: none;
   border-radius: 2px 2px;
-  background-color: #FDCD00;
+  background-color: #fdcd00;
   color: white;
   position: relative;
   left: 50%;
@@ -103,7 +103,7 @@
   width: 320px;
   border: none;
   border-radius: 2px 2px;
-  background-color: #04CF5C;
+  background-color: #04cf5c;
   color: white;
   position: relative;
   left: 50%;
@@ -117,7 +117,7 @@
   width: 320px;
   border: none;
   border-radius: 2px 2px;
-  background-color: #1877F2;
+  background-color: #1877f2;
   color: white;
   position: relative;
   left: 50%;
@@ -139,8 +139,6 @@
   cursor: pointer;
 }
 
-
-
 // 회원정보 수정
 
 .modify_group {
@@ -151,7 +149,6 @@
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-
 }
 
 .modify_insert {
@@ -181,4 +178,10 @@
   font-size: 13px;
   color: red;
   text-align: left;
+}
+
+// 비밀번호 찾기
+.pw_search {
+  text-align: center;
+  margin: auto;
 }
