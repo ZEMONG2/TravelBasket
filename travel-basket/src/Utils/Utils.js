@@ -361,7 +361,7 @@ export function getDatesStartToLast(startDay, endDay) {
   //두 날짜(문자열) 사이의 모든 일차를 배열로 반환
 
   var startDate = startDay.getFullYear() + '-';
-  if (startDay.getMonth() < 10) {
+  if (startDay.getMonth() + 1 < 10) {
     startDate += '0' + (startDay.getMonth() + 1);
   } else {
     startDate += startDay.getMonth() + 1;
@@ -373,7 +373,7 @@ export function getDatesStartToLast(startDay, endDay) {
   }
 
   var lastDate = endDay.getFullYear() + '-';
-  if (endDay.getMonth() < 10) {
+  if (endDay.getMonth() + 1 < 10) {
     lastDate += '0' + (endDay.getMonth() + 1);
   } else {
     lastDate += endDay.getMonth() + 1;

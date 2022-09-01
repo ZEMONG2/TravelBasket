@@ -265,7 +265,7 @@ const PlanMaker = () => {
     var daysArr = []; //일정 검색 및 추가 컨테이너를 활성화하기 위한 배열
 
     for (let i = 0; i < nFullDay; i++) {
-      var txt = `${i + 1}일차 `;
+      var txt = `${i + 1}일차`;
       var planperdays = utill.emptyPlan();
       planperdays.day = txt;
       // var planperdays = {
@@ -554,7 +554,8 @@ const PlanMaker = () => {
 
   const uploadPlan = (e) => {
     //여기서 일정 디비에 업로드
-    console.log(titleRef.current.value, daytxt);
+
+    //console.log(titleRef.current.value, daytxt);
     if (titleRef.current.value === '') {
       alert('제목을 입력해주세요!');
       return;
@@ -563,6 +564,7 @@ const PlanMaker = () => {
       alert('일정을 만들어주세요!');
       return;
     }
+
     for (let i = 0; i < dayList.length; i++) {
       const data = dayList[i].area;
       if (data.length === 0) {
@@ -570,7 +572,10 @@ const PlanMaker = () => {
         return;
       }
     }
+    console.log(startDate, endDate);
+    console.log(utill.getDatesStartToLast(startDate, endDate));
     var dayarr = utill.getDatesStartToLast(startDate, endDate).join(',');
+
     const mergedData = {
       schedule_idx: location.state !== null ? location.state.schedule_idx : -1,
       title: titleRef.current.value, //제목
@@ -584,6 +589,7 @@ const PlanMaker = () => {
       finalPlan: dayList,
     };
     console.log(mergedData);
+
     if (location.state !== null) {
       //수정
       utill.updatePlan2DB(mergedData);
