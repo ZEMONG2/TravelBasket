@@ -132,7 +132,7 @@ const ReviewList = () => {
     return (
       <div className="ReviewList">
         <h1>후기 게시판</h1>
-        <button className="btn-write" onClick={write}>
+        <button className="btn-write-no" onClick={write}>
           글쓰기
         </button>
         <div className="NoList">
