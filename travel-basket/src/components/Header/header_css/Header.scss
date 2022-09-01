@@ -122,6 +122,10 @@ ul.hide-login {
   cursor: pointer;
 }
 
+.menu_nick {
+  cursor: context-menu !important;
+}
+
 .menuWrap > ul > hr {
   margin: 10px 0 10px 0;
   width: 130px;

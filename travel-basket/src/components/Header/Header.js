@@ -194,7 +194,7 @@ const Header = () => {
         <div ref={menuRef} className="menuWrap">
           <ul className={menu ? 'show-menu' : 'hide-menu'}>
             <li onClick={makeplan}>일정 만들기</li>
-            <hr />
+            {/* <hr /> */}
             <li onClick={board}>후기 게시판</li>
             <li onClick={schedule_board}>일정 공유 게시판</li>
             <img className="logo_v" alt="NEXT TRAVEL" src={logo_v} />
@@ -204,13 +204,16 @@ const Header = () => {
         <div ref={loginRef} className="loginWrap">
           <ul className={login ? 'show-login ' : 'hide-login '}>
             {/* 로그인시 닉네임 */}
-            <li>{window.sessionStorage.getItem('USER_NICK')}</li>
+            <li className="menu_nick">
+              {window.sessionStorage.getItem('USER_NICK')}
+            </li>
             <br />
             <li onClick={basket}>장바구니</li>
             <li onClick={schedule}>내 일정 보관함</li>
             <li onClick={reviewStorage}>후기 보관함</li>
             <li onClick={likeStorage}>좋아요 보관함</li>
-            <hr />
+            {/* <hr /> */}
+            <br />
             <li onClick={modifyInfo}>회원정보 수정</li>
             <li className="Logout" onClick={logout}>
               로그아웃
