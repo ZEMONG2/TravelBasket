@@ -366,7 +366,7 @@ export function getDatesStartToLast(startDay, endDay) {
   } else {
     startDate += startDay.getMonth() + 1;
   }
-  if (startDay.getDate() < 10) {
+  if (startDay.getDate() + 1 < 10) {
     startDate += '-0' + startDay.getDate();
   } else {
     startDate += '-' + startDay.getDate();
@@ -383,7 +383,7 @@ export function getDatesStartToLast(startDay, endDay) {
   } else {
     lastDate += '-' + endDay.getDate();
   }
-
+  console.log(startDate, lastDate);
   var regex = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/);
   if (!(regex.test(startDate) && regex.test(lastDate)))
     return 'Not Date Format';
@@ -393,6 +393,7 @@ export function getDatesStartToLast(startDay, endDay) {
     result.push(curDate.toISOString().split('T')[0]);
     curDate.setDate(curDate.getDate() + 1);
   }
+  console.log('date : ', result);
   return result;
 }
 export function thumbnailSrc(idx) {
