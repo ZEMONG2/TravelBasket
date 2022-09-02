@@ -14,8 +14,7 @@ import Header from '../src/components/Header/Header';
 import Loading from '../src/components/Header/Loading';
 import NotFound from '../src/components/Header/NotFound';
 import Scheduleboard from '../src/components/Header/Scheduleboard';
-import HowToUse from './components/Header/HowToUse'; //220902 선우 이용안내
-
+import HowToUse from './components/Header/HowToUse';
 /* Basket */
 import Basket from '../src/components/Basket/Basket';
 
