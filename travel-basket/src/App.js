@@ -14,6 +14,7 @@ import Header from '../src/components/Header/Header';
 import Loading from '../src/components/Header/Loading';
 import NotFound from '../src/components/Header/NotFound';
 import Scheduleboard from '../src/components/Header/Scheduleboard';
+import HowToUse from './components/Header/HowToUse'; //220902 선우 이용안내
 
 /* Basket */
 import Basket from '../src/components/Basket/Basket';
@@ -121,6 +122,9 @@ const App = () => {
           <Route path="/schedule" element={<Schedule />} />
           {/* 내 일정 상세보기 */}
           <Route path="/myplan" element={<MyPlan />} />
+
+          {/* 220902 선우 이용 안내 */}
+          <Route path="/howtouse" element={<HowToUse />} />
 
           {/* 드래그앤드랍 테스트용 */}
           {/* <Route path="/test" element={<DnDPractice />} /> */}

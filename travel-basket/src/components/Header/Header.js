@@ -48,6 +48,12 @@ const Header = () => {
     navigate('/schedule_board');
   };
 
+  // 220902 선우 이용안내 이동
+  const howtouse = () => {
+    handleToggleOption();
+    navigate('/howtouse');
+  };
+
   // ==================================
   //  우측 메뉴 이동
   // ==================================
@@ -197,6 +203,7 @@ const Header = () => {
             <hr />
             <li onClick={board}>후기 게시판</li>
             <li onClick={schedule_board}>일정 공유 게시판</li>
+            <li onClick={howtouse}>이용방법</li>
             <img className="logo_v" alt="NEXT TRAVEL" src={logo_v} />
           </ul>
         </div>
