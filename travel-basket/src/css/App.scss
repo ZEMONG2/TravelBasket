@@ -46,12 +46,12 @@ video {
 @media all and (max-width: 1680px) {
   video {
     width: auto;
-    height: 130%;
+    height: 140%;
   }
 }
 
-@media all and (max-width: 1200px) {
-  video {
-    height: 100%;
-  }
-}
+// @media all and (max-width: 1200px) {
+//   video {
+//     height: 100%;
+//   }
+// }

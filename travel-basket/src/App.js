@@ -36,6 +36,9 @@ import MyPlan from '../src/components/MyPlan/MyPlan'; //220826 선우 내 일정
 /* Schedule */
 import Schedule from '../src/components/Schedule/Schedule';
 
+/* About */
+import About from './components/About/About'
+
 /* 그외 */
 import './css/App.scss';
 import background from '../src/img/winter.mp4';
@@ -124,6 +127,9 @@ const App = () => {
 
           {/* 220902 선우 이용 안내 */}
           <Route path="/howtouse" element={<HowToUse />} />
+
+          {/* About */}
+          <Route path="/about" element={<About />} />
 
           {/* 드래그앤드랍 테스트용 */}
           {/* <Route path="/test" element={<DnDPractice />} /> */}

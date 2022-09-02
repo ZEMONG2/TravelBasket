@@ -54,6 +54,12 @@ const Header = () => {
     navigate('/howtouse');
   };
 
+  // ABOUT 페이지 이동
+  const about = () => {
+    handleToggleOption();
+    navigate('/about');
+  };
+
   // ==================================
   //  우측 메뉴 이동
   // ==================================
@@ -203,7 +209,9 @@ const Header = () => {
             {/* <hr /> */}
             <li onClick={board}>후기 게시판</li>
             <li onClick={schedule_board}>일정 공유 게시판</li>
+            <br />
             <li onClick={howtouse}>이용방법</li>
+            <li onClick={about}>NEXTRAVEL 소개</li>
             <img className="logo_v" alt="NEXT TRAVEL" src={logo_v} />
           </ul>
         </div>
