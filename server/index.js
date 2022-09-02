@@ -557,7 +557,7 @@ app.post("/storage/review/orderBy", (req, res) => {
 //===========================================================
 
 // 후기 게시판 좋아요 보관
-app.post("/storage/like", (req, res) => {
+app.post("/storage/like/review", (req, res) => {
   var user = req.body.sessionIdx;
 
   const sqlQuery =

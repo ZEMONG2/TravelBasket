@@ -38,6 +38,7 @@ const LikeStorage = () => {
     axios
       .post("http://localhost:8000/storage/like/review", { sessionIdx })
       .then((res) => {
+        console.log(res.data)
         setLikelist(res.data);
       })
       .catch((e) => {

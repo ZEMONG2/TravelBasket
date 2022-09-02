@@ -1,7 +1,17 @@
 .li_u {
   padding: 0;
   display: inline-flex;
+  cursor: default;
 }
+
+.li {
+  cursor: default;
+
+  .likeIcon {
+    cursor: pointer;
+  }
+}
+
 
 .ViewTxt img {
   max-width: 100%;
