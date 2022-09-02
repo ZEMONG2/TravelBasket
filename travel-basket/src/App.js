@@ -38,7 +38,7 @@ import Schedule from '../src/components/Schedule/Schedule';
 
 /* 그외 */
 import './css/App.scss';
-import background from '../src/img/summer.mp4';
+import background from '../src/img/winter.mp4';
 //import Loading from './components/Loading';
 //import KakaoLogin from './components/KakaoLogin';
 //import Forgot from './components/Forgot';
