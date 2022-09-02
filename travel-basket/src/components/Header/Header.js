@@ -2,7 +2,7 @@ import { FiMenu, FiMeh, FiSmile } from 'react-icons/fi';
 import { useState, useEffect, useRef } from 'react';
 import React from 'react';
 import '../Header/header_css/Header.scss';
-import logo from '../../img/NEXTRAVEL_b.png';
+import logo from '../../img/NEXTRAVEL.png';
 import logo_v from '../../img/NEXTRAVEL_v.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 

@@ -253,7 +253,7 @@ const Main = () => {
                   href="https://booking.naver.com/booking/12/bizes/589217"
                   target="_blank"
                 >
-                  ───　2022 미술에 빠진 대한민국 9.1. - 9.11.　───
+                  ──　2022 미술에 빠진 대한민국 9.1. - 9.11.　──
                 </a>
                 <Tabs renderActiveTabContentOnly={true}>
                   <ul className="tab_list">

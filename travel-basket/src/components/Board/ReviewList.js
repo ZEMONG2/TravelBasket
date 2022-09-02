@@ -18,7 +18,7 @@ const ReviewList = () => {
     reviewList: [],
   });
 
-  const [articleCnt, setArticleCnt] = useState(10);
+  const [articleCnt, setArticleCnt] = useState(6);
   const [page, setPage] = useState(1);
 
   const optionRef = useRef();
