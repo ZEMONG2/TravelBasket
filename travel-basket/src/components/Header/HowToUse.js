@@ -11,7 +11,7 @@ const HowToUse = () => {
     slidesToScroll: 1, // 슬라이드 넘기는 아이템 개수
     vertical: false, // 스크롤 가로세로 모드 온오프
     autoplay: true, // 자동 재생
-    autoplaySpeed: 2000, // 자동 재생 속도
+    autoplaySpeed: 3000, // 자동 재생 속도
     centerMode: true,
     centerPadding: '0px', // 0px = 슬라이드 끝쪽 이미지 안잘림
     // cssEase: "linear",
