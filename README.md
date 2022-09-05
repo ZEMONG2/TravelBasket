@@ -83,9 +83,41 @@ NEXT TRAVEL
 ## 기능 흐름도
 <img width="1209" alt="기능흐름도" src="https://user-images.githubusercontent.com/97682042/188397448-c135ec77-4282-4008-8f8f-6c0720483751.png">
 
+## 메인 페이지
+<img width="767" alt="스크린샷 2022-09-05 오후 5 00 58" src="https://user-images.githubusercontent.com/97682042/188400061-8327e08c-0a9e-422a-a32e-501cc2cf963a.png">
+
+## 일정 만들기 페이지
+<img width="764" alt="스크린샷 2022-09-05 오후 5 01 32" src="https://user-images.githubusercontent.com/97682042/188400122-d69ff9b6-5739-452d-bb8d-88352161a4c6.png">
+
+## 후기 게시판
+<img width="762" alt="스크린샷 2022-09-05 오후 5 01 53" src="https://user-images.githubusercontent.com/97682042/188400187-c9c8e2a8-3b80-4bee-8198-d1bb77891d1a.png">
+
+## 후기 상세글 보기
+<img width="766" alt="스크린샷 2022-09-05 오후 5 02 16" src="https://user-images.githubusercontent.com/97682042/188400220-6c2519b3-18f7-4f51-963e-fff46c245b54.png">
+
+## 일정 공유 게시판
+<img width="762" alt="스크린샷 2022-09-05 오후 5 02 33" src="https://user-images.githubusercontent.com/97682042/188400265-1647629f-73e5-496b-b2fc-ac805179ee85.png">
+
+## 이용방법
+<img width="764" alt="스크린샷 2022-09-05 오후 5 02 49" src="https://user-images.githubusercontent.com/97682042/188400329-32cd641d-bdbb-4e60-8705-43ba26ea4a48.png">
+
+## NEXT TRAVEL 소개 페이지
+<img width="762" alt="스크린샷 2022-09-05 오후 5 04 08" src="https://user-images.githubusercontent.com/97682042/188400376-5d58a2b1-7f5b-4e89-9645-0083d30b76f4.png">
+
+## 내 일정 보관함
+<img width="764" alt="스크린샷 2022-09-05 오후 5 04 19" src="https://user-images.githubusercontent.com/97682042/188400431-70268ea9-cd82-4ac2-9ced-d8c0a0791cb4.png">
+
+## 후기 보관함
+<img width="765" alt="스크린샷 2022-09-05 오후 5 04 31" src="https://user-images.githubusercontent.com/97682042/188400455-33ea95f4-e047-4a2e-8fe6-eb7d635db436.png">
+
+## 좋아요 보관함
+<img width="763" alt="스크린샷 2022-09-05 오후 5 04 42" src="https://user-images.githubusercontent.com/97682042/188400494-dbe622a6-c288-4896-b5e7-81f24b7e3d08.png">
+
+## 장바구니
+<img width="763" alt="스크린샷 2022-09-05 오후 5 04 54" src="https://user-images.githubusercontent.com/97682042/188400543-3397f17c-ddce-4c11-8792-058c7b830b9f.png">
+
 ## 시연영상
 https://user-images.githubusercontent.com/97682042/188398557-cc219d12-8702-424b-b94f-826a469c1a92.mp4
-
 
 
 ## 제작일정
@@ -94,10 +126,5 @@ https://user-images.githubusercontent.com/97682042/188398557-cc219d12-8702-424b-
 | 8/16~8/21| 아이디어 구상, 유사서비스 분석, 아키텍처 설계 | 
 | 8/22~8/28  | DB 설계/구축, UI/UX 디자인/설계, WEB기능 구현 | 
 | 8/29~9/05   | WEB기능 구현, 디버깅 | 
-
-
-
-
-
 
 
