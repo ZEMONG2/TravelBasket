@@ -1,0 +1,15 @@
+yarn add date-fns
+yarn add react-datepicker
+yarn add react-naver-maps    
+yarn upgrade react-scripts 
+npm install --save @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic
+npm install sass react-icons styled-components 
+yarn add react-js-pagination
+yarn add redux react-redux redux-devtools-extension redux-logger
+yarn add react-slick
+yarn add slick-carousel
+yarn add react-kakao-maps-sdk
+yarn react-light-accordion
+
+
+npm install multer uuid react-router-dom axios express body-parser mysql cors nodemon nodemailer
