@@ -60,7 +60,7 @@ NEXT TRAVEL
 * 서버 : Nodejs
 * 기타 툴 : Mysql Workbench, Dbeaver, Figma, Slack
 
-✔주요기술
+✔ 주요 서비스
 --------------------------------------------
 * 일정 만들기
   * 오직 나만의 스타일로 여행 일정 계획
