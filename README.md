@@ -114,7 +114,7 @@ NEXT TRAVEL
 <img width="763" alt="스크린샷 2022-09-05 오후 5 04 42" src="https://user-images.githubusercontent.com/97682042/188400494-dbe622a6-c288-4896-b5e7-81f24b7e3d08.png">
 
 ## 장바구니
-<img width="763" alt="스크린샷 2022-09-05 오후 5 04 54" src="https://user-images.githubusercontent.com/97682042/188400543-3397f17c-ddce-4c11-8792-058c7b830b9f.png">
+<p align="center"><img width="763" alt="스크린샷 2022-09-05 오후 5 04 54" src="https://user-images.githubusercontent.com/97682042/188400543-3397f17c-ddce-4c11-8792-058c7b830b9f.png"></p>
 
 ## 시연영상
 https://user-images.githubusercontent.com/97682042/188398557-cc219d12-8702-424b-b94f-826a469c1a92.mp4
