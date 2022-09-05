@@ -105,16 +105,16 @@ NEXT TRAVEL
 <p align="center"><img width="762" alt="스크린샷 2022-09-05 오후 5 04 08" src="https://user-images.githubusercontent.com/97682042/188400376-5d58a2b1-7f5b-4e89-9645-0083d30b76f4.png"></p>
 
 ## 내 일정 보관함
-<p align="center"><img width="764" alt="스크린샷 2022-09-05 오후 5 04 19" src="https://user-images.githubusercontent.com/97682042/188400431-70268ea9-cd82-4ac2-9ced-d8c0a0791cb4.png"></p>
+<p align="center"><img width="761" alt="스크린샷 2022-09-05 오후 5 13 05" src="https://user-images.githubusercontent.com/97682042/188401502-6745b2a2-3d67-4700-bdb1-3b7e6dc3450e.png"></p>
 
 ## 후기 보관함
-<p align="center"><img width="765" alt="스크린샷 2022-09-05 오후 5 04 31" src="https://user-images.githubusercontent.com/97682042/188400455-33ea95f4-e047-4a2e-8fe6-eb7d635db436.png"></p>
+<p align="center"><img width="767" alt="스크린샷 2022-09-05 오후 5 13 15" src="https://user-images.githubusercontent.com/97682042/188401463-2a6ed2a7-1c0a-41b7-aacc-6002e7c8f79e.png"></p>
 
 ## 좋아요 보관함
-<p align="center"><img width="763" alt="스크린샷 2022-09-05 오후 5 04 42" src="https://user-images.githubusercontent.com/97682042/188400494-dbe622a6-c288-4896-b5e7-81f24b7e3d08.png"></p>
+<p align="center"><img width="764" alt="스크린샷 2022-09-05 오후 5 13 28" src="https://user-images.githubusercontent.com/97682042/188401437-32a17001-60f9-44fc-9d39-62d968ff94d1.png"></p>
 
 ## 장바구니
-<p align="center"><img width="763" alt="스크린샷 2022-09-05 오후 5 04 54" src="https://user-images.githubusercontent.com/97682042/188400543-3397f17c-ddce-4c11-8792-058c7b830b9f.png"></p>
+<p align="center"><img width="764" alt="스크린샷 2022-09-05 오후 5 12 55" src="https://user-images.githubusercontent.com/97682042/188401384-9498d88d-1800-4311-ba1b-4c5f78b91814.png"></p>
 
 ## 시연영상
 https://user-images.githubusercontent.com/97682042/188398557-cc219d12-8702-424b-b94f-826a469c1a92.mp4
